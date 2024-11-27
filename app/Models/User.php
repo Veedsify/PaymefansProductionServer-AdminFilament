@@ -1,0 +1,285 @@
+<?php
+
+/**
+ * Created by Reliese Model.
+ */
+
+namespace App\Models;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+/**
+ * Class User
+ * 
+ * @property int $id
+ * @property string $email
+ * @property string $name
+ * @property string $password
+ * @property string $fullname
+ * @property string $user_id
+ * @property string $username
+ * @property bool $admin
+ * @property string $role
+ * @property bool $is_active
+ * @property bool $is_verified
+ * @property bool $is_email_verified
+ * @property bool $is_model
+ * @property string|null $email_verify_code
+ * @property Carbon|null $email_verify_time
+ * @property bool $is_phone_verified
+ * @property string $phone
+ * @property string|null $profile_image
+ * @property string|null $profile_banner
+ * @property string|null $bio
+ * @property string|null $location
+ * @property string|null $website
+ * @property string|null $country
+ * @property string|null $state
+ * @property string|null $city
+ * @property string|null $zip
+ * @property string|null $post_watermark
+ * @property int $total_followers
+ * @property int $total_following
+ * @property int $total_subscribers
+ * @property bool $admin_status
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * 
+ * @property Collection|Follow[] $follows
+ * @property Collection|LiveStream[] $live_streams
+ * @property Collection|LiveStreamComment[] $live_stream_comments
+ * @property Collection|LiveStreamLike[] $live_stream_likes
+ * @property Collection|LiveStreamView[] $live_stream_views
+ * @property Collection|Message[] $messages
+ * @property Model $model
+ * @property ModelSubscriptionPack $model_subscription_pack
+ * @property Collection|Notification[] $notifications
+ * @property Collection|Post[] $posts
+ * @property Collection|PostComment[] $post_comments
+ * @property Collection|PostLike[] $post_likes
+ * @property Collection|PostShared[] $post_shareds
+ * @property Collection|ReportComment[] $report_comments
+ * @property Collection|ReportLive[] $report_lives
+ * @property Collection|ReportMessage[] $report_messages
+ * @property Collection|ReportPost[] $report_posts
+ * @property Collection|ReportUser[] $report_users
+ * @property Setting $setting
+ * @property Collection|Subscriber[] $subscribers
+ * @property Collection|UserAttachment[] $user_attachments
+ * @property Collection|UserBank[] $user_banks
+ * @property UserPoint $user_point
+ * @property Collection|UserRepost[] $user_reposts
+ * @property Collection|UserStory[] $user_stories
+ * @property Collection|UserSubscriptionCurrent[] $user_subscription_currents
+ * @property Collection|UserTransaction[] $user_transactions
+ * @property Collection|UserWallet[] $user_wallets
+ * @property Collection|UserWithdrawalBankAccount[] $user_withdrawal_bank_accounts
+ *
+ * @package App\Models
+ */
+class User extends Authenticatable 
+{
+	use HasFactory, Notifiable;
+	protected $table = 'User';
+
+	protected $casts = [
+		'admin' => 'bool',
+		'is_active' => 'bool',
+		'is_verified' => 'bool',
+		'is_email_verified' => 'bool',
+		'is_model' => 'bool',
+		'email_verify_time' => 'datetime',
+		'is_phone_verified' => 'bool',
+		'total_followers' => 'int',
+		'total_following' => 'int',
+		'total_subscribers' => 'int',
+		'admin_status' => 'bool'
+	];
+
+	protected $hidden = [
+		'password'
+	];
+
+	protected $fillable = [
+		'email',
+		'name',
+		'password',
+		'fullname',
+		'user_id',
+		'username',
+		'admin',
+		'role',
+		'is_active',
+		'is_verified',
+		'is_email_verified',
+		'is_model',
+		'email_verify_code',
+		'email_verify_time',
+		'is_phone_verified',
+		'phone',
+		'profile_image',
+		'profile_banner',
+		'bio',
+		'location',
+		'website',
+		'country',
+		'state',
+		'city',
+		'zip',
+		'post_watermark',
+		'total_followers',
+		'total_following',
+		'total_subscribers',
+		'admin_status'
+	];
+
+	public function follows()
+	{
+		return $this->hasMany(Follow::class, 'user_id');
+	}
+
+	public function live_streams()
+	{
+		return $this->hasMany(LiveStream::class, 'user_id', 'user_id');
+	}
+
+	public function live_stream_comments()
+	{
+		return $this->hasMany(LiveStreamComment::class, 'user_id');
+	}
+
+	public function live_stream_likes()
+	{
+		return $this->hasMany(LiveStreamLike::class, 'user_id');
+	}
+
+	public function live_stream_views()
+	{
+		return $this->hasMany(LiveStreamView::class, 'user_id');
+	}
+
+	public function messages()
+	{
+		return $this->hasMany(Message::class, 'sender_id', 'user_id');
+	}
+
+	public function model()
+	{
+		return $this->hasOne(Model::class, 'user_id');
+	}
+
+	public function model_subscription_pack()
+	{
+		return $this->hasOne(ModelSubscriptionPack::class, 'user_id');
+	}
+
+	public function notifications()
+	{
+		return $this->hasMany(Notification::class, 'user_id');
+	}
+
+	public function posts()
+	{
+		return $this->hasMany(Post::class, 'user_id');
+	}
+
+	public function post_comments()
+	{
+		return $this->hasMany(PostComment::class, 'user_id');
+	}
+
+	public function post_likes()
+	{
+		return $this->hasMany(PostLike::class, 'user_id');
+	}
+
+	public function post_shareds()
+	{
+		return $this->hasMany(PostShared::class, 'user_id');
+	}
+
+	public function report_comments()
+	{
+		return $this->hasMany(ReportComment::class, 'user_id');
+	}
+
+	public function report_lives()
+	{
+		return $this->hasMany(ReportLive::class, 'user_id');
+	}
+
+	public function report_messages()
+	{
+		return $this->hasMany(ReportMessage::class, 'user_id');
+	}
+
+	public function report_posts()
+	{
+		return $this->hasMany(ReportPost::class, 'user_id');
+	}
+
+	public function report_users()
+	{
+		return $this->hasMany(ReportUser::class, 'user_id');
+	}
+
+	public function setting()
+	{
+		return $this->hasOne(Setting::class, 'user_id');
+	}
+
+	public function subscribers()
+	{
+		return $this->hasMany(Subscriber::class, 'user_id');
+	}
+
+	public function user_attachments()
+	{
+		return $this->hasMany(UserAttachment::class, 'user_id');
+	}
+
+	public function user_banks()
+	{
+		return $this->hasMany(UserBank::class, 'user_id');
+	}
+
+	public function user_point()
+	{
+		return $this->hasOne(UserPoint::class, 'user_id');
+	}
+
+	public function user_reposts()
+	{
+		return $this->hasMany(UserRepost::class, 'user_id');
+	}
+
+	public function user_stories()
+	{
+		return $this->hasMany(UserStory::class, 'user_id');
+	}
+
+	public function user_subscription_currents()
+	{
+		return $this->hasMany(UserSubscriptionCurrent::class, 'user_id');
+	}
+
+	public function user_transactions()
+	{
+		return $this->hasMany(UserTransaction::class, 'user_id');
+	}
+
+	public function user_wallets()
+	{
+		return $this->hasMany(UserWallet::class, 'user_id');
+	}
+
+	public function user_withdrawal_bank_accounts()
+	{
+		return $this->hasMany(UserWithdrawalBankAccount::class, 'user_id');
+	}
+}
