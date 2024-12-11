@@ -1,0 +1,21 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+@config 'tailwind.config.js';
+
+
+.sleek_scrollbar::-webkit-scrollbar {
+     width: 4px;
+}
+
+.sleek_scrollbar::-webkit-scrollbar-track {
+     background: #f1f1f1;
+     border-radius: 10px;
+}
+
+.sleek_scrollbar::-webkit-scrollbar-thumb {
+     background: #8b5cf6;
+     border-radius: 10px;
+}
+
+.sleek_scrollbar::-webkit-scrollbar-thumb:hover {
+     background: #7c3aed;
+}

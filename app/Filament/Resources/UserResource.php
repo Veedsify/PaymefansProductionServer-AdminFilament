@@ -59,12 +59,6 @@ class UserResource extends Resource
                 Forms\Components\Section::make('Profile Details')
                     ->description('User profile and personal information')
                     ->schema([
-                        Forms\Components\FileUpload::make('profile_image')
-                            ->avatar()
-                            ->directory('profile-images'),
-                        Forms\Components\FileUpload::make('profile_banner')
-                            ->columnSpanFull()
-                            ->default('/site/banner.png'),
                         Forms\Components\Textarea::make('bio')
                             ->columnSpanFull(),
                     ])->columns(2),

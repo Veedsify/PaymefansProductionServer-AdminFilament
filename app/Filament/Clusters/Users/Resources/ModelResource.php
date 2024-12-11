@@ -68,7 +68,10 @@ class ModelResource extends Resource
     {
         return $table
             ->columns([
-                
+                Tables\Columns\TextColumn::make('firstname')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('lastname')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('gender')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('verification_status')->searchable()->sortable(),
             ])
             ->filters([
                 //
