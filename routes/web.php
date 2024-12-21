@@ -9,9 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    $user = User::find(1);  
-
+    $user = User::where('role', 'admin')->first();  
     Auth::login($user);
-
     return redirect('/admin');
 })->name('login');

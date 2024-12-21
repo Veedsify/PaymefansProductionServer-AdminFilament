@@ -14,10 +14,9 @@ export default defineConfig({
         laravel({
             input: [
                 "resources/css/app.css",
+                "resources/css/filament/admin/theme.css",
                 "resources/js/app.js", // Main JS entry (if needed)
-                "resources/js/react/app.jsx", // Main React entry
                 "resources/js/chat.jsx", // Chat entry specifically
-                "resources/js/comps/*.jsx", // Chat entry specifically
             ],
             refresh: true, // This will allow Vite to refresh automatically on changes
         }),
