@@ -27,38 +27,39 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
-            ->font('Sora')
-            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
+            ->id("admin")
+            ->path("admin")
+            ->font("Epilogue")
+            ->globalSearchKeyBindings(["command+k", "ctrl+k"])
             ->colors([
-                'primary' => Color::Purple,
+                "primary" => Color::Purple,
             ])
-            ->plugins([
-                GlobalSearchModalPlugin::make()
-            ])
-            ->navigationItems([
-                
-            ])
+            ->plugins([GlobalSearchModalPlugin::make()])
+            ->navigationItems([])
             ->sidebarFullyCollapsibleOnDesktop()
-            ->viteTheme('resources/css/filament/admin/theme.css')
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->viteTheme("resources/css/filament/admin/theme.css")
+            ->discoverResources(
+                in: app_path("Filament/Resources"),
+                for: "App\\Filament\\Resources"
+            )
+            ->discoverPages(
+                in: app_path("Filament/Pages"),
+                for: "App\\Filament\\Pages"
+            )
+            ->discoverClusters(
+                in: app_path("Filament/Clusters"),
+                for: "App\\Filament\\Clusters"
+            )
+            ->pages([Pages\Dashboard::class])
+            ->discoverWidgets(
+                in: app_path("Filament/Widgets"),
+                for: "App\\Filament\\Widgets"
+            )
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->navigationGroups([
-                'Chats',
-                'Users',
-                'Points',
-                'Supports'
-            ])
+            ->navigationGroups(["Chats", "Users", "Points", "Supports"])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -70,8 +71,6 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->authMiddleware([
-                Authenticate::class,
-            ]);
+            ->authMiddleware([Authenticate::class]);
     }
 }

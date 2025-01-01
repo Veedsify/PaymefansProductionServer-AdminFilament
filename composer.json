@@ -22,6 +22,7 @@
         "owenvoke/blade-entypo": "^2.2",
         "owenvoke/blade-fontawesome": "^2.8",
         "postare/blade-mdi": "^1.1",
+        "predis/predis": "^2.3",
         "ryangjchandler/blade-tabler-icons": "^2.3"
     },
     "require-dev": {

@@ -39,15 +39,15 @@ class Product extends Model
 		'instock' => 'int'
 	];
 
-		protected $fillable = [
-			'product_id',
-			'user_id',
-			'name',
-			'description',
-			'price',
-			'category_id',
-			'instock'
-		];
+	protected $fillable = [
+		'product_id',
+		'user_id',
+		'name',
+		'description',
+		'price',
+		'category_id',
+		'instock'
+	];
 
 	public function product_category()
 	{

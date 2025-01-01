@@ -12,19 +12,19 @@
                 <nav>
                     <ul class="space-y-2">
                         <li>
-                            <a href="#"
+                            <a href="javascript:void()"
                                 class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors font-medium">
                                 Basic Information
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="javascript:void()"
                                 class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors font-medium">
                                 Product Details
                             </a>
                         </li>
                         <li>
-                            <a href="#"
+                            <a href="javascript:void()"
                                 class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors font-medium">
                                 Images
                             </a>
@@ -42,31 +42,6 @@
                             {{ session('message') }}
                         </div>
                     @endif
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="product_id"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product
-                                ID</label>
-                            <input type="text" id="product_id" wire:model="product_id"
-                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-purple-400"
-                                placeholder="Enter unique product identifier">
-                            @error('product_id')
-                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label for="user_id"
-                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Seller
-                                ID</label>
-                            <input type="text" id="user_id" wire:model="user_id"
-                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-purple-400"
-                                placeholder="Enter seller identifier">
-                            @error('user_id')
-                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
 
                     <div>
                         <label for="name"
@@ -112,13 +87,31 @@
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
                             <select id="category_id" wire:model="category_id"
                                 class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-purple-400">
-                                <option value="">Select Product Category</option>
-                                <option value="1">Electronics</option>
-                                <option value="2">Clothing</option>
-                                <option value="3">Books</option>
-                                <option value="4">Home & Kitchen</option>
+                                <option selected>Select Product Category</option>
+                                @foreach($this->categories as $category)
+                                    <option value="{{$category->id}}">{{ucwords($category->name)}}</option>
+                                @endforeach
                             </select>
                             @error('category_id')
+                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="block">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Available Sizes</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                @foreach($this->available_sizes as $size)
+                                <label class="flex items-center space-x-3">
+                                    <input type="checkbox" wire:model="updateTypes" value="{{ $size->id }}" class="form-checkbox h-5 w-5 text-purple-600 rounded border-gray-300 focus:ring-purple-500">
+                                    <span class="text-gray-700 dark:text-gray-300">
+                                        {{$size->name}}
+                                    </span>
+                                </label>
+                                @endforeach
+                            </div>
+                            @error('sizes')
                                 <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
                             @enderror
                         </div>
@@ -187,8 +180,18 @@
                             Cancel
                         </button>
                         <button type="submit"
-                            class="px-6 py-3 bg-purple-600 dark:bg-purple-700 text-white dark:text-gray-200 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors">
+                            class="px-6 py-3 flex items-center gap-2 bg-purple-600 dark:bg-purple-700 text-white dark:text-gray-200 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600 transition-colors">
                             Create Product
+                            <span wire:loading wire:target="submit">
+                                <svg class="animate-spin h-5 w-5 text-white bg-purple-600 mx-3" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="white"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="white"
+                                        d="M4 12a8 8 0 018-8V0c4.418 0 8 3.582 8 8s-3.582 8-8 8V4a4 4 0 00-4 4H4z">
+                                    </path>
+                                </svg>
+                            </span>
                         </button>
                     </div>
                 </form>

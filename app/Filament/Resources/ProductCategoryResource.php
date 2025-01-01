@@ -20,40 +20,41 @@ class ProductCategoryResource extends Resource
 {
     protected static ?string $model = ProductCategory::class;
 
-    protected static ?string $navigationIcon = 'tabler-category-filled';
-    protected static ?string $modelLabel = 'Product Category';
-    protected static ?string $navigationGroup = 'Products';
+    protected static ?string $navigationIcon = "tabler-category-filled";
+    protected static ?string $modelLabel = "Product Category";
+    protected static ?string $navigationGroup = "Products";
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Section::make('Product Category Information')
-                    ->description('Add some information about the product category.')
-                    ->schema([
-                        TextInput::make('name')
-                            ->columnSpanFull()
-                            ->label('Name')
-                            ->required(),
-                        Textarea::make('description')
-                            ->columnSpanFull()
-                            ->label('Description'),
-                    ])
-            ]);
+        return $form->schema([
+            Section::make("Product Category Information")
+                ->description(
+                    "Add some information about the product category."
+                )
+                ->schema([
+                    TextInput::make("name")
+                        ->columnSpanFull()
+                        ->label("Name")
+                        ->required(),
+                    Textarea::make("description")
+                        ->columnSpanFull()
+                        ->label("Description"),
+                ]),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make("name")
                     ->searchable()
                     ->sortable()
-                    ->label('Name'),
-                Tables\Columns\TextColumn::make('description')
+                    ->label("Name"),
+                Tables\Columns\TextColumn::make("description")
                     ->searchable()
                     ->sortable()
-                    ->label('Description'),
+                    ->label("Description"),
             ])
             ->filters([
                 //
@@ -72,16 +73,16 @@ class ProductCategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProductCategories::route('/'),
-            'create' => Pages\CreateProductCategory::route('/create'),
-            'edit' => Pages\EditProductCategory::route('/{record}/edit'),
+            "index" => Pages\ListProductCategories::route("/"),
+            "create" => Pages\CreateProductCategory::route("/create"),
+            "edit" => Pages\EditProductCategory::route("/{record}/edit"),
         ];
     }
 }
