@@ -88,7 +88,7 @@ class Product extends Page
                 );
 
                 // Clear the cached products
-                Redis::del('products');
+                // Redis::del('products');
 
                 $this->reset();
                 $this->redirect(ProductResource::getUrl());
