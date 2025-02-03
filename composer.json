@@ -8,7 +8,7 @@
     "require": {
         "php": "^8.2",
         "afatmustafa/blade-hugeicons": "^0.0.3",
-        "andreiio/blade-remix-icon": "^3.5",
+        "andreiio/blade-remix-icon": "^3.6",
         "charrafimed/global-search-modal": "^3.4",
         "cloudinary-labs/cloudinary-laravel": "^2.2",
         "cloudinary/cloudinary_php": "^2.14",
@@ -23,7 +23,7 @@
         "owenvoke/blade-fontawesome": "^2.8",
         "postare/blade-mdi": "^1.1",
         "predis/predis": "^2.3",
-        "ryangjchandler/blade-tabler-icons": "^2.3"
+        "secondnetwork/blade-tabler-icons": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

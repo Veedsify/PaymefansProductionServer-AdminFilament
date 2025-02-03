@@ -8,11 +8,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 /**
  * Class User
@@ -51,7 +50,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
+ * @property Collection|Cart[] $carts
  * @property Collection|Follow[] $follows
+ * @property Collection|HelpContact[] $help_contacts
  * @property Collection|LiveStream[] $live_streams
  * @property Collection|LiveStreamComment[] $live_stream_comments
  * @property Collection|LiveStreamLike[] $live_stream_likes
@@ -60,6 +61,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Model $model
  * @property ModelSubscriptionPack $model_subscription_pack
  * @property Collection|Notification[] $notifications
+ * @property Collection|Order[] $orders
  * @property Collection|Post[] $posts
  * @property Collection|PostComment[] $post_comments
  * @property Collection|PostLike[] $post_likes
@@ -80,6 +82,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Collection|UserTransaction[] $user_transactions
  * @property Collection|UserWallet[] $user_wallets
  * @property Collection|UserWithdrawalBankAccount[] $user_withdrawal_bank_accounts
+ * @property Collection|WishList[] $wish_lists
  *
  * @package App\Models
  */
@@ -139,9 +142,19 @@ class User extends Authenticatable
 		'admin_status'
 	];
 
+	public function carts()
+	{
+		return $this->hasMany(Cart::class, 'user_id');
+	}
+
 	public function follows()
 	{
 		return $this->hasMany(Follow::class, 'user_id');
+	}
+
+	public function help_contacts()
+	{
+		return $this->hasMany(HelpContact::class, 'user_id');
 	}
 
 	public function live_streams()
@@ -182,6 +195,11 @@ class User extends Authenticatable
 	public function notifications()
 	{
 		return $this->hasMany(Notification::class, 'user_id');
+	}
+
+	public function orders()
+	{
+		return $this->hasMany(Order::class, 'user_id');
 	}
 
 	public function posts()
@@ -282,5 +300,10 @@ class User extends Authenticatable
 	public function user_withdrawal_bank_accounts()
 	{
 		return $this->hasMany(UserWithdrawalBankAccount::class, 'user_id');
+	}
+
+	public function wish_lists()
+	{
+		return $this->hasMany(WishList::class, 'user_id');
 	}
 }

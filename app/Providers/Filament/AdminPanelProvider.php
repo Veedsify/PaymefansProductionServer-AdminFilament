@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id("admin")
             ->path("admin")
-            ->font("Epilogue")
+            ->font("Inter")
             ->globalSearchKeyBindings(["command+k", "ctrl+k"])
             ->colors([
                 "primary" => Color::Purple,

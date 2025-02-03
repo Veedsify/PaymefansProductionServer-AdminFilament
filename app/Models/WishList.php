@@ -10,36 +10,36 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class LiveStreamView
+ * Class WishList
  * 
  * @property int $id
  * @property int $user_id
- * @property int $live_id
+ * @property int $product_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property LiveStream $live_stream
+ * @property Product $product
  * @property User $user
  *
  * @package App\Models
  */
-class LiveStreamView extends Model
+class WishList extends Model
 {
-	protected $table = 'LiveStreamView';
+	protected $table = 'WishList';
 
 	protected $casts = [
 		'user_id' => 'int',
-		'live_id' => 'int'
+		'product_id' => 'int'
 	];
 
 	protected $fillable = [
 		'user_id',
-		'live_id'
+		'product_id'
 	];
 
-	public function live_stream()
+	public function product()
 	{
-		return $this->belongsTo(LiveStream::class, 'live_id');
+		return $this->belongsTo(Product::class, 'product_id');
 	}
 
 	public function user()

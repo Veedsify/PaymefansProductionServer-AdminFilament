@@ -10,37 +10,32 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class LiveStreamView
+ * Class HelpContact
  * 
  * @property int $id
  * @property int $user_id
- * @property int $live_id
+ * @property string $subject
+ * @property string $message
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property LiveStream $live_stream
  * @property User $user
  *
  * @package App\Models
  */
-class LiveStreamView extends Model
+class HelpContact extends Model
 {
-	protected $table = 'LiveStreamView';
+	protected $table = 'HelpContact';
 
 	protected $casts = [
-		'user_id' => 'int',
-		'live_id' => 'int'
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
 		'user_id',
-		'live_id'
+		'subject',
+		'message'
 	];
-
-	public function live_stream()
-	{
-		return $this->belongsTo(LiveStream::class, 'live_id');
-	}
 
 	public function user()
 	{

@@ -11,21 +11,20 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ProductSize
+ * Class HelpCategory
  * 
  * @property int $id
  * @property string $name
  * @property string|null $description
  * @property Carbon $created_at
  * 
- * @property Collection|Cart[] $carts
- * @property Collection|ProductSizePivot[] $product_size_pivots
+ * @property Collection|HelpArticle[] $help_articles
  *
  * @package App\Models
  */
-class ProductSize extends Model
+class HelpCategory extends Model
 {
-	protected $table = 'ProductSize';
+	protected $table = 'HelpCategory';
 	public $timestamps = false;
 
 	protected $fillable = [
@@ -33,13 +32,8 @@ class ProductSize extends Model
 		'description'
 	];
 
-	public function carts()
+	public function help_articles()
 	{
-		return $this->hasMany(Cart::class, 'size_id');
-	}
-
-	public function product_size_pivots()
-	{
-		return $this->hasMany(ProductSizePivot::class, 'size_id');
+		return $this->hasMany(HelpArticle::class, 'category_id');
 	}
 }

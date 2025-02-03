@@ -37,8 +37,8 @@ const handleConversations = ({ conversations }) => {
       <div 
         data-conversation='${data.conversation_id}'
         class="flex items-center p-4 ${
-          isUnread ? "bg-pink-50" : "bg-white"
-        } rounded-lg shadow-sm hover:bg-gray-50 cursor-pointer transition conversation-single">
+          isUnread ? "bg-pink-50 dark:bg-gray-950" : "bg-white dark:bg-gray-800"
+        } shadow-sm hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer transition conversation-single">
         
         <!-- Profile Image and Status -->
         <div class="relative flex-shrink-0">
@@ -51,12 +51,12 @@ const handleConversations = ({ conversations }) => {
         <!-- Conversation Info -->
         <div class="ml-4 flex-grow">
           <div class="flex justify-between items-center">
-            <h4 class="text-sm font-semibold text-gray-800">${
+            <h4 class="text-sm font-semibold text-gray-800 dark:text-white">${
               data.conversation.name
             }</h4>
-            <span class="text-xs text-gray-500">${date}</span>
+            <span class="text-xs text-gray-500 dark:text-gray-200">${date}</span>
           </div>
-          <p class="text-sm text-gray-600 truncate">${
+          <p class="text-sm text-gray-600 dark:text-gray-200 truncate">${
             data.lastMessage.message
           }</p>
         </div>

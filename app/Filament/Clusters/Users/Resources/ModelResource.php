@@ -29,37 +29,39 @@ class ModelResource extends Resource
         return $form
             ->schema([
                 Section::make('Model Informations')->schema([
-                        TextInput::make('firstname')->required(),
-                        TextInput::make('lastname')->required(),
-                        Select::make('user_id')
-                            ->relationship('user', 'name')
-                            ->required(),
-                        Select::make('gender')
-                            ->options([
-                                'male' => 'Male',
-                                'female' => 'Female',
-                                'other' => 'Other',
-                            ])
-                            ->required(),
-                        DatePicker::make('dob')->required(),
-                        TextInput::make('country')->required(),
-                        Toggle::make('hookup'),
-                        FileUpload::make('verification_video')
-                            ->disk('public')
-                            ->directory('verification/videos'),
-                        FileUpload::make('verification_image')
-                            ->disk('public')
-                            ->directory('verification/images'),
-                        Select::make('verification_status')
-                            ->options([
-                                'pending' => 'Pending',
-                                'verified' => 'Verified',
-                                'rejected' => 'Rejected',
-                            ]),
-                        TextInput::make('verification_state'),
-                        TextInput::make('token')
-                            ->disabled()
-                            ->dehydrated(false)
+                    TextInput::make('firstname')->required(),
+                    TextInput::make('lastname')->required(),
+                    Select::make('user_id')
+                        ->relationship('user', 'name')
+                        ->required(),
+                    Select::make('gender')
+                        ->options([
+                            'male' => 'Male',
+                            'female' => 'Female',
+                            'other' => 'Other',
+                        ])
+                        ->required(),
+                    DatePicker::make('dob')->required(),
+                    TextInput::make('country')->required(),
+                    Toggle::make('hookup'),
+                    FileUpload::make('verification_video')
+                        ->disk('public')
+                        ->directory('verification/videos'),
+                    FileUpload::make('verification_image')
+                        ->disk('public')
+                        ->directory('verification/images'),
+                    Select::make('verification_state')
+                        ->options([
+                            'not_started' => 'Not Started',
+                            'started' => 'Started',
+                            'pending' => 'Pending',
+                            'rejected' => 'Rejected',
+                            'approved' => 'Approved',
+                        ]),
+                    Toggle::make('verification_status'),
+                    TextInput::make('token')
+                        ->disabled()
+                        ->dehydrated(false)
                 ])
             ]);
     }

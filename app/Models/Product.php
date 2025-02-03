@@ -22,8 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $instock
  * 
  * @property ProductCategory $product_category
+ * @property Collection|Cart[] $carts
+ * @property Collection|Order[] $orders
  * @property Collection|ProductImage[] $product_images
  * @property Collection|ProductSizePivot[] $product_size_pivots
+ * @property Collection|WishList[] $wish_lists
  *
  * @package App\Models
  */
@@ -54,6 +57,18 @@ class Product extends Model
 		return $this->belongsTo(ProductCategory::class, 'category_id');
 	}
 
+	public function carts()
+	{
+		return $this->hasMany(Cart::class, 'product_id');
+	}
+
+	public function orders()
+	{
+		return $this->belongsToMany(Order::class, 'OrderProduct')
+					->withPivot('id', 'quantity', 'status')
+					->withTimestamps();
+	}
+
 	public function product_images()
 	{
 		return $this->hasMany(ProductImage::class, 'product_id');
@@ -62,5 +77,10 @@ class Product extends Model
 	public function product_size_pivots()
 	{
 		return $this->hasMany(ProductSizePivot::class, 'product_id');
+	}
+
+	public function wish_lists()
+	{
+		return $this->hasMany(WishList::class, 'product_id');
 	}
 }
