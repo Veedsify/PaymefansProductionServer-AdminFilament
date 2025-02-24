@@ -8,10 +8,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -50,8 +50,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
+ * @property Collection|BlockedGroupParticipant[] $blocked_group_participants
  * @property Collection|Cart[] $carts
  * @property Collection|Follow[] $follows
+ * @property Collection|GroupParticipant[] $group_participants
  * @property Collection|HelpContact[] $help_contacts
  * @property Collection|LiveStream[] $live_streams
  * @property Collection|LiveStreamComment[] $live_stream_comments
@@ -62,8 +64,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property ModelSubscriptionPack $model_subscription_pack
  * @property Collection|Notification[] $notifications
  * @property Collection|Order[] $orders
+ * @property Collection|PointConversionRate[] $point_conversion_rates
  * @property Collection|Post[] $posts
  * @property Collection|PostComment[] $post_comments
+ * @property Collection|PostCommentLike[] $post_comment_likes
  * @property Collection|PostLike[] $post_likes
  * @property Collection|PostShared[] $post_shareds
  * @property Collection|ReportComment[] $report_comments
@@ -89,6 +93,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 	use HasFactory, Notifiable;
+
 	protected $table = 'User';
 
 	protected $casts = [
@@ -142,6 +147,11 @@ class User extends Authenticatable
 		'admin_status'
 	];
 
+	public function blocked_group_participants()
+	{
+		return $this->hasMany(BlockedGroupParticipant::class, 'user_id');
+	}
+
 	public function carts()
 	{
 		return $this->hasMany(Cart::class, 'user_id');
@@ -150,6 +160,11 @@ class User extends Authenticatable
 	public function follows()
 	{
 		return $this->hasMany(Follow::class, 'user_id');
+	}
+
+	public function group_participants()
+	{
+		return $this->hasMany(GroupParticipant::class, 'user_id');
 	}
 
 	public function help_contacts()
@@ -202,6 +217,12 @@ class User extends Authenticatable
 		return $this->hasMany(Order::class, 'user_id');
 	}
 
+	public function point_conversion_rates()
+	{
+		return $this->belongsToMany(PointConversionRate::class, 'PointConversionRateUsers', 'user_id', 'pointConversionRateId')
+			->withPivot('id');
+	}
+
 	public function posts()
 	{
 		return $this->hasMany(Post::class, 'user_id');
@@ -210,6 +231,11 @@ class User extends Authenticatable
 	public function post_comments()
 	{
 		return $this->hasMany(PostComment::class, 'user_id');
+	}
+
+	public function post_comment_likes()
+	{
+		return $this->hasMany(PostCommentLike::class, 'user_id');
 	}
 
 	public function post_likes()

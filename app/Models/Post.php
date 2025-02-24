@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $repost_username
  * @property string|null $repost_id
  * @property int $user_id
- * @property string $content
+ * @property string|null $content
  * @property array|null $media
  * @property string $post_status
  * @property string $post_audience
