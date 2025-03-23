@@ -32,7 +32,7 @@ class GlobalPointsBuyResource extends Resource
                     TextInput::make('points_buy_id')
                         ->default('2' . Str::uuid())
                         ->label('Points Buy ID')
-                        ->disabled(),
+                        ->readOnly(),
                     TextInput::make('points')
                         ->label('Points')
                         ->required(),
