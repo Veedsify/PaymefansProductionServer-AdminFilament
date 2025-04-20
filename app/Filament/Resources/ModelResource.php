@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Clusters\Users\Resources;
+namespace App\Filament\Resources;
 
-use App\Filament\Clusters\Users;
-use App\Filament\Clusters\Users\Resources\ModelResource\Pages;
+use App\Filament\Resources\ModelResource\Pages;
 use App\Models\Model;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -21,9 +20,7 @@ class ModelResource extends Resource
     protected static ?string $model = Model::class;
 
     protected static ?string $navigationIcon = 'monoicon-user-check';
-
-    protected static ?string $cluster = Users::class;
-
+    protected static ?string $navigationGroup = 'Users';
     public static function form(Form $form): Form
     {
         return $form

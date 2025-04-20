@@ -10,40 +10,40 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Notification
+ * Class CommentImpression
  * 
  * @property int $id
- * @property string $notification_id
+ * @property int $comment_id
  * @property int $user_id
- * @property string $message
- * @property USER-DEFINED $action
- * @property string $url
- * @property bool $read
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property int|null $postId
  * 
+ * @property PostComment $post_comment
  * @property User $user
  *
  * @package App\Models
  */
-class Notification extends Model
+class CommentImpression extends Model
 {
-	protected $table = 'Notifications';
+	protected $table = 'CommentImpression';
 
 	protected $casts = [
+		'comment_id' => 'int',
 		'user_id' => 'int',
-		'action' => 'USER-DEFINED',
-		'read' => 'bool'
+		'postId' => 'int'
 	];
 
 	protected $fillable = [
-		'notification_id',
+		'comment_id',
 		'user_id',
-		'message',
-		'action',
-		'url',
-		'read'
+		'postId'
 	];
+
+	public function post_comment()
+	{
+		return $this->belongsTo(PostComment::class, 'comment_id');
+	}
 
 	public function user()
 	{

@@ -10,43 +10,33 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class PostLike
+ * Class ActivityLog
  * 
  * @property int $id
- * @property int $like_id
  * @property int $user_id
- * @property int $post_id
+ * @property string $action
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property User $user
- * @property Post $post
  *
  * @package App\Models
  */
-class PostLike extends Model
+class ActivityLog extends Model
 {
-	protected $table = 'PostLike';
+	protected $table = 'ActivityLog';
 
 	protected $casts = [
-		'like_id' => 'int',
-		'user_id' => 'int',
-		'post_id' => 'int'
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
-		'like_id',
 		'user_id',
-		'post_id'
+		'action'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
-	}
-
-	public function post()
-	{
-		return $this->belongsTo(Post::class, 'post_id');
 	}
 }

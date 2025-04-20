@@ -20,9 +20,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
+ * @property User $user
  * @property Product $product
  * @property ProductSize $product_size
- * @property User $user
  *
  * @package App\Models
  */
@@ -44,6 +44,11 @@ class Cart extends Model
 		'size_id'
 	];
 
+	public function user()
+	{
+		return $this->belongsTo(User::class, 'user_id');
+	}
+
 	public function product()
 	{
 		return $this->belongsTo(Product::class, 'product_id');
@@ -52,10 +57,5 @@ class Cart extends Model
 	public function product_size()
 	{
 		return $this->belongsTo(ProductSize::class, 'size_id');
-	}
-
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'user_id');
 	}
 }

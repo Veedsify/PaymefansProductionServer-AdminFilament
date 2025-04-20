@@ -22,7 +22,7 @@ use Carbon\Carbon;
  * @property string|null $verification_video
  * @property string|null $verification_image
  * @property bool $verification_status
- * @property string $verification_state
+ * @property USER-DEFINED $verification_state
  * @property string|null $token
  * @property Carbon $created_at
  * 
@@ -39,7 +39,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
 		'user_id' => 'int',
 		'dob' => 'datetime',
 		'hookup' => 'bool',
-		'verification_status' => 'bool'
+		'verification_status' => 'bool',
+		'verification_state' => 'USER-DEFINED'
 	];
 
 	protected $hidden = [

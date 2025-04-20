@@ -7,7 +7,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,12 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $subscription_id
  * @property int $user_id
+ * @property int $model_id
  * @property string $subscription
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property int|null $userId
  * 
  * @property User $user
- * @property Collection|UserSubscriptionHistory[] $user_subscription_histories
  *
  * @package App\Models
  */
@@ -30,22 +30,21 @@ class UserSubscriptionCurrent extends Model
 	protected $table = 'UserSubscriptionCurrent';
 
 	protected $casts = [
-		'user_id' => 'int'
+		'user_id' => 'int',
+		'model_id' => 'int',
+		'userId' => 'int'
 	];
 
 	protected $fillable = [
 		'subscription_id',
 		'user_id',
-		'subscription'
+		'model_id',
+		'subscription',
+		'userId'
 	];
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'user_id');
-	}
-
-	public function user_subscription_histories()
-	{
-		return $this->hasMany(UserSubscriptionHistory::class, 'userSubscriptionCurrentId');
+		return $this->belongsTo(User::class, 'model_id');
 	}
 }

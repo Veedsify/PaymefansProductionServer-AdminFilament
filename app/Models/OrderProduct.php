@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $order_id
  * @property int $product_id
  * @property int $quantity
- * @property string $status
+ * @property USER-DEFINED $status
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
@@ -32,7 +32,8 @@ class OrderProduct extends Model
 	protected $casts = [
 		'order_id' => 'int',
 		'product_id' => 'int',
-		'quantity' => 'int'
+		'quantity' => 'int',
+		'status' => 'USER-DEFINED'
 	];
 
 	protected $fillable = [

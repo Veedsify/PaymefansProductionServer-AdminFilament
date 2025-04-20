@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property Collection|Message[] $messages
  * @property Collection|Participant[] $participants
+ * @property Collection|Message[] $messages
  *
  * @package App\Models
  */
@@ -31,13 +31,13 @@ class Conversation extends Model
 		'conversation_id'
 	];
 
-	public function messages()
-	{
-		return $this->hasMany(Message::class, 'conversationsId', 'conversation_id');
-	}
-
 	public function participants()
 	{
 		return $this->belongsToMany(Participant::class, '_ConversationsToParticipants', 'A', 'B');
+	}
+
+	public function messages()
+	{
+		return $this->hasMany(Message::class, 'conversationsId', 'conversation_id');
 	}
 }

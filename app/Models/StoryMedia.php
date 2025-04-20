@@ -16,13 +16,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $media_id
  * @property string $media_type
  * @property string $filename
- * @property array|null $captionStyle
+ * @property string|null $captionStyle
  * @property string|null $story_content
  * @property string $url
+ * @property int|null $duration
  * @property int $user_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property int|null $duration
  * 
  * @property UserStory $user_story
  *
@@ -33,9 +33,9 @@ class StoryMedia extends Model
 	protected $table = 'StoryMedia';
 
 	protected $casts = [
-		'captionStyle' => 'json',
-		'user_id' => 'int',
-		'duration' => 'int'
+		'captionStyle' => 'binary',
+		'duration' => 'int',
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -45,8 +45,8 @@ class StoryMedia extends Model
 		'captionStyle',
 		'story_content',
 		'url',
-		'user_id',
-		'duration'
+		'duration',
+		'user_id'
 	];
 
 	public function user_story()

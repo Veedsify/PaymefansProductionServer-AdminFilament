@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int|null $pointConversionRateId
  * 
- * @property PointConversionRate|null $point_conversion_rate
  * @property User $user
+ * @property PointConversionRate|null $point_conversion_rate
  *
  * @package App\Models
  */
@@ -35,13 +35,13 @@ class PointConversionRateUser extends Model
 		'pointConversionRateId'
 	];
 
-	public function point_conversion_rate()
-	{
-		return $this->belongsTo(PointConversionRate::class, 'pointConversionRateId');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function point_conversion_rate()
+	{
+		return $this->belongsTo(PointConversionRate::class, 'pointConversionRateId');
 	}
 }

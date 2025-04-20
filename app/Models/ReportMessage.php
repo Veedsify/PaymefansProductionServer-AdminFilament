@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property Message $message
  * @property User $user
+ * @property Message $message
  *
  * @package App\Models
  */
@@ -43,13 +43,13 @@ class ReportMessage extends Model
 		'report'
 	];
 
-	public function message()
-	{
-		return $this->belongsTo(Message::class, 'message_id');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function message()
+	{
+		return $this->belongsTo(Message::class, 'message_id');
 	}
 }

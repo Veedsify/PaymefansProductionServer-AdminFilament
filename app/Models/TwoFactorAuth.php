@@ -10,43 +10,34 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class PostLike
+ * Class TwoFactorAuth
  * 
  * @property int $id
- * @property int $like_id
  * @property int $user_id
- * @property int $post_id
+ * @property int $code
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property User $user
- * @property Post $post
  *
  * @package App\Models
  */
-class PostLike extends Model
+class TwoFactorAuth extends Model
 {
-	protected $table = 'PostLike';
+	protected $table = 'TwoFactorAuth';
 
 	protected $casts = [
-		'like_id' => 'int',
 		'user_id' => 'int',
-		'post_id' => 'int'
+		'code' => 'int'
 	];
 
 	protected $fillable = [
-		'like_id',
 		'user_id',
-		'post_id'
+		'code'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
-	}
-
-	public function post()
-	{
-		return $this->belongsTo(Post::class, 'post_id');
 	}
 }

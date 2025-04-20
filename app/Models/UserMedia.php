@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $media_id
  * @property int $post_id
  * @property string $media_type
+ * @property USER-DEFINED $media_state
+ * @property string|null $duration
  * @property string $url
  * @property string $blur
  * @property string $poster
@@ -34,6 +36,7 @@ class UserMedia extends Model
 
 	protected $casts = [
 		'post_id' => 'int',
+		'media_state' => 'USER-DEFINED',
 		'locked' => 'bool'
 	];
 
@@ -41,6 +44,8 @@ class UserMedia extends Model
 		'media_id',
 		'post_id',
 		'media_type',
+		'media_state',
+		'duration',
 		'url',
 		'blur',
 		'poster',

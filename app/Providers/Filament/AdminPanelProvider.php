@@ -29,10 +29,10 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id("admin")
             ->path("admin")
-            ->font("Manrope")
+            ->font("Inter")
             ->globalSearchKeyBindings(["command+k", "ctrl+k"])
             ->colors([
-                "primary" => Color::Purple,
+                "primary" => Color::Cyan,
             ])
             ->plugins([GlobalSearchModalPlugin::make()])
             ->navigationItems([])

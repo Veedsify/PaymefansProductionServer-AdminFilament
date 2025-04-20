@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property ProductCategory $product_category
  * @property Collection|Cart[] $carts
  * @property Collection|Order[] $orders
- * @property Collection|ProductImage[] $product_images
  * @property Collection|ProductSizePivot[] $product_size_pivots
+ * @property Collection|ProductImage[] $product_images
  * @property Collection|WishList[] $wish_lists
  *
  * @package App\Models
@@ -69,14 +69,14 @@ class Product extends Model
 					->withTimestamps();
 	}
 
-	public function product_images()
-	{
-		return $this->hasMany(ProductImage::class, 'product_id');
-	}
-
 	public function product_size_pivots()
 	{
 		return $this->hasMany(ProductSizePivot::class, 'product_id');
+	}
+
+	public function product_images()
+	{
+		return $this->hasMany(ProductImage::class, 'product_id');
 	}
 
 	public function wish_lists()

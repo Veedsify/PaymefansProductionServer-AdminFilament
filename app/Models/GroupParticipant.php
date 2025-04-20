@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property Group $group
  * @property User $user
+ * @property Group $group
  *
  * @package App\Models
  */
@@ -37,13 +37,13 @@ class GroupParticipant extends Model
 		'group_id'
 	];
 
-	public function group()
-	{
-		return $this->belongsTo(Group::class, 'group_id');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function group()
+	{
+		return $this->belongsTo(Group::class, 'group_id');
 	}
 }

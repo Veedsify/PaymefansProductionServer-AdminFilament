@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Clusters\Users;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
@@ -15,12 +14,8 @@ use Filament\Tables\Table;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
-    protected static ?string $cluster = Users::class;
-
     protected static ?string $navigationIcon = 'monoicon-users';
-    // protected static ?string $navigationGroup = 'Users';
-
-
+    protected static ?string $navigationGroup = 'Users';
 
     public static function form(Form $form): Form
     {
@@ -30,7 +25,7 @@ class UserResource extends Resource
                     ->description('Primary user account information')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->afterStateUpdated(function($state, Set $set){
+                            ->afterStateUpdated(function ($state, Set $set) {
                                 $set('fullname', $state);
                             })
                             ->label('Display Name')
@@ -129,19 +124,13 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('profile_image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('fullname')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('username')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('admin')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('role'),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_verified')
@@ -152,17 +141,7 @@ class UserResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('profile_image'),
-                Tables\Columns\TextColumn::make('total_followers')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total_following')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total_subscribers')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\IconColumn::make('admin_status')
+                Tables\Columns\IconColumn::make('active_status')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -177,29 +156,31 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make("view")
+                    ->url(function ($record) {
+                        return Pages\UserDetail::getUrl([$record]);
+                    }),
+                Tables\Actions\EditAction::make()
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make(),]),]);
     }
 
-    public static function getRelations(): array
+    public
+    static function getRelations(): array
     {
         return [
             //
         ];
     }
 
-    public static function getPages(): array
+    public
+    static function getPages(): array
     {
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'view' => Pages\ViewUser::route('/{record}'),
+            'view' => Pages\UserDetail::route('/{record}'),
+            'actions' => Pages\ViewUserActions::route('/{record}/actions'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }

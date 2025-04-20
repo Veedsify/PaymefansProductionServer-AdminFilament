@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $transaction_message
  * @property string $transaction
  * @property Carbon $created_at
- * @property string $transaction_type
+ * @property USER-DEFINED $transaction_type
  * @property Carbon $updated_at
  * 
  * @property User $user
@@ -35,7 +35,8 @@ class UserTransaction extends Model
 	protected $casts = [
 		'user_id' => 'int',
 		'wallet_id' => 'int',
-		'amount' => 'float'
+		'amount' => 'float',
+		'transaction_type' => 'USER-DEFINED'
 	];
 
 	protected $fillable = [

@@ -21,8 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property Post $post
  * @property User $user
+ * @property Post $post
  *
  * @package App\Models
  */
@@ -43,13 +43,13 @@ class ReportPost extends Model
 		'report'
 	];
 
-	public function post()
-	{
-		return $this->belongsTo(Post::class, 'post_id');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function post()
+	{
+		return $this->belongsTo(Post::class, 'post_id');
 	}
 }

@@ -14,13 +14,13 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $subscription_id
- * @property string $user_id
+ * @property int $user_id
+ * @property int $model_id
  * @property string $subscription
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property int|null $userSubscriptionCurrentId
  * 
- * @property UserSubscriptionCurrent|null $user_subscription_current
+ * @property User $user
  *
  * @package App\Models
  */
@@ -29,18 +29,19 @@ class UserSubscriptionHistory extends Model
 	protected $table = 'UserSubscriptionHistory';
 
 	protected $casts = [
-		'userSubscriptionCurrentId' => 'int'
+		'user_id' => 'int',
+		'model_id' => 'int'
 	];
 
 	protected $fillable = [
 		'subscription_id',
 		'user_id',
-		'subscription',
-		'userSubscriptionCurrentId'
+		'model_id',
+		'subscription'
 	];
 
-	public function user_subscription_current()
+	public function user()
 	{
-		return $this->belongsTo(UserSubscriptionCurrent::class, 'userSubscriptionCurrentId');
+		return $this->belongsTo(User::class, 'model_id');
 	}
 }

@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property LiveStream $live_stream
  * @property User $user
+ * @property LiveStream $live_stream
  *
  * @package App\Models
  */
@@ -37,13 +37,13 @@ class LiveStreamView extends Model
 		'live_id'
 	];
 
-	public function live_stream()
-	{
-		return $this->belongsTo(LiveStream::class, 'live_id');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function live_stream()
+	{
+		return $this->belongsTo(LiveStream::class, 'live_id');
 	}
 }

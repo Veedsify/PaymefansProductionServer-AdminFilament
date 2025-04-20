@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $receiver_id
  * @property bool $seen
  * @property string $message
- * @property array|null $attachment
+ * @property string|null $attachment
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property string|null $conversationsId
  * 
- * @property Conversation|null $conversation
  * @property User $user
+ * @property Conversation|null $conversation
  * @property Collection|ReportMessage[] $report_messages
  *
  * @package App\Models
@@ -36,7 +36,7 @@ class Message extends Model
 
 	protected $casts = [
 		'seen' => 'bool',
-		'attachment' => 'json'
+		'attachment' => 'binary'
 	];
 
 	protected $fillable = [
@@ -49,14 +49,14 @@ class Message extends Model
 		'conversationsId'
 	];
 
+	public function user()
+	{
+		return $this->belongsTo(User::class, 'receiver_id', 'user_id');
+	}
+
 	public function conversation()
 	{
 		return $this->belongsTo(Conversation::class, 'conversationsId', 'conversation_id');
-	}
-
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'sender_id', 'user_id');
 	}
 
 	public function report_messages()

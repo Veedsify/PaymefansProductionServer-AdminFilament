@@ -20,21 +20,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $repost_id
  * @property int $user_id
  * @property string|null $content
- * @property array|null $media
- * @property string $post_status
- * @property string $post_audience
+ * @property string|null $media
+ * @property float|null $post_price
+ * @property USER-DEFINED $post_status
+ * @property USER-DEFINED $post_audience
  * @property bool $post_is_visible
  * @property int $post_likes
  * @property int $post_comments
  * @property int $post_reposts
+ * @property int $post_impressions
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property User $user
- * @property Collection|PostShared[] $post_shareds
- * @property Collection|ReportPost[] $report_posts
  * @property Collection|UserMedia[] $user_media
  * @property Collection|UserRepost[] $user_reposts
+ * @property Collection|PostShared[] $post_shareds
+ * @property Collection|ReportPost[] $report_posts
  *
  * @package App\Models
  */
@@ -45,11 +47,15 @@ class Post extends Model
 	protected $casts = [
 		'was_repost' => 'bool',
 		'user_id' => 'int',
-		'media' => 'json',
+		'media' => 'binary',
+		'post_price' => 'float',
+		'post_status' => 'USER-DEFINED',
+		'post_audience' => 'USER-DEFINED',
 		'post_is_visible' => 'bool',
 		'post_likes' => 'int',
 		'post_comments' => 'int',
-		'post_reposts' => 'int'
+		'post_reposts' => 'int',
+		'post_impressions' => 'int'
 	];
 
 	protected $fillable = [
@@ -60,12 +66,14 @@ class Post extends Model
 		'user_id',
 		'content',
 		'media',
+		'post_price',
 		'post_status',
 		'post_audience',
 		'post_is_visible',
 		'post_likes',
 		'post_comments',
-		'post_reposts'
+		'post_reposts',
+		'post_impressions'
 	];
 
 	public function user()
@@ -73,9 +81,19 @@ class Post extends Model
 		return $this->belongsTo(User::class, 'user_id');
 	}
 
-	public function post_comments()
+	public function user_media()
 	{
-		return $this->hasMany(PostComment::class, 'post_id');
+		return $this->hasMany(UserMedia::class, 'post_id');
+	}
+
+	public function user_reposts()
+	{
+		return $this->hasMany(UserRepost::class, 'post_id');
+	}
+
+	public function post_impressions()
+	{
+		return $this->hasMany(PostImpression::class, 'post_id');
 	}
 
 	public function post_likes()
@@ -93,13 +111,8 @@ class Post extends Model
 		return $this->hasMany(ReportPost::class, 'post_id');
 	}
 
-	public function user_media()
+	public function post_comments()
 	{
-		return $this->hasMany(UserMedia::class, 'post_id');
-	}
-
-	public function user_reposts()
-	{
-		return $this->hasMany(UserRepost::class, 'post_id');
+		return $this->hasMany(PostComment::class, 'post_id');
 	}
 }

@@ -10,43 +10,45 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class PostLike
+ * Class ResetPasswordRequest
  * 
  * @property int $id
- * @property int $like_id
  * @property int $user_id
- * @property int $post_id
+ * @property string $password
+ * @property string $reset_code
+ * @property bool $completed
+ * @property Carbon $expires_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property User $user
- * @property Post $post
  *
  * @package App\Models
  */
-class PostLike extends Model
+class ResetPasswordRequest extends Model
 {
-	protected $table = 'PostLike';
+	protected $table = 'ResetPasswordRequests';
 
 	protected $casts = [
-		'like_id' => 'int',
 		'user_id' => 'int',
-		'post_id' => 'int'
+		'completed' => 'bool',
+		'expires_at' => 'datetime'
+	];
+
+	protected $hidden = [
+		'password'
 	];
 
 	protected $fillable = [
-		'like_id',
 		'user_id',
-		'post_id'
+		'password',
+		'reset_code',
+		'completed',
+		'expires_at'
 	];
 
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
-	}
-
-	public function post()
-	{
-		return $this->belongsTo(Post::class, 'post_id');
 	}
 }

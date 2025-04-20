@@ -20,6 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $subscription_price
  * @property string $subscription_type
  * @property string $subscription_duration
+ * @property bool $two_factor_auth
+ * @property string|null $instagram_url
+ * @property string|null $twitter_url
+ * @property string|null $facebook_url
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
@@ -36,7 +40,8 @@ class Setting extends Model
 		'price_per_message' => 'float',
 		'subscription_active' => 'bool',
 		'enable_free_message' => 'bool',
-		'subscription_price' => 'float'
+		'subscription_price' => 'float',
+		'two_factor_auth' => 'bool'
 	];
 
 	protected $fillable = [
@@ -46,7 +51,11 @@ class Setting extends Model
 		'enable_free_message',
 		'subscription_price',
 		'subscription_type',
-		'subscription_duration'
+		'subscription_duration',
+		'two_factor_auth',
+		'instagram_url',
+		'twitter_url',
+		'facebook_url'
 	];
 
 	public function user()

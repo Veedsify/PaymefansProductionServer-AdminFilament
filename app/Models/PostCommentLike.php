@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
- * @property PostComment $post_comment
  * @property User $user
+ * @property PostComment $post_comment
  *
  * @package App\Models
  */
@@ -39,13 +39,13 @@ class PostCommentLike extends Model
 		'comment_id'
 	];
 
-	public function post_comment()
-	{
-		return $this->belongsTo(PostComment::class, 'comment_id');
-	}
-
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function post_comment()
+	{
+		return $this->belongsTo(PostComment::class, 'comment_id');
 	}
 }

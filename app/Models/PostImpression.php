@@ -10,40 +10,40 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class WishList
+ * Class PostImpression
  * 
  * @property int $id
+ * @property int $post_id
  * @property int $user_id
- * @property int $product_id
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
+ * @property Post $post
  * @property User $user
- * @property Product $product
  *
  * @package App\Models
  */
-class WishList extends Model
+class PostImpression extends Model
 {
-	protected $table = 'WishList';
+	protected $table = 'PostImpression';
 
 	protected $casts = [
-		'user_id' => 'int',
-		'product_id' => 'int'
+		'post_id' => 'int',
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
-		'user_id',
-		'product_id'
+		'post_id',
+		'user_id'
 	];
+
+	public function post()
+	{
+		return $this->belongsTo(Post::class, 'post_id');
+	}
 
 	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
-	}
-
-	public function product()
-	{
-		return $this->belongsTo(Product::class, 'product_id');
 	}
 }
