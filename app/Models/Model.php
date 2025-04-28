@@ -40,7 +40,6 @@ class Model extends \Illuminate\Database\Eloquent\Model
 		'dob' => 'datetime',
 		'hookup' => 'bool',
 		'verification_status' => 'bool',
-		'verification_state' => 'USER-DEFINED'
 	];
 
 	protected $hidden = [

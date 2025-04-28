@@ -41,12 +41,8 @@ class ModelResource extends Resource
                     DatePicker::make('dob')->required(),
                     TextInput::make('country')->required(),
                     Toggle::make('hookup'),
-                    FileUpload::make('verification_video')
-                        ->disk('public')
-                        ->directory('verification/videos'),
-                    FileUpload::make('verification_image')
-                        ->disk('public')
-                        ->directory('verification/images'),
+                    TextInput::make('verification_video'),
+                    TextInput::make('verification_image'),
                     Select::make('verification_state')
                         ->options([
                             'not_started' => 'Not Started',
@@ -57,8 +53,6 @@ class ModelResource extends Resource
                         ]),
                     Toggle::make('verification_status'),
                     TextInput::make('token')
-                        ->disabled()
-                        ->dehydrated(false)
                 ])
             ]);
     }
