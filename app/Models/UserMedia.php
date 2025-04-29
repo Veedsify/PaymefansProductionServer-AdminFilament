@@ -36,7 +36,6 @@ class UserMedia extends Model
 
 	protected $casts = [
 		'post_id' => 'int',
-		'media_state' => 'USER-DEFINED',
 		'locked' => 'bool'
 	];
 
