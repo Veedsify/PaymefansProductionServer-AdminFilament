@@ -22,6 +22,7 @@
     "laravel/framework": "^11.31",
     "laravel/tinker": "^2.9",
     "livewire/livewire": "^3.5",
+    "livewire/volt": "^1.7",
     "mallardduck/blade-lucide-icons": "^1.23",
     "owenvoke/blade-entypo": "^2.2",
     "owenvoke/blade-fontawesome": "^2.8",
