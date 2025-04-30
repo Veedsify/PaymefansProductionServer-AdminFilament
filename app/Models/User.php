@@ -8,14 +8,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $email
  * @property string $name
@@ -49,330 +49,340 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property bool $active_status
- * 
+ *
  * @property Collection|Model[] $models
  * @property Collection|UserRepost[] $user_reposts
- * @property Collection|PostImpression[] $post_impressions
  * @property Collection|UserStory[] $user_stories
+ * @property Collection|PostImpression[] $post_impressions
+ * @property Collection|Post[] $posts
+ * @property Collection|PostComment[] $post_comments
  * @property Collection|CommentImpression[] $comment_impressions
- * @property Collection|PostCommentLike[] $post_comment_likes
  * @property Collection|PostLike[] $post_likes
  * @property Collection|Follow[] $follows
  * @property Collection|Subscriber[] $subscribers
+ * @property Collection|LiveStream[] $live_streams
+ * @property Collection|PostCommentLike[] $post_comment_likes
  * @property Collection|PostShared[] $post_shareds
- * @property Collection|LiveStreamComment[] $live_stream_comments
  * @property Collection|LiveStreamLike[] $live_stream_likes
  * @property Collection|LiveStreamView[] $live_stream_views
  * @property Collection|Notification[] $notifications
- * @property Collection|LiveStream[] $live_streams
- * @property Collection|Setting[] $settings
- * @property Collection|ReportComment[] $report_comments
+ * @property Collection|LiveStreamComment[] $live_stream_comments
  * @property Collection|ReportPost[] $report_posts
  * @property Collection|UserPoint[] $user_points
  * @property Collection|UserTransaction[] $user_transactions
  * @property Collection|ModelSubscriptionPack[] $model_subscription_packs
+ * @property Collection|UserSubscriptionHistory[] $user_subscription_histories
  * @property Collection|UserSubscriptionCurrent[] $user_subscription_currents
- * @property Collection|ReportLive[] $report_lives
  * @property Collection|ReportMessage[] $report_messages
  * @property Collection|PointConversionRate[] $point_conversion_rates
  * @property Collection|UserWallet[] $user_wallets
  * @property Collection|UserAttachment[] $user_attachments
  * @property Collection|UserBank[] $user_banks
- * @property Collection|UserSubscriptionHistory[] $user_subscription_histories
- * @property Collection|UserWithdrawalBankAccount[] $user_withdrawal_bank_accounts
  * @property Collection|Cart[] $carts
  * @property Collection|HelpContact[] $help_contacts
+ * @property Collection|GroupParticipant[] $group_participants
  * @property Collection|WishList[] $wish_lists
  * @property Collection|Order[] $orders
  * @property Collection|BlockedGroupParticipant[] $blocked_group_participants
  * @property Collection|LoginHistory[] $login_histories
- * @property Collection|TwoFactorAuth[] $two_factor_auths
- * @property Collection|GroupParticipant[] $group_participants
  * @property Collection|ActivityLog[] $activity_logs
- * @property Collection|ResetPasswordRequest[] $reset_password_requests
  * @property Collection|Message[] $messages
- * @property Collection|Post[] $posts
- * @property Collection|PostComment[] $post_comments
  * @property Collection|ReportUser[] $report_users
- * 
+ * @property Collection|Setting[] $settings
+ * @property Collection|ReportLive[] $report_lives
+ * @property Collection|ReportComment[] $report_comments
+ * @property Collection|TwoFactorAuth[] $two_factor_auths
+ * @property Collection|ResetPasswordRequest[] $reset_password_requests
+ * @property Collection|UserWithdrawalBankAccount[] $user_withdrawal_bank_accounts
+ * @property Collection|WithdrawalRequestCode[] $withdrawal_request_codes
+ * @property Collection|WithdrawalRequest[] $withdrawal_requests
  *
  * @package App\Models
  */
 class User extends Authenticatable
 {
-	use HasFactory, Notifiable;
+    use Notifiable, HasFactory;
+    protected $table = 'User';
 
-	protected $table = 'User';
+    protected $casts = [
+        'admin'             => 'bool',
+        'is_active'         => 'bool',
+        'is_verified'       => 'bool',
+        'is_email_verified' => 'bool',
+        'is_model'          => 'bool',
+        'email_verify_time' => 'datetime',
+        'is_phone_verified' => 'bool',
+        'total_followers'   => 'int',
+        'total_following'   => 'int',
+        'total_subscribers' => 'int',
+        'active_status'     => 'bool',
+    ];
 
-	protected $casts = [
-		'admin' => 'bool',
-		'is_active' => 'bool',
-		'is_verified' => 'bool',
-		'is_email_verified' => 'bool',
-		'is_model' => 'bool',
-		'email_verify_time' => 'datetime',
-		'is_phone_verified' => 'bool',
-		'total_followers' => 'int',
-		'total_following' => 'int',
-		'total_subscribers' => 'int',
-		'active_status' => 'bool'
-	];
+    protected $hidden = [
+        'password',
+    ];
 
-	protected $hidden = [
-		'password'
-	];
+    protected $fillable = [
+        'email',
+        'name',
+        'password',
+        'fullname',
+        'user_id',
+        'username',
+        'admin',
+        'role',
+        'is_active',
+        'is_verified',
+        'is_email_verified',
+        'is_model',
+        'email_verify_code',
+        'email_verify_time',
+        'is_phone_verified',
+        'phone',
+        'profile_image',
+        'profile_banner',
+        'bio',
+        'location',
+        'website',
+        'country',
+        'state',
+        'city',
+        'zip',
+        'post_watermark',
+        'total_followers',
+        'total_following',
+        'total_subscribers',
+        'active_status',
+    ];
 
-	protected $fillable = [
-		'email',
-		'name',
-		'password',
-		'fullname',
-		'user_id',
-		'username',
-		'admin',
-		'role',
-		'is_active',
-		'is_verified',
-		'is_email_verified',
-		'is_model',
-		'email_verify_code',
-		'email_verify_time',
-		'is_phone_verified',
-		'phone',
-		'profile_image',
-		'profile_banner',
-		'bio',
-		'location',
-		'website',
-		'country',
-		'state',
-		'city',
-		'zip',
-		'post_watermark',
-		'total_followers',
-		'total_following',
-		'total_subscribers',
-		'active_status'
-	];
+    public function models()
+    {
+        return $this->hasMany(Model::class, 'user_id');
+    }
 
-	public function models()
-	{
-		return $this->hasMany(Model::class, 'user_id');
-	}
+    public function user_reposts()
+    {
+        return $this->hasMany(UserRepost::class, 'user_id');
+    }
 
-	public function user_reposts()
-	{
-		return $this->hasMany(UserRepost::class, 'user_id');
-	}
+    public function user_stories()
+    {
+        return $this->hasMany(UserStory::class, 'user_id');
+    }
 
-	public function post_impressions()
-	{
-		return $this->hasMany(PostImpression::class, 'user_id');
-	}
+    public function post_impressions()
+    {
+        return $this->hasMany(PostImpression::class, 'user_id');
+    }
 
-	public function user_stories()
-	{
-		return $this->hasMany(UserStory::class, 'user_id');
-	}
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id');
+    }
 
-	public function comment_impressions()
-	{
-		return $this->hasMany(CommentImpression::class, 'user_id');
-	}
+    public function post_comments()
+    {
+        return $this->hasMany(PostComment::class, 'user_id');
+    }
 
-	public function post_comment_likes()
-	{
-		return $this->hasMany(PostCommentLike::class, 'user_id');
-	}
+    public function comment_impressions()
+    {
+        return $this->hasMany(CommentImpression::class, 'user_id');
+    }
 
-	public function post_likes()
-	{
-		return $this->hasMany(PostLike::class, 'user_id');
-	}
+    public function post_likes()
+    {
+        return $this->hasMany(PostLike::class, 'user_id');
+    }
 
-	public function follows()
-	{
-		return $this->hasMany(Follow::class, 'user_id');
-	}
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
 
-	public function subscribers()
-	{
-		return $this->hasMany(Subscriber::class, 'user_id');
-	}
+    public function subscribers()
+    {
+        return $this->hasMany(Subscriber::class, 'user_id');
+    }
 
-	public function post_shareds()
-	{
-		return $this->hasMany(PostShared::class, 'user_id');
-	}
+    public function live_streams()
+    {
+        return $this->hasMany(LiveStream::class, 'user_id', 'user_id');
+    }
 
-	public function live_stream_comments()
-	{
-		return $this->hasMany(LiveStreamComment::class, 'user_id');
-	}
+    public function post_comment_likes()
+    {
+        return $this->hasMany(PostCommentLike::class, 'user_id');
+    }
 
-	public function live_stream_likes()
-	{
-		return $this->hasMany(LiveStreamLike::class, 'user_id');
-	}
+    public function post_shareds()
+    {
+        return $this->hasMany(PostShared::class, 'user_id');
+    }
 
-	public function live_stream_views()
-	{
-		return $this->hasMany(LiveStreamView::class, 'user_id');
-	}
+    public function live_stream_likes()
+    {
+        return $this->hasMany(LiveStreamLike::class, 'user_id');
+    }
 
-	public function notifications()
-	{
-		return $this->hasMany(Notification::class, 'user_id');
-	}
+    public function live_stream_views()
+    {
+        return $this->hasMany(LiveStreamView::class, 'user_id');
+    }
 
-	public function live_streams()
-	{
-		return $this->hasMany(LiveStream::class, 'user_id', 'user_id');
-	}
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 
-	public function settings()
-	{
-		return $this->hasOne(Setting::class, 'user_id');
-	}
+    public function live_stream_comments()
+    {
+        return $this->hasMany(LiveStreamComment::class, 'user_id');
+    }
 
-	public function report_comments()
-	{
-		return $this->hasMany(ReportComment::class, 'user_id');
-	}
+    public function report_posts()
+    {
+        return $this->hasMany(ReportPost::class, 'user_id');
+    }
 
-	public function report_posts()
-	{
-		return $this->hasMany(ReportPost::class, 'user_id');
-	}
+    public function user_point()
+    {
+        return $this->hasOne(UserPoint::class, 'user_id');
+    }
 
-	public function user_point()
-	{
-		return $this->hasOne(UserPoint::class, 'user_id');
-	}
+    public function user_transactions()
+    {
+        return $this->hasMany(UserTransaction::class, 'user_id');
+    }
 
-	public function user_transactions()
-	{
-		return $this->hasMany(UserTransaction::class, 'user_id');
-	}
+    public function model_subscription_packs()
+    {
+        return $this->hasMany(ModelSubscriptionPack::class, 'user_id');
+    }
 
-	public function model_subscription_packs()
-	{
-		return $this->hasMany(ModelSubscriptionPack::class, 'user_id');
-	}
+    public function user_subscription_histories()
+    {
+        return $this->hasMany(UserSubscriptionHistory::class, 'model_id');
+    }
 
-	public function user_subscription_currents()
-	{
-		return $this->hasMany(UserSubscriptionCurrent::class, 'model_id');
-	}
+    public function user_subscription_currents()
+    {
+        return $this->hasMany(UserSubscriptionCurrent::class, 'model_id');
+    }
 
-	public function report_lives()
-	{
-		return $this->hasMany(ReportLive::class, 'user_id');
-	}
+    public function report_messages()
+    {
+        return $this->hasMany(ReportMessage::class, 'user_id');
+    }
 
-	public function report_messages()
-	{
-		return $this->hasMany(ReportMessage::class, 'user_id');
-	}
+    public function point_conversion_rates()
+    {
+        return $this->belongsToMany(PointConversionRate::class, 'PointConversionRateUsers', 'user_id', 'pointConversionRateId')
+            ->withPivot('id');
+    }
 
-	public function point_conversion_rates()
-	{
-		return $this->belongsToMany(PointConversionRate::class, 'PointConversionRateUsers', 'user_id', 'pointConversionRateId')
-			->withPivot('id');
-	}
+    public function user_wallets()
+    {
+        return $this->hasMany(UserWallet::class, 'user_id');
+    }
 
-	public function user_wallets()
-	{
-		return $this->hasMany(UserWallet::class, 'user_id');
-	}
+    public function user_attachments()
+    {
+        return $this->hasMany(UserAttachment::class, 'user_id');
+    }
 
-	public function user_attachments()
-	{
-		return $this->hasMany(UserAttachment::class, 'user_id');
-	}
+    public function user_banks()
+    {
+        return $this->hasMany(UserBank::class, 'user_id');
+    }
 
-	public function user_banks()
-	{
-		return $this->hasMany(UserBank::class, 'user_id');
-	}
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
 
-	public function user_subscription_histories()
-	{
-		return $this->hasMany(UserSubscriptionHistory::class, 'model_id');
-	}
+    public function help_contacts()
+    {
+        return $this->hasMany(HelpContact::class, 'user_id');
+    }
 
-	public function user_withdrawal_bank_accounts()
-	{
-		return $this->hasMany(UserWithdrawalBankAccount::class, 'user_id');
-	}
+    public function group_participants()
+    {
+        return $this->hasMany(GroupParticipant::class, 'user_id');
+    }
 
-	public function carts()
-	{
-		return $this->hasMany(Cart::class, 'user_id');
-	}
+    public function wish_lists()
+    {
+        return $this->hasMany(WishList::class, 'user_id');
+    }
 
-	public function help_contacts()
-	{
-		return $this->hasMany(HelpContact::class, 'user_id');
-	}
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
 
-	public function wish_lists()
-	{
-		return $this->hasMany(WishList::class, 'user_id');
-	}
+    public function blocked_group_participants()
+    {
+        return $this->hasMany(BlockedGroupParticipant::class, 'user_id');
+    }
 
-	public function orders()
-	{
-		return $this->hasMany(Order::class, 'user_id');
-	}
+    public function login_histories()
+    {
+        return $this->hasMany(LoginHistory::class, 'user_id');
+    }
 
-	public function blocked_group_participants()
-	{
-		return $this->hasMany(BlockedGroupParticipant::class, 'user_id');
-	}
+    public function activity_logs()
+    {
+        return $this->hasMany(ActivityLog::class, 'user_id');
+    }
 
-	public function login_histories()
-	{
-		return $this->hasMany(LoginHistory::class, 'user_id');
-	}
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id', 'user_id');
+    }
 
-	public function two_factor_auths()
-	{
-		return $this->hasMany(TwoFactorAuth::class, 'user_id');
-	}
+    public function report_users()
+    {
+        return $this->hasMany(ReportUser::class, 'user_id');
+    }
 
-	public function group_participants()
-	{
-		return $this->hasMany(GroupParticipant::class, 'user_id');
-	}
+    public function settings()
+    {
+        return $this->hasOne(Setting::class, 'user_id');
+    }
 
-	public function activity_logs()
-	{
-		return $this->hasMany(ActivityLog::class, 'user_id');
-	}
+    public function report_lives()
+    {
+        return $this->hasMany(ReportLive::class, 'user_id');
+    }
 
-	public function reset_password_requests()
-	{
-		return $this->hasMany(ResetPasswordRequest::class, 'user_id');
-	}
+    public function report_comments()
+    {
+        return $this->hasMany(ReportComment::class, 'user_id');
+    }
 
-	public function messages()
-	{
-		return $this->hasMany(Message::class, 'receiver_id', 'user_id');
-	}
+    public function two_factor_auths()
+    {
+        return $this->hasMany(TwoFactorAuth::class, 'user_id');
+    }
 
-	public function posts()
-	{
-		return $this->hasMany(Post::class, 'user_id');
-	}
+    public function reset_password_requests()
+    {
+        return $this->hasMany(ResetPasswordRequest::class, 'user_id');
+    }
 
-	public function post_comments()
-	{
-		return $this->hasMany(PostComment::class, 'user_id');
-	}
+    public function user_withdrawal_bank_accounts()
+    {
+        return $this->hasMany(UserWithdrawalBankAccount::class, 'user_id');
+    }
 
-	public function report_users()
-	{
-		return $this->hasMany(ReportUser::class, 'user_id');
-	}
+    public function withdrawal_request_codes()
+    {
+        return $this->hasMany(WithdrawalRequestCode::class, 'user_id');
+    }
+
+    public function withdrawal_requests()
+    {
+        return $this->hasMany(WithdrawalRequest::class, 'user_id');
+    }
 }

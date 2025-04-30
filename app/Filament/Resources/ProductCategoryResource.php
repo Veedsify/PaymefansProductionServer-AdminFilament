@@ -20,7 +20,7 @@ class ProductCategoryResource extends Resource
 {
     protected static ?string $model = ProductCategory::class;
 
-    protected static ?string $navigationIcon = "tabler-category-filled";
+    protected static ?string $navigationIcon = "heroicon-s-rectangle-group";
     protected static ?string $modelLabel = "Product Category";
     protected static ?string $navigationGroup = "Products";
 

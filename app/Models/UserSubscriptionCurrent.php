@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property int|null $userId
+ * @property Carbon $ends_at
  * 
  * @property User $user
  *
@@ -32,7 +33,8 @@ class UserSubscriptionCurrent extends Model
 	protected $casts = [
 		'user_id' => 'int',
 		'model_id' => 'int',
-		'userId' => 'int'
+		'userId' => 'int',
+		'ends_at' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -40,7 +42,8 @@ class UserSubscriptionCurrent extends Model
 		'user_id',
 		'model_id',
 		'subscription',
-		'userId'
+		'userId',
+		'ends_at'
 	];
 
 	public function user()

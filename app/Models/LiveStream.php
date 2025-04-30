@@ -26,10 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * 
  * @property User $user
- * @property Collection|LiveStreamComment[] $live_stream_comments
  * @property Collection|LiveStreamLike[] $live_stream_likes
  * @property Collection|LiveStreamView[] $live_stream_views
  * @property Collection|LiveStreamParticipant[] $live_stream_participants
+ * @property Collection|LiveStreamComment[] $live_stream_comments
  * @property Collection|ReportLive[] $report_lives
  *
  * @package App\Models
@@ -58,11 +58,6 @@ class LiveStream extends Model
 		return $this->belongsTo(User::class, 'user_id', 'user_id');
 	}
 
-	public function live_stream_comments()
-	{
-		return $this->hasMany(LiveStreamComment::class, 'live_id');
-	}
-
 	public function live_stream_likes()
 	{
 		return $this->hasMany(LiveStreamLike::class, 'live_id');
@@ -76,6 +71,11 @@ class LiveStream extends Model
 	public function live_stream_participants()
 	{
 		return $this->hasMany(LiveStreamParticipant::class, 'liveStreamId');
+	}
+
+	public function live_stream_comments()
+	{
+		return $this->hasMany(LiveStreamComment::class, 'live_id');
 	}
 
 	public function report_lives()

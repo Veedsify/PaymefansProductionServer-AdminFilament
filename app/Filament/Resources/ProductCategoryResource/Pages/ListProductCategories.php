@@ -14,7 +14,7 @@ class ListProductCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-                ->icon('tabler-category-filled')
+                ->icon('heroicon-s-tag')
                 ->label('Add Category'),
         ];
     }

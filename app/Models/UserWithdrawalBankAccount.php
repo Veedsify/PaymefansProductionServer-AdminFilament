@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $bank_country
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $bank_type
  * 
  * @property User $user
  *
@@ -42,7 +43,8 @@ class UserWithdrawalBankAccount extends Model
 		'account_name',
 		'account_number',
 		'routing_number',
-		'bank_country'
+		'bank_country',
+		'bank_type'
 	];
 
 	public function user()

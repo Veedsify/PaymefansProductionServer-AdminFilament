@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $bank_country
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $bank_type
  * 
  * @property User $user
  *
@@ -44,7 +45,8 @@ class UserBank extends Model
 		'account_number',
 		'routing_number',
 		'swift_code',
-		'bank_country'
+		'bank_country',
+		'bank_type'
 	];
 
 	public function user()

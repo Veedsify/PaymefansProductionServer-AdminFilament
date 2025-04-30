@@ -19,7 +19,7 @@ class HelpCategoryResource extends Resource
 {
     protected static ?string $model = HelpCategory::class;
 
-    protected static ?string $navigationIcon = 'tabler-help';
+    protected static ?string $navigationIcon = 'heroicon-s-question-mark-circle';
     protected static ?string $navigationGroup = 'Help & Support';
     protected static ?int $navigationSort = 2;
 

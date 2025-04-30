@@ -19,7 +19,7 @@
 
         <!-- Form -->
         <div class="mt-8 bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-            <form wire:submit="login" class="space-y-6">
+            <form wire:submit.prevent="login" class="space-y-6">
                 <!-- Email -->
                 <div>
                     @error('error')

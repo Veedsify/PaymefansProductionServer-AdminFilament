@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property string|null $content
  * @property string|null $media
- * @property float|null $post_price
  * @property USER-DEFINED $post_status
  * @property USER-DEFINED $post_audience
  * @property bool $post_is_visible
@@ -31,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $post_impressions
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property float|null $post_price
  * 
  * @property User $user
  * @property Collection|UserMedia[] $user_media
@@ -48,14 +48,14 @@ class Post extends Model
 		'was_repost' => 'bool',
 		'user_id' => 'int',
 		'media' => 'binary',
-		'post_price' => 'float',
 		'post_status' => 'USER-DEFINED',
 		'post_audience' => 'USER-DEFINED',
 		'post_is_visible' => 'bool',
 		'post_likes' => 'int',
 		'post_comments' => 'int',
 		'post_reposts' => 'int',
-		'post_impressions' => 'int'
+		'post_impressions' => 'int',
+		'post_price' => 'float'
 	];
 
 	protected $fillable = [
@@ -66,14 +66,14 @@ class Post extends Model
 		'user_id',
 		'content',
 		'media',
-		'post_price',
 		'post_status',
 		'post_audience',
 		'post_is_visible',
 		'post_likes',
 		'post_comments',
 		'post_reposts',
-		'post_impressions'
+		'post_impressions',
+		'post_price'
 	];
 
 	public function user()
@@ -96,6 +96,11 @@ class Post extends Model
 		return $this->hasMany(PostImpression::class, 'post_id');
 	}
 
+	public function post_comments()
+	{
+		return $this->hasMany(PostComment::class, 'post_id');
+	}
+
 	public function post_likes()
 	{
 		return $this->hasMany(PostLike::class, 'post_id');
@@ -109,10 +114,5 @@ class Post extends Model
 	public function report_posts()
 	{
 		return $this->hasMany(ReportPost::class, 'post_id');
-	}
-
-	public function post_comments()
-	{
-		return $this->hasMany(PostComment::class, 'post_id');
 	}
 }

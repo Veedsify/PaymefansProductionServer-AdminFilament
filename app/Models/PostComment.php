@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property User $user
  * @property Post $post
- * @property Collection|PostCommentLike[] $post_comment_likes
  * @property Collection|PostCommentAttachment[] $post_comment_attachments
+ * @property Collection|PostCommentLike[] $post_comment_likes
  * @property Collection|ReportComment[] $report_comments
  *
  * @package App\Models
@@ -63,14 +63,14 @@ class PostComment extends Model
 		return $this->hasMany(CommentImpression::class, 'comment_id');
 	}
 
-	public function post_comment_likes()
-	{
-		return $this->hasMany(PostCommentLike::class, 'comment_id');
-	}
-
 	public function post_comment_attachments()
 	{
 		return $this->hasMany(PostCommentAttachment::class, 'comment_id');
+	}
+
+	public function post_comment_likes()
+	{
+		return $this->hasMany(PostCommentLike::class, 'comment_id');
 	}
 
 	public function report_comments()

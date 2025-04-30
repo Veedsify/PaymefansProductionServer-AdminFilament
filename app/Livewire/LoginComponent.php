@@ -39,77 +39,78 @@ class LoginComponent extends Component
 
             $endpoint = $server . '/api/auth/login';
 
-            $data = [
+            $credentials = [
                 'email' => $this->email,
                 'password' => $this->password
             ];
 
-            $response = Http::asForm()->post($endpoint, $data);
+            $response = Http::asForm()->post($endpoint, $credentials);
 
-            $data = $response->json();
-
-            // Debug the response from the API
             if (!$response->successful()) {
                 return [
-                    'error' => 'API call failed: ' . $response->status(),
+                    'error' => 'API call failed with status ' . $response->status(),
                     'status' => false
                 ];
             }
 
-            if (isset($data['token'])) {
+            $responseData = $response->json();
 
-                $user = User::where('email', $this->email)->first();
-
-                if (!$user) {
-                    return [
-                        'error' => 'User not found.',
-                        'status' => false
-                    ];
-                }
-
-                if ($user->role != 'admin') {
-                    return [
-                        'error' => 'You are not an admin.',
-                        'status' => false
-                    ];
-                }
-
-                Auth::login($user);
-
+            if (!isset($responseData['token'])) {
                 return [
-                    'status' => true,
-                    'token' => $data['token']
-                ];
-            }else{
-                return [
-                    'error' => 'Invalid Email Or Password',
+                    'error' => 'Invalid email or password.',
                     'status' => false
                 ];
             }
+
+            $user = User::where('email', $this->email)->first();
+
+            if (!$user) {
+                return [
+                    'error' => 'User not found in local database.',
+                    'status' => false
+                ];
+            }
+
+            if ($user->role !== 'admin') {
+                return [
+                    'error' => 'You are not authorized as an admin.',
+                    'status' => false
+                ];
+            }
+
+            // Store the token in the session
+            session(['token' => $responseData['token']]);
+            Auth::login($user);
+
+            return [
+                'status' => true,
+                'token' => $responseData['token']
+            ];
         } catch (\Exception $e) {
             return [
-                'error' => $e->getMessage(),
+                'error' => 'Exception: ' . $e->getMessage(),
                 'status' => false
             ];
         }
     }
+
     public function login()
     {
         $this->validate();
 
         try {
-
             $response = $this->loginUser();
 
-            if (isset($response['status']) && $response['status'] == false) {
-                $this->addError('error', $response['error']);
+            if (!isset($response['status']) || $response['status'] === false) {
+                $this->addError('error', $response['error'] ?? 'Login failed.');
                 $this->reset('password');
-                return;
-            } else {
-                return $this->redirect('/admin');
+                return redirect('/login');
             }
+
+            return redirect('/admin');
         } catch (\Exception $e) {
             $this->addError('error', 'Something went wrong. Please try again.');
+            return redirect('/login');
         }
     }
 
