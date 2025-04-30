@@ -10,7 +10,7 @@ use Filament\Resources\Pages\Page;
 
 class UserDetail extends Page
 {
-    public $activeTab = 'activity';
+    public $activeTab = 'posts';
     public $user;
     public $record;
     public $postCount = 0;

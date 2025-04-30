@@ -199,7 +199,7 @@
                         </div>
 
                         {{-- Post Contents --}}
-
+                        @livewire('user.user-recent-posts-details', ['userId' => $user->id])
                         <div class="mt-6 flex justify-center">
                             <button class="px-4 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition">
                                 View All Posts

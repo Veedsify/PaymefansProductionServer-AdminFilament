@@ -47,10 +47,6 @@ class Post extends Model
 	protected $casts = [
 		'was_repost' => 'bool',
 		'user_id' => 'int',
-		'media' => 'binary',
-		'post_status' => 'USER-DEFINED',
-		'post_audience' => 'USER-DEFINED',
-		'post_is_visible' => 'bool',
 		'post_likes' => 'int',
 		'post_comments' => 'int',
 		'post_reposts' => 'int',
