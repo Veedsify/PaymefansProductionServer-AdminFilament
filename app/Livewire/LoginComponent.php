@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class LoginComponent extends Component
 {
@@ -55,7 +56,7 @@ class LoginComponent extends Component
 
             $responseData = $response->json();
 
-            if (!isset($responseData['token'])) {
+            if (isset($responseData) && empty($responseData['token'])) {
                 return [
                     'error' => 'Invalid email or password.',
                     'status' => false
@@ -79,8 +80,8 @@ class LoginComponent extends Component
             }
 
             // Store the token in the session
+            auth()->login($user);
             session(['token' => $responseData['token']]);
-            Auth::login($user);
 
             return [
                 'status' => true,
@@ -97,20 +98,23 @@ class LoginComponent extends Component
     public function login()
     {
         $this->validate();
-
         try {
             $response = $this->loginUser();
+            Log::info('Login response: ', $response);
 
-            if (!isset($response['status']) || $response['status'] === false) {
+            // Properly check for login success and token presence
+            if (!isset($response['status']) || $response['status'] !== true || empty($response['token'])) {
                 $this->addError('error', $response['error'] ?? 'Login failed.');
                 $this->reset('password');
-                return redirect('/login');
+                return $this->redirect('/login');
             }
 
-            return redirect('/admin');
+            return $this->redirect('/admin');
         } catch (\Exception $e) {
-            $this->addError('error', 'Something went wrong. Please try again.');
-            return redirect('/login');
+            Log::error('Login error: ' . $e->getMessage());
+            $this->addError('error', 'An unexpected error occurred. Please try again.');
+            $this->reset('password');
+            return $this->redirect('/login');
         }
     }
 

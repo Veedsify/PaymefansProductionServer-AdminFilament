@@ -39,15 +39,13 @@ class OuterPageResource extends Resource
                         Components\TextInput::make('page_id')
                             ->required()
                             ->maxLength(255)
-                            ->unique()
                             ->readOnly()
                             ->default(fn() => (string) Str::uuid())
                             ->label('Page ID'),
                         Components\TextInput::make('slug')
                             ->required()
                             ->label('Slug')
-                            ->reactive()
-                            ->unique(),
+                            ->reactive(),
                         Components\RichEditor::make('content')
                             ->columnSpanFull()
                             ->required()

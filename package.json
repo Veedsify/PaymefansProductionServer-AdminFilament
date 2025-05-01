@@ -20,6 +20,7 @@
     "dependencies": {
         "@types/react": "^19.0.1",
         "@types/react-dom": "^19.0.2",
+        "caniuse-lite": "^1.0.30001716",
         "dotenv": "^16.4.7",
         "laravel-echo": "^1.17.1",
         "react": "^19.0.0",
