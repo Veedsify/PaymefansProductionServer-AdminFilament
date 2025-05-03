@@ -1,36 +1,35 @@
 <?php
-
-use Livewire\Volt\Component;
-use Livewire\Volt\Layout;
+use function Livewire\Volt\{layout, with, state, usesPagination, mount};
 use App\Models\Post;
-use Livewire\WithPagination;
 
-new
-#[Layout('layouts.user')]
-class extends Component {
-    use WithPagination;
-    public $posts;
-    public function mount($userId)
-    {
-        // Initialization code here
-         $this->posts = Post::where('user_id', $userId)->latest()->paginate(10);
-    }
-}
+state(["userId"]);
+usesPagination();
+layout('layouts.user');
+mount(function ($userId) {
+    $this->userId = $userId;
+});
+// Fetch posts for the user
+with(fn () => ['posts' => Post::where('user_id', $this->userId)
+    ->orderBy('created_at', 'desc')
+    ->paginate(1)]);
+
 ?>
 
 <div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        @if(isset($posts) && count($posts) > 0)
         @foreach($posts as $post)
         <div class="bg-white rounded-lg shadow p-4">
             <!-- Post Image -->
-            @if($post->user_media->count() > 0)
+            @if(isset($post->user_media) && count($post->user_media) > 0)
             <div class="aspect-w-16 aspect-h-9 mb-4 grid grid-cols-2 gap-2">
                 @foreach($post->user_media as $media)
                 @if($loop->index > 3)
                 @break
                 @endif
                 @if($media->media_type == 'video')
-                <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" poster="{{ $media->poster }}" data-setup='{
+                <video id="my-video" class="video-js vjs-default-skin" controls preload="auto"
+                    poster="{{ $media->poster }}" data-setup='{
                         "controlBar": {
                             "playToggle": true,
                             "volumePanel": { "inline": false },
@@ -79,8 +78,15 @@ class extends Component {
         <!-- Pagination -->
         <div class="col-span-1 md:col-span-2 lg:col-span-4">
             <div class="flex justify-center mt-4">
-                {{ $posts->links() }}
+                {{ $posts->links("vendor.livewire.simple-tailwind") }}
             </div>
         </div>
+        @else
+        <div class="col-span-1 md:col-span-2 lg:col-span-4">
+            <div class="p-4 text-center">
+                <p class="text-gray-500">No posts found.</p>
+            </div>
+        </div>
+        @endif
     </div>
 </div>

@@ -4,8 +4,7 @@
         <div class="p-6 bg-white rounded-xl shadow-sm border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white">User Profile</h2>
-                <x-filament::button size="sm" icon="heroicon-o-pencil" tag="a"
-                    href="{{ $this->editProfileLink }}">
+                <x-filament::button size="sm" icon="heroicon-o-pencil" tag="a" href="{{ $this->editProfileLink }}">
                     Edit Profile
                 </x-filament::button>
             </div>
@@ -40,56 +39,56 @@
             </div>
         </div>
 
-                 <!-- Quick Stats -->
-                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-8">
-                  <div
-                      class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                      <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
-                          @svg('heroicon-o-document-text', 'w-6 h-6 text-indigo-600 dark:text-indigo-400')
-                      </div>
-                      <div class="ml-4">
-                          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Posts</h3>
-                          <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ $totalPosts ?? 0 }}
-                          </p>
-                      </div>
-                  </div>
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-8">
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
+                <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full">
+                    @svg('heroicon-o-document-text', 'w-6 h-6 text-indigo-600 dark:text-indigo-400')
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Posts</h3>
+                    <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ $totalPosts ?? 0 }}
+                    </p>
+                </div>
+            </div>
 
-                  <div
-                      class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                      <div class="bg-amber-100 dark:bg-amber-900 p-3 rounded-full">
-                          @svg('heroicon-o-clipboard-document-list', 'w-6 h-6 text-amber-600 dark:text-amber-400')
-                      </div>
-                      <div class="ml-4">
-                          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Comments</h3>
-                          <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ $totalComments ?? 0 }}
-                          </p>
-                      </div>
-                  </div>
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
+                <div class="bg-amber-100 dark:bg-amber-900 p-3 rounded-full">
+                    @svg('heroicon-o-clipboard-document-list', 'w-6 h-6 text-amber-600 dark:text-amber-400')
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Comments</h3>
+                    <p class="text-xl font-semibold text-gray-900 dark:text-white">{{ $totalComments ?? 0 }}
+                    </p>
+                </div>
+            </div>
 
-                  <div
-                      class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                      <div class="bg-emerald-100 dark:bg-emerald-900 p-3 rounded-full">
-                          @svg('heroicon-o-currency-dollar', 'w-6 h-6 text-emerald-600 dark:text-emerald-400')
-                      </div>
-                      <div class="ml-4">
-                          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Revenue</h3>
-                          <p class="text-xl font-semibold text-gray-900 dark:text-white">
-                              {{ $totalRevenue ?? '$0.00' }}</p>
-                      </div>
-                  </div>
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
+                <div class="bg-emerald-100 dark:bg-emerald-900 p-3 rounded-full">
+                    @svg('heroicon-o-currency-dollar', 'w-6 h-6 text-emerald-600 dark:text-emerald-400')
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Revenue</h3>
+                    <p class="text-xl font-semibold text-gray-900 dark:text-white">
+                        {{ $totalRevenue ?? '$0.00' }}</p>
+                </div>
+            </div>
 
-                  <div
-                      class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
-                      <div class="bg-rose-100 dark:bg-rose-900 p-3 rounded-full">
-                          @svg('heroicon-o-user-group', 'w-6 h-6 text-rose-600 dark:text-rose-400')
-                      </div>
-                      <div class="ml-4">
-                          <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Followers</h3>
-                          <p class="text-xl font-semibold text-gray-900 dark:text-white">
-                              {{ $totalFollowers ?? 0 }}</p>
-                      </div>
-                  </div>
-              </div>
+            <div
+                class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center">
+                <div class="bg-rose-100 dark:bg-rose-900 p-3 rounded-full">
+                    @svg('heroicon-o-user-group', 'w-6 h-6 text-rose-600 dark:text-rose-400')
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Followers</h3>
+                    <p class="text-xl font-semibold text-gray-900 dark:text-white">
+                        {{ $totalFollowers ?? 0 }}</p>
+                </div>
+            </div>
+        </div>
 
         <!-- Actions Tabs -->
         <div x-data="{ activeTab: 'account' }" x-cloak
@@ -137,18 +136,19 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @foreach ($actions as $action)
-                            <a href="{{ $action['route'] }}"
-                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                <div
-                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                </div>
-                                <div class="ml-4">
-                                    <h3
-                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                        {{ $action['label'] }}</h3>
-                                </div>
-                            </a>
+                        <a href="{{ $action['route'] }}"
+                            class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                            <div
+                                class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                $action['color'] . '-400')
+                            </div>
+                            <div class="ml-4">
+                                <h3
+                                    class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                    {{ $action['label'] }}</h3>
+                            </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
@@ -158,18 +158,19 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @foreach ($subscriptionActions as $action)
-                            <a href="{{ $action['route'] }}"
-                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                <div
-                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                </div>
-                                <div class="ml-4">
-                                    <h3
-                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                        {{ $action['label'] }}</h3>
-                                </div>
-                            </a>
+                        <a href="{{ $action['route'] }}"
+                            class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                            <div
+                                class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                $action['color'] . '-400')
+                            </div>
+                            <div class="ml-4">
+                                <h3
+                                    class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                    {{ $action['label'] }}</h3>
+                            </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
@@ -179,18 +180,19 @@
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         @foreach ($transactionActions as $action)
-                            <a href="{{ $action['route'] }}"
-                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                <div
-                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                </div>
-                                <div class="ml-4">
-                                    <h3
-                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                        {{ $action['label'] }}</h3>
-                                </div>
-                            </a>
+                        <a href="{{ $action['route'] }}"
+                            class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                            <div
+                                class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                $action['color'] . '-400')
+                            </div>
+                            <div class="ml-4">
+                                <h3
+                                    class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                    {{ $action['label'] }}</h3>
+                            </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
@@ -221,54 +223,57 @@
                         <!-- Posts Section -->
                         <div x-show="contentSection === 'posts'" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             @foreach ($postActions as $action)
-                                <a href="{{ $action['route'] }}"
-                                    class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                    <div
-                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                        @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3
-                                            class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                            {{ $action['label'] }}</h3>
-                                    </div>
-                                </a>
+                            <a href="{{ $action['route'] }}"
+                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                <div
+                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                    $action['color'] . '-400')
+                                </div>
+                                <div class="ml-4">
+                                    <h3
+                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                        {{ $action['label'] }}</h3>
+                                </div>
+                            </a>
                             @endforeach
                         </div>
 
                         <!-- Comments Section -->
                         <div x-show="contentSection === 'comments'" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             @foreach ($commentActions as $action)
-                                <a href="{{ $action['route'] }}"
-                                    class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                    <div
-                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                        @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3
-                                            class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                            {{ $action['label'] }}</h3>
-                                    </div>
-                                </a>
+                            <a href="{{ $action['route'] }}"
+                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                <div
+                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                    $action['color'] . '-400')
+                                </div>
+                                <div class="ml-4">
+                                    <h3
+                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                        {{ $action['label'] }}</h3>
+                                </div>
+                            </a>
                             @endforeach
                         </div>
 
                         <!-- Messages Section -->
                         <div x-show="contentSection === 'messages'" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             @foreach ($messageActions as $action)
-                                <a href="{{ $action['route'] }}"
-                                    class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                    <div
-                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                        @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3
-                                            class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                            {{ $action['label'] }}</h3>
-                                    </div>
-                                </a>
+                            <a href="{{ $action['route'] }}"
+                                class="group flex items-center p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                <div
+                                    class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-3 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                    @svg($action['icon'], 'w-6 h-6 text-' . $action['color'] . '-600 dark:text-' .
+                                    $action['color'] . '-400')
+                                </div>
+                                <div class="ml-4">
+                                    <h3
+                                        class="text-base font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                        {{ $action['label'] }}</h3>
+                                </div>
+                            </a>
                             @endforeach
                         </div>
                     </div>
@@ -285,18 +290,19 @@
                                 Reports ({{ count($reportActions) }})</h3>
                             <div class="grid grid-cols-1 gap-3">
                                 @foreach ($reportActions as $action)
-                                    <a href="{{ $action['route'] }}"
-                                        class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                        <div
-                                            class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                            @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                        </div>
-                                        <div class="ml-3">
-                                            <h3
-                                                class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                                {{ $action['label'] }}</h3>
-                                        </div>
-                                    </a>
+                                <a href="{{ $action['route'] }}"
+                                    class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                    <div
+                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                        @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' .
+                                        $action['color'] . '-400')
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3
+                                            class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                            {{ $action['label'] }}</h3>
+                                    </div>
+                                </a>
                                 @endforeach
                             </div>
                         </div>
@@ -308,18 +314,19 @@
                                 Notifications ({{ count($notificationActions) }})</h3>
                             <div class="grid grid-cols-1 gap-3">
                                 @foreach ($notificationActions as $action)
-                                    <a href="{{ $action['route'] }}"
-                                        class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                        <div
-                                            class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                            @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                        </div>
-                                        <div class="ml-3">
-                                            <h3
-                                                class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                                {{ $action['label'] }}</h3>
-                                        </div>
-                                    </a>
+                                <a href="{{ $action['route'] }}"
+                                    class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                    <div
+                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                        @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' .
+                                        $action['color'] . '-400')
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3
+                                            class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                            {{ $action['label'] }}</h3>
+                                    </div>
+                                </a>
                                 @endforeach
                             </div>
                         </div>
@@ -331,45 +338,47 @@
                                 Settings ({{ count($settingsActions) }})</h3>
                             <div class="grid grid-cols-1 gap-3">
                                 @foreach ($settingsActions as $action)
-                                    <a href="{{ $action['route'] }}"
-                                        class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                        <div
-                                            class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                            @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                        </div>
-                                        <div class="ml-3">
-                                            <h3
-                                                class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                                {{ $action['label'] }}</h3>
-                                        </div>
-                                    </a>
+                                <a href="{{ $action['route'] }}"
+                                    class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                    <div
+                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                        @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' .
+                                        $action['color'] . '-400')
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3
+                                            class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                            {{ $action['label'] }}</h3>
+                                    </div>
+                                </a>
                                 @endforeach
                             </div>
                         </div>
 
                         <!-- Model Section (conditional) -->
                         @if (count($modelActions) > 0 && $user->is_model)
-                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                                <h3
-                                    class="text-lg font-semibold text-gray-900 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2">
-                                    Model Features ({{ count($modelActions) }})</h3>
-                                <div class="grid grid-cols-1 gap-3">
-                                    @foreach ($modelActions as $action)
-                                        <a href="{{ $action['route'] }}"
-                                            class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
-                                            <div
-                                                class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
-                                                @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' . $action['color'] . '-400')
-                                            </div>
-                                            <div class="ml-3">
-                                                <h3
-                                                    class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
-                                                    {{ $action['label'] }}</h3>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
+                        <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <h3
+                                class="text-lg font-semibold text-gray-900 dark:text-white mb-3 border-b border-gray-200 dark:border-gray-700 pb-2">
+                                Model Features ({{ count($modelActions) }})</h3>
+                            <div class="grid grid-cols-1 gap-3">
+                                @foreach ($modelActions as $action)
+                                <a href="{{ $action['route'] }}"
+                                    class="group flex items-center p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-cyan-50 dark:hover:bg-gray-700 transition-colors">
+                                    <div
+                                        class="flex-shrink-0 bg-{{ $action['color'] }}-100 dark:bg-{{ $action['color'] }}-900 p-2 rounded-full group-hover:bg-{{ $action['color'] }}-200 dark:group-hover:bg-{{ $action['color'] }}-800 transition-colors">
+                                        @svg($action['icon'], 'w-5 h-5 text-' . $action['color'] . '-600 dark:text-' .
+                                        $action['color'] . '-400')
+                                    </div>
+                                    <div class="ml-3">
+                                        <h3
+                                            class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-{{ $action['color'] }}-600 dark:group-hover:text-{{ $action['color'] }}-400 transition-colors">
+                                            {{ $action['label'] }}</h3>
+                                    </div>
+                                </a>
+                                @endforeach
                             </div>
+                        </div>
                         @endif
                     </div>
                 </div>

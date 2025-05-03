@@ -2,11 +2,12 @@
 
 namespace App\Constants;
 
+use App\Filament\Resources\UserResource\Pages\SuspendUser;
 
 class Actions
 {
 
-      public function Actions()
+      public function Actions($userId)
       {
 
             return  [
@@ -14,7 +15,7 @@ class Actions
                         'label' => 'Suspend User',
                         'icon' => 'heroicon-o-no-symbol',
                         'color' => 'danger',
-                        'route' => 'users.suspend',
+                        'route' => SuspendUser::getUrl(["record" => $userId])
                   ],
                   [
                         'label' => 'Reset Password',

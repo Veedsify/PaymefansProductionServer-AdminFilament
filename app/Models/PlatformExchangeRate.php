@@ -33,6 +33,7 @@ class PlatformExchangeRate extends Model
 	protected $fillable = [
 		'name',
 		'rate',
-		'value'
+		'value',
+		'symbol'
 	];
 }

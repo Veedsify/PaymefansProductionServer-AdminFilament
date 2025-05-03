@@ -78,7 +78,16 @@
                     </a>
                     <button type="submit" wire:loading.attr="disabled"
                         class="px-7 flex items-center gap-2 py-2 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 rounded-lg shadow transition">
-                        <span>Next</span>
+                        <span wire:loading.remove>Next</span>
+                        <div wire:loading wire.target="login" class="flex items-center gap-2">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                            Signing in...
+                        </div>
                     </button>
                 </div>
             </form>

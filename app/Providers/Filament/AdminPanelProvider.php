@@ -32,11 +32,10 @@ class AdminPanelProvider extends PanelProvider
             ->font("Inter_Tight")
             ->globalSearchKeyBindings(["command+k", "ctrl+k"])
             ->colors([
-                "primary" => Color::Cyan,
+                "primary" => Color::Purple,
             ])
             ->plugins([GlobalSearchModalPlugin::make()])
             ->navigationItems([])
-            ->sidebarFullyCollapsibleOnDesktop()
             ->viteTheme("resources/css/filament/admin/theme.css")
             ->discoverResources(
                 in: app_path("Filament/Resources"),

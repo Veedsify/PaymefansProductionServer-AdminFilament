@@ -32,7 +32,6 @@ class Notification extends Model
 
 	protected $casts = [
 		'user_id' => 'int',
-		'action' => 'USER-DEFINED',
 		'read' => 'bool'
 	];
 

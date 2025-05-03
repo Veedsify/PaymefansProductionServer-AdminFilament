@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect(route('login'));
+    if (Auth::check()) {
+        return redirect("/admin");
+    }
+    return redirect()->route('login');
 });
 
-Route::get('/login', LoginComponent::class)->name('login')->middleware('guest');
+Route::get('/login', LoginComponent::class)->name('login');

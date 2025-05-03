@@ -145,6 +145,7 @@ class User extends Authenticatable
         'location',
         'website',
         'country',
+        'currency',
         'state',
         'city',
         'zip',

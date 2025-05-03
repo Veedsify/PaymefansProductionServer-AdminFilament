@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PlatformExchangeRateResource\Pages;
@@ -28,9 +29,14 @@ class PlatformExchangeRateResource extends Resource
                             ->unique()
                             ->label('Currency')
                             ->required(),
+                        Forms\Components\TextInput::make('symbol')
+                            ->unique()
+                            ->label('Symbol')
+                            ->required(),
                         Forms\Components\TextInput::make('rate')
                             ->label('Rate ($)')
                             ->required(),
+
                         Forms\Components\TextInput::make('value')
                             ->label('Value')
                             ->required(),
@@ -46,6 +52,10 @@ class PlatformExchangeRateResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Currency'),
+                Tables\Columns\TextColumn::make('symbol')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Symbol'),
                 Tables\Columns\TextColumn::make('rate')
                     ->searchable()
                     ->sortable()

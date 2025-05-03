@@ -26,11 +26,18 @@ class LoginComponent extends Component
         'password.min' => 'Password must be at least 8 characters'
     ];
 
+    public function mount()
+    {
+        Log::info('User is already authenticated, redirecting to admin.');
+        if (Auth::check()) {
+            return redirect('/admin');
+        }
+    }
+
     public function loginUser()
     {
         try {
             $server = env('BACKEND_URL');
-
             if (!$server) {
                 return [
                     'error' => 'BACKEND_URL is not defined in the .env file.',
@@ -39,32 +46,28 @@ class LoginComponent extends Component
             }
 
             $endpoint = $server . '/api/auth/login';
-
             $credentials = [
                 'email' => $this->email,
                 'password' => $this->password
             ];
 
             $response = Http::asForm()->post($endpoint, $credentials);
-
             if (!$response->successful()) {
                 return [
-                    'error' => 'API call failed with status ' . $response->status(),
+                    'error' => $response->json()['error'] ?? 'API call failed with status ' . $response->status(),
                     'status' => false
                 ];
             }
 
             $responseData = $response->json();
-
-            if (isset($responseData) && empty($responseData['token'])) {
+            if (empty($responseData['token'])) {
                 return [
-                    'error' => 'Invalid email or password.',
+                    'error' => $responseData['error'] ?? 'Invalid email or password.',
                     'status' => false
                 ];
             }
 
             $user = User::where('email', $this->email)->first();
-
             if (!$user) {
                 return [
                     'error' => 'User not found in local database.',
@@ -72,24 +75,29 @@ class LoginComponent extends Component
                 ];
             }
 
-            if ($user->role !== 'admin') {
+            if ($user->role !== 'admin') { // Consider making this configurable
                 return [
                     'error' => 'You are not authorized as an admin.',
                     'status' => false
                 ];
             }
 
-            // Store the token in the session
+            // Use Laravel's authentication system to store the token securely
             auth()->login($user);
-            session(['token' => $responseData['token']]);
+            session(['api_token' => $responseData['token']]); // Store token in DB if needed
 
             return [
                 'status' => true,
                 'token' => $responseData['token']
             ];
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            return [
+                'error' => 'API request failed: ' . $e->getMessage(),
+                'status' => false
+            ];
         } catch (\Exception $e) {
             return [
-                'error' => 'Exception: ' . $e->getMessage(),
+                'error' => 'Unexpected error: ' . $e->getMessage(),
                 'status' => false
             ];
         }
@@ -100,23 +108,22 @@ class LoginComponent extends Component
         $this->validate();
         try {
             $response = $this->loginUser();
-            Log::info('Login response: ', $response);
 
-            // Properly check for login success and token presence
             if (!isset($response['status']) || $response['status'] !== true || empty($response['token'])) {
                 $this->addError('error', $response['error'] ?? 'Login failed.');
                 $this->reset('password');
-                return $this->redirect('/login');
+                return;
             }
 
-            return $this->redirect('/admin');
+            $this->redirect('/admin');
         } catch (\Exception $e) {
             Log::error('Login error: ' . $e->getMessage());
             $this->addError('error', 'An unexpected error occurred. Please try again.');
             $this->reset('password');
-            return $this->redirect('/login');
         }
     }
+
+
 
     public function render()
     {

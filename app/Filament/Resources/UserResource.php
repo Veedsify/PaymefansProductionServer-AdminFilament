@@ -10,6 +10,7 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Models\PlatformExchangeRate;
 
 class UserResource extends Resource
 {
@@ -40,11 +41,6 @@ class UserResource extends Resource
                             ->required()
                             ->maxLength(191)
                             ->unique(ignoreRecord: true),
-                        Forms\Components\TextInput::make('password')
-                            ->password()
-                            ->dehydrated(fn($state) => filled($state))
-                            ->required(fn(string $context): bool => $context === 'create')
-                            ->maxLength(191),
                         Forms\Components\TextInput::make('username')
                             ->required()
                             ->maxLength(191)
@@ -80,6 +76,12 @@ class UserResource extends Resource
                                 ->label('Email Verified'),
                             Forms\Components\Toggle::make('is_phone_verified')
                                 ->label('Phone Verified'),
+                            Forms\Components\Select::make('currency')
+                                ->native(false)
+                                ->required()
+                                ->searchable()
+                                ->options(PlatformExchangeRate::all()->pluck('name', 'name'))
+                                ->label('Currency'),
                         ]),
                     ]),
 
@@ -87,10 +89,13 @@ class UserResource extends Resource
                     ->schema([
                         Forms\Components\Grid::make(2)->schema([
                             Forms\Components\Toggle::make('admin')
+                                ->helperText('This is the admin status of the user on the platform off means the user wont be able to access admin features')
                                 ->label('Admin User'),
-                            Forms\Components\Toggle::make('admin_status')
-                                ->label('Admin Status'),
+                            Forms\Components\Toggle::make('active_status')
+                                ->helperText('This is the status of the user on the platform off means the user is not able to login')
+                                ->label('Active Status'),
                             Forms\Components\Toggle::make('is_model')
+                                ->helperText('This is the model status of the user on the platform off means the user wont be able to access model features')
                                 ->label('Content Creator (Model)'),
                             Forms\Components\Select::make('role')
                                 ->native(false)
@@ -179,9 +184,10 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
             'view' => Pages\UserDetail::route('/{record}'),
             'actions' => Pages\ViewUserActions::route('/{record}/actions'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            "suspend-user" => Pages\SuspendUser::route('/{record}/suspend'),
         ];
     }
 }

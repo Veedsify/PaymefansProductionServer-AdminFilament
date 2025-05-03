@@ -27,7 +27,7 @@ class ViewUserActions extends Page
     {
         $this->record = $record;
         $this->user = UserResource::getModel()::find($record);
-        $this->actions = (new Actions())->Actions();
+        $this->actions = (new Actions())->Actions($record);
         $this->subscriptionActions = (new Actions())->SubscriptionActions();
         $this->transactionActions = (new Actions())->TransactionActions();
         $this->reportActions = (new Actions())->ReportActions();
