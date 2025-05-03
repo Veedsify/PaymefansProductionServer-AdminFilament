@@ -17,7 +17,6 @@ class PlatformExchangeRateResource extends Resource
     protected static ?string $navigationGroup = 'Points';
     protected static ?string $navigationLabel = 'Exchange Rates';
     protected static ?string $navigationIcon  = 'heroicon-s-currency-dollar';
-
     public static function form(Form $form): Form
     {
         return $form
@@ -36,14 +35,15 @@ class PlatformExchangeRateResource extends Resource
                         Forms\Components\TextInput::make('rate')
                             ->label('Rate ($)')
                             ->required(),
-
-                        Forms\Components\TextInput::make('value')
-                            ->label('Value')
+                        Forms\Components\TextInput::make('buyValue')
+                            ->label('Buy Value')
+                            ->required(),
+                        Forms\Components\TextInput::make('sellValue')
+                            ->label('Sell Value')
                             ->required(),
                     ]),
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -60,10 +60,14 @@ class PlatformExchangeRateResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Rate ($)'),
-                Tables\Columns\TextColumn::make('value')
+                Tables\Columns\TextColumn::make('buyValue')
                     ->searchable()
                     ->sortable()
-                    ->label('Value'),
+                    ->label('Buy Value'),
+                Tables\Columns\TextColumn::make('sellValue')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Sell Value'),
             ])
             ->filters([
                 //
@@ -77,14 +81,12 @@ class PlatformExchangeRateResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [

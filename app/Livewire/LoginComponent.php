@@ -28,7 +28,6 @@ class LoginComponent extends Component
 
     public function mount()
     {
-        Log::info('User is already authenticated, redirecting to admin.');
         if (Auth::check()) {
             return redirect('/admin');
         }
@@ -37,6 +36,11 @@ class LoginComponent extends Component
     public function loginUser()
     {
         try {
+
+            if (Auth::check()) {
+                return $this->redirect('/admin');
+            }
+
             $server = env('BACKEND_URL');
             if (!$server) {
                 return [
@@ -84,18 +88,20 @@ class LoginComponent extends Component
 
             // Use Laravel's authentication system to store the token securely
             auth()->login($user);
-            session(['api_token' => $responseData['token']]); // Store token in DB if needed
+            session(['token' => $responseData['token']]); // Store token in DB if needed
 
             return [
                 'status' => true,
                 'token' => $responseData['token']
             ];
         } catch (\Illuminate\Http\Client\RequestException $e) {
+            Log::error('API request failed: ' . $e->getMessage());
             return [
                 'error' => 'API request failed: ' . $e->getMessage(),
                 'status' => false
             ];
         } catch (\Exception $e) {
+            Log::error('Unexpected error: ' . $e->getMessage());
             return [
                 'error' => 'Unexpected error: ' . $e->getMessage(),
                 'status' => false

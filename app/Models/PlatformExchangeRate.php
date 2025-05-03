@@ -26,14 +26,14 @@ class PlatformExchangeRate extends Model
 
 	protected $casts = [
 		'name' => 'string',
-		'rate' => 'int',
 		'value' => 'float'
 	];
 
 	protected $fillable = [
 		'name',
 		'rate',
-		'value',
+		'buyValue',
+		'sellValue',
 		'symbol'
 	];
 }
