@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * Class User
@@ -121,6 +122,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public static function booted()
+    {
+        static::creating(function ($model) {
+            $model->password = bcrypt($model->password);
+            $model->user_id = Str::uuid();
+        });
+    }
 
     protected $fillable = [
         'email',

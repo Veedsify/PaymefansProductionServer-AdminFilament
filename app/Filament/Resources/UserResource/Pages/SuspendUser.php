@@ -44,5 +44,24 @@ class SuspendUser extends Page
                     ->send();
             });
     }
+
+    public function unSuspendUser(): Action
+    {
+        return Action::make('unSuspendUser')
+            ->label('Reactivate User')
+            ->color('success')
+            ->requiresConfirmation()
+            ->modalHeading('Reactivate User')
+            ->modalDescription('Are you sure you want to reactivate this user?')
+            ->modalSubmitActionLabel('Yes, Reactivate')
+            ->action(function () {
+                $user = User::find($this->userId);
+                $user->update(['active_status' => true]);
+                Notification::make("user-un-suspended")
+                    ->title('User Account Has Been Reactivated')
+                    ->success()
+                    ->send();
+            });
+    }
     protected static string $view = 'filament.resources.user-resource.pages.suspend-user';
 }
