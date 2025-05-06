@@ -41,6 +41,11 @@ class UserResource extends Resource
                             ->required()
                             ->maxLength(191)
                             ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('phone')
+                            ->tel()
+                            ->required()
+                            ->maxLength(191)
+                            ->unique(ignoreRecord: true),
                         Forms\Components\TextInput::make('username')
                             ->required()
                             ->maxLength(191)

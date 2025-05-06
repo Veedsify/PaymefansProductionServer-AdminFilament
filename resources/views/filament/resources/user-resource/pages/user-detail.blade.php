@@ -168,17 +168,21 @@
                             class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'posts' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
                             Posts
                         </button>
+                        <button wire:click="$set('activeTab', 'comments')"
+                            class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'comments' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            Comments
+                        </button>
                         <button wire:click="$set('activeTab', 'activity')"
                             class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'activity' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
                             Activity
                         </button>
                         <button wire:click="$set('activeTab', 'subscriptions')"
                             class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'subscriptions' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
-                            Subscriptions
+                            Active Subscriptions
                         </button>
-                        <button wire:click="$set('activeTab', 'purchases')"
-                            class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'purchases' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
-                            Purchases
+                        <button wire:click="$set('activeTab', 'subscriptionHistory')"
+                            class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'subscriptionHistory' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            Subscription History
                         </button>
                         <button wire:click="$set('activeTab', 'notifications')"
                             class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm {{ $activeTab === 'notifications' ? 'border-cyan-500 text-cyan-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
@@ -201,6 +205,14 @@
                         {{-- Post Contents --}}
                         @livewire('user.user-recent-posts-details', ['userId' => $this->user->id])
                     </div>
+                    <div x-show="$wire.activeTab === 'comments'">
+                        <div class="border-b border-gray-100 pb-2 mb-4">
+                            <h3 class="text-lg font-medium text-gray-900">Recent Comments</h3>
+                        </div>
+
+                        {{-- Comments Contents --}}
+                        @livewire('user.user-comments-details', ['userId' => $this->user->id])
+                    </div>
 
                     <!-- Activity Tab -->
                     <div x-show="$wire.activeTab === 'activity'">
@@ -208,64 +220,7 @@
                             <h3 class="text-lg font-medium text-gray-900">Recent Activity</h3>
                         </div>
 
-                        <div class="space-y-6">
-                            <!-- Activity Item -->
-                            <div class="flex">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div
-                                        class="h-10 w-10 rounded-full bg-cyan-100 flex items-center justify-center text-cyan-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-600">Logged in from a new device in <span
-                                            class="font-medium text-gray-900">New York, USA</span></p>
-                                    <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
-                                </div>
-                            </div>
-
-                            <!-- Activity Item -->
-                            <div class="flex">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div
-                                        class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-600">Made a purchase of <span
-                                            class="font-medium text-gray-900">Premium Annual Plan</span> for <span
-                                            class="font-medium text-gray-900">$99.00</span></p>
-                                    <p class="text-xs text-gray-500 mt-1">Yesterday at 11:23 AM</p>
-                                </div>
-                            </div>
-
-                            <!-- Activity Item -->
-                            <div class="flex">
-                                <div class="flex-shrink-0 mr-4">
-                                    <div
-                                        class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-600">Updated profile information</p>
-                                    <p class="text-xs text-gray-500 mt-1">3 days ago</p>
-                                </div>
-                            </div>
-                        </div>
+                        @livewire('user.user-activities-details', ['userId' => $this->user->id])
 
                         <div class="mt-6 text-center">
                             <button class="text-sm text-cyan-600 hover:text-cyan-800 font-medium">
@@ -282,182 +237,16 @@
                                 Add Subscription
                             </button>
                         </div>
-
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Plan
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Status
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Start Date
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            End Date
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Price
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            Premium
-                                            Annual
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jan 15, 2023</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jan 15, 2024</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$99.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-cyan-600 hover:text-cyan-900 mr-2">Edit</button>
-                                            <button class="text-red-600 hover:text-red-900">Cancel</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Basic
-                                            Monthly
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Expired</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Mar 10, 2022</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jan 10, 2023</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$9.99/mo</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-cyan-600 hover:text-cyan-900 mr-2">View</button>
-                                            <button class="text-green-600 hover:text-green-900">Renew</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        @livewire('user.user-active-subscriptions-details', ['userId' => $this->user->id])
                     </div>
 
                     <!-- Purchases Tab -->
-                    <div x-show="$wire.activeTab === 'purchases'">
+                    <div x-show="$wire.activeTab === 'subscriptionHistory'">
                         <div class="border-b border-gray-100 pb-2 mb-4">
-                            <h3 class="text-lg font-medium text-gray-900">Purchase History</h3>
+                            <h3 class="text-lg font-medium text-gray-900">Subscription History</h3>
                         </div>
 
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Order ID
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Item
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Date
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Amount
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Status
-                                        </th>
-                                        <th scope="col"
-                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Actions
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#ORD-2938</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            Premium
-                                            Annual
-                                            Plan
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Jan 15, 2023</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$99.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-cyan-600 hover:text-cyan-900">View Receipt</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#ORD-1826</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            Digital
-                                            Marketing eBook
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Nov 22, 2022</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$24.95</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Completed</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-cyan-600 hover:text-cyan-900">View Receipt</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#ORD-1053</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            Premium
-                                            Course
-                                            Bundle
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Aug 4, 2022</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$149.00</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Refunded</span>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button class="text-cyan-600 hover:text-cyan-900">View Details</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="mt-6 flex justify-between items-center">
-                            <div class="text-sm text-gray-500">
-                                Showing 3 of 24 purchases
-                            </div>
-                            <div class="flex space-x-2">
-                                <button
-                                    class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
-                                    Previous
-                                </button>
-                                <button
-                                    class="px-3 py-1 bg-cyan-600 border border-cyan-600 rounded-md text-sm font-medium text-white hover:bg-cyan-700">
-                                    Next
-                                </button>
-                            </div>
-                        </div>
+                        @livewire('user.user-subscription-history-details', ['userId' => $this->user->id])
                     </div>
 
                     <!-- Notifications Tab -->
@@ -470,58 +259,7 @@
                         <div class="border-b border-gray-100 pb-2 mb-4">
                             <h3 class="text-lg font-medium text-gray-900">Support Tickets</h3>
                         </div>
-
-                        <div class="space-y-6">
-                            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-sm font-medium text-gray-900">Billing Issue - Premium Plan</h4>
-                                        <p class="mt-1 text-xs text-gray-500">Ticket #5329 • Opened on May 15, 2023</p>
-                                    </div>
-                                    <span
-                                        class="px-2 h-6 flex items-center text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">In
-                                        Progress</span>
-                                </div>
-                                <p class="mt-3 text-sm text-gray-600 line-clamp-2">
-                                    I was charged twice for my premium plan subscription this month. Can you please
-                                    check my
-                                    account and issue a refund for the duplicate charge?
-                                </p>
-                                <div class="mt-4 flex justify-end">
-                                    <button class="text-sm text-cyan-600 hover:text-cyan-800 font-medium">
-                                        View Details
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                                <div class="flex justify-between">
-                                    <div>
-                                        <h4 class="text-sm font-medium text-gray-900">Feature Request - Dark Mode</h4>
-                                        <p class="mt-1 text-xs text-gray-500">Ticket #4873 • Opened on April 22,
-                                            2023</p>
-                                    </div>
-                                    <span
-                                        class="px-2 h-6 flex items-center text-xs font-semibold rounded-full bg-green-100 text-green-800">Resolved</span>
-                                </div>
-                                <p class="mt-3 text-sm text-gray-600 line-clamp-2">
-                                    Would it be possible to add a dark mode option to the dashboard? It would be much
-                                    easier
-                                    on the eyes when working late at night.
-                                </p>
-                                <div class="mt-4 flex justify-end">
-                                    <button class="text-sm text-cyan-600 hover:text-cyan-800 font-medium">
-                                        View Details
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex justify-center">
-                            <button class="px-4 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 transition">
-                                Create New Ticket
-                            </button>
-                        </div>
+                        @livewire("user.user-support-tickets-details",['userId' => $this->user->id])
                     </div>
                 </div>
             </div>
