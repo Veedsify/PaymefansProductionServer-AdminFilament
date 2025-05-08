@@ -38,8 +38,8 @@ class ProductSize extends Model
 		return $this->hasMany(Cart::class, 'size_id');
 	}
 
-	public function product_size_pivots()
+	public function products()
 	{
-		return $this->hasMany(ProductSizePivot::class, 'size_id');
+		return $this->belongsToMany(Product::class, 'ProductSizePivot', 'size_id', 'product_id')->withTimestamps();
 	}
 }

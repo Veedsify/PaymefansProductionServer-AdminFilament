@@ -17,7 +17,7 @@ class ListWithdrawalRequests extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->label('Create Withdrawal Request')
-                ->icon('heroicon-o-plus'),
+                ->icon('heroicon-s-plus'),
         ];
     }
 
@@ -25,19 +25,19 @@ class ListWithdrawalRequests extends ListRecords
     {
         return [
             Tab::make('Pending')
-                ->icon('heroicon-o-clock')
+                ->icon('heroicon-s-clock')
                 ->badgeColor('primary')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'pending')),
             Tab::make('Processing')
-                ->icon('heroicon-o-clock')
+                ->icon('heroicon-s-clock')
                 ->badgeColor('warning')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'processing')),
             Tab::make('Completed')
-                ->icon('heroicon-o-check-circle')
+                ->icon('heroicon-s-check-circle')
                 ->badgeColor('success')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'completed')),
             Tab::make('Rejected')
-                ->icon('heroicon-o-x-circle')
+                ->icon('heroicon-s-x-circle')
                 ->badgeColor('danger')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'rejected')),
         ];

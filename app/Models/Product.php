@@ -65,8 +65,8 @@ class Product extends Model
 	public function orders()
 	{
 		return $this->belongsToMany(Order::class, 'OrderProduct')
-					->withPivot('id', 'quantity', 'status')
-					->withTimestamps();
+			->withPivot('id', 'quantity', 'status')
+			->withTimestamps();
 	}
 
 	public function wish_lists()
@@ -79,8 +79,9 @@ class Product extends Model
 		return $this->hasMany(ProductImage::class, 'product_id');
 	}
 
-	public function product_size_pivots()
+	public function sizes()
 	{
-		return $this->hasMany(ProductSizePivot::class, 'product_id');
+		return $this->belongsToMany(ProductSize::class, 'ProductSizePivot', 'product_id', 'size_id')
+			->withTimestamps();
 	}
 }

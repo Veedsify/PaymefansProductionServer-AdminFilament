@@ -20,7 +20,7 @@ class SendCustomEmail extends Page implements HasForms, HasInfolists
 {
     use InteractsWithForms;
     use InteractsWithInfolists;
-    protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationIcon = 'heroicon-s-envelope';
     protected static ?string $navigationGroup = 'Email';
     protected static ?string $navigationLabel = 'Send Custom Email';
     public $data = [];

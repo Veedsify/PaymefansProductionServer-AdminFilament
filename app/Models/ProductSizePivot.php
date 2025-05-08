@@ -32,18 +32,9 @@ class ProductSizePivot extends Model
 		'size_id' => 'int'
 	];
 
-	protected $fillable = [
-		'product_id',
-		'size_id'
-	];
+	// Enable timestamps for the pivot table
+	public $timestamps = true;
 
-	public function product()
-	{
-		return $this->belongsTo(Product::class, 'product_id');
-	}
-
-	public function product_size()
-	{
-		return $this->belongsTo(ProductSize::class, 'size_id');
-	}
+	// Define fillable attributes if needed
+	protected $fillable = ['product_id', 'size_id', 'created_at', 'updated_at'];
 }

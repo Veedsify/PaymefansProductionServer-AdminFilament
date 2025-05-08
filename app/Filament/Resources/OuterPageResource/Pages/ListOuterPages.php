@@ -15,7 +15,7 @@ class ListOuterPages extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->label('New Page')
-                ->icon('heroicon-o-plus'),
+                ->icon('heroicon-s-plus'),
         ];
     }
 }

@@ -14,7 +14,7 @@ class BatchProcessLogResource extends Resource
 {
     protected static ?string $model           = BatchProcessLog::class;
     protected static ?string $navigationGroup = 'System';
-    protected static ?string $navigationIcon  = 'heroicon-o-queue-list';
+    protected static ?string $navigationIcon  = 'heroicon-s-queue-list';
 
     public static function infolist(Infolist $infolist): Infolist
     {

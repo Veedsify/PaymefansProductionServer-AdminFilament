@@ -6,6 +6,7 @@ use App\Filament\Resources\ProductResource;
 use App\Models\ProductCategory;
 use App\Models\ProductSize;
 use App\Models\Product as ProductModel;
+use Exception;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Illuminate\Contracts\View\View;
@@ -113,50 +114,87 @@ class Product extends Page
     private function uploadImages(): array
     {
         $uploadedFileUrls = [];
+        $s3 = app('filesystem')->disk('s3');
+        $cloudfrontUrl = env('AWS_CLOUDFRONT_URL');
 
         foreach ($this->images as $image) {
             try {
-                $imageData = base64_decode(
-                    preg_replace("#^data:image/\w+;base64,#i", "", $image)
-                );
-
+                // Validate and decode base64
+                if (!preg_match("#^data:image/w+;base64,#i", $image)) {
+                    throw new Exception('Invalid image format');
+                }
+                $imageData = base64_decode(preg_replace("#^data:image/\w+;base64,#i", "", $image));
                 if ($imageData === false) {
-                    throw new \Exception('Invalid image data');
+                    throw new Exception('Invalid image data');
                 }
 
-                $tempFile = tempnam(sys_get_temp_dir(), "cloudinary");
-                if ($tempFile === false) {
-                    throw new \Exception('Failed to create temporary file');
+                // Generate filename
+                $filename = 'store/products/' . uniqid(more_entropy: true) . '.jpg';
+
+                // Upload to S3 with ACL and ContentType
+                $success = $s3->put($filename, $imageData, [
+                    'ACL' => 'public-read',
+                    'ContentType' => 'image/jpeg',
+                ]);
+
+                if (!$success) {
+                    throw new Exception('S3 upload returned false');
                 }
 
-                if (file_put_contents($tempFile, $imageData) === false) {
-                    throw new \Exception('Failed to write image data');
-                }
-
-                try {
-                    $uploadedFileUrls[] = cloudinary()
-                        ->upload($tempFile, [
-                            "folder" => "store/products",
-                            "transformation" => [
-                                "width" => 480,
-                                "height" => 680,
-                                "crop" => "fill",
-                            ],
-                        ])
-                        ->getSecurePath();
-                } finally {
-                    // Ensure temporary file is always cleaned up
-                    if (file_exists($tempFile)) {
-                        unlink($tempFile);
-                    }
-                }
-            } catch (\Exception $e) {
-                throw new \Exception('Failed to upload image: ' . $e->getMessage());
+                // Construct URL
+                $uploadedFileUrls[] = rtrim($cloudfrontUrl, '/') . '/' . ltrim($filename, '/');
+            } catch (Exception $e) {
+                Log::error('Image upload failed: ' . $e->getMessage(), [
+                    'user_id' => Auth::id(),
+                    'product_id' => $this->product_id ?? null,
+                    'trace' => $e->getTraceAsString()
+                ]);
+                throw new Exception('Failed to upload image: ' . $e->getMessage());
             }
         }
 
         return $uploadedFileUrls;
     }
+
+    // private function uploadImages(): array
+    // {
+    //     $uploadedFileUrls = [];
+    //     $s3 = app('filesystem')->disk('s3');
+    //     $cloudfrontUrl = env('AWS_CLOUDFRONT_URL');
+
+    //     foreach ($this->images as $image) {
+    //         try {
+    //             $imageData = base64_decode(
+    //                 preg_replace("#^data:image/\w+;base64,#i", "", $image)
+    //             );
+
+    //             if ($imageData === false) {
+    //                 throw new \Exception('Invalid image data');
+    //             }
+
+    //             $filename = 'store/products/' . uniqid() . '.jpg';
+
+    //             // Set visibility to 'public' to ensure files are not protected/signed
+    //             $response = $s3->put($filename, $imageData, [
+    //                 'visibility' => 'public',
+    //                 'ContentType' => 'image/jpeg',
+    //             ]);
+
+    //             Log::info($response);
+
+    //             $uploadedFileUrls[] = rtrim($cloudfrontUrl, '/') . '/' . ltrim($filename, '/');
+    //         } catch (\Exception $e) {
+    //             Log::error('Image upload failed: ' . $e->getMessage(), [
+    //                 'user_id' => Auth::id(),
+    //                 'product_id' => $this->product_id ?? null,
+    //                 'trace' => $e->getTraceAsString()
+    //             ]);
+    //             throw new \Exception('Failed to upload image: ' . $e->getMessage());
+    //         }
+    //     }
+
+    //     return $uploadedFileUrls;
+    // }
 
     private function createOrUpdateProduct(): ProductModel
     {
@@ -202,7 +240,7 @@ class Product extends Page
         Notification::make()
             ->title($title)
             ->success()
-            ->icon('heroicon-o-check-circle')
+            ->icon('heroicon-s-check-circle')
             ->body($body)
             ->send();
     }
@@ -212,7 +250,7 @@ class Product extends Page
         Notification::make()
             ->title($title)
             ->danger()
-            ->icon('heroicon-o-x-circle')
+            ->icon('heroicon-s-x-circle')
             ->body($body)
             ->send();
     }

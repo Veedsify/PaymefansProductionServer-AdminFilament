@@ -17,7 +17,7 @@ class OuterPageResource extends Resource
     protected static ?string $navigationGroup = 'Pages';
     protected static ?string $modelLabel  = 'Pages';
     protected static ?string $navigationLabel = 'Pages';
-    protected static ?string $navigationIcon  = 'heroicon-o-book-open';
+    protected static ?string $navigationIcon  = 'heroicon-s-book-open';
 
     public static function form(Form $form): Form
     {

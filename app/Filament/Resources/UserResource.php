@@ -134,13 +134,18 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('profile_image'),
+                Tables\Columns\ImageColumn::make('profile_image')
+                    ->label('Profile Image')
+                    ->circular()
+                    ->size(50),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('username')
                     ->searchable(),
+                Tables\Columns\IconColumn::make('active_status')
+                    ->boolean(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_verified')
@@ -151,8 +156,6 @@ class UserResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('active_status')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -13,10 +13,10 @@ class ListProducts extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+
             Actions\CreateAction::make()
                 ->icon('hugeicons-shirt-01')
                 ->label('Add Product')
-                ->url(fn() => Product::getUrl()),
         ];
     }
 }

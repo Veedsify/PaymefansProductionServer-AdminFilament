@@ -20,7 +20,7 @@ class ActivityLogResource extends Resource
     protected static ?string $model = ActivityLog::class;
     protected static ?string $navigationGroup = 'System';
     protected static ?string $navigationLabel = 'Activity Logs';
-    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static ?string $navigationIcon = 'heroicon-s-briefcase';
 
     public static function infolist(Infolist $infolist): Infolist
     {

@@ -13,8 +13,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class ProductResource extends Resource
 {
@@ -32,6 +31,10 @@ class ProductResource extends Resource
                 Section::make('Product Information')
                     ->description('Enter the product details')
                     ->schema([
+                        Forms\Components\TextInput::make('user_id')
+                            ->label('User ID')
+                            ->readOnly()
+                            ->default(Auth::user()->id),
                         Forms\Components\TextInput::make('name')
                             ->label('Name')
                             ->required(),
@@ -39,17 +42,43 @@ class ProductResource extends Resource
                             ->label('Description')
                             ->required(),
                         Forms\Components\TextInput::make('price')
-                            ->label('Price')
+                            ->label('Price ₦')
                             ->required(),
                         Forms\Components\TextInput::make('instock')
                             ->label('In Stock')
+                            ->required(),
+                        Forms\Components\Select::make('Sizes')
+                            ->relationship('sizes', 'name')
+                            ->label('Available Sizes')
+                            ->preload()
+                            // ->options(ProductSize::all()->pluck('name', 'id')->toArray())
+                            ->multiple()
+                            ->required(),
+                        Forms\Components\TextInput::make('product_id')
+                            ->label('Product ID')
+                            ->default(uniqid())
                             ->required(),
                         Forms\Components\Select::make('category_id')
                             ->options(function () {
                                 return ProductCategory::all()->pluck('name', 'id');
                             })
+                            ->native(false)
                             ->label('Category')
                             ->required(),
+                        Forms\Components\Repeater::make('product_images')
+                            ->relationship("product_images")
+                            ->grid(4)
+                            ->schema([
+                                Forms\Components\FileUpload::make('image_url')
+                                    ->image()
+                                    ->label('Image URL')
+                                    ->disk('s3')
+                                    ->optimize('webp')
+                                    ->maxWidth(1024)
+                                    ->visibility("publico")
+                                    ->directory('store/products')
+                                    ->required(),
+                            ])
                     ])
             ]);
     }
@@ -59,6 +88,11 @@ class ProductResource extends Resource
         return $table
             ->defaultSort('id', 'desc')
             ->columns([
+                Tables\Columns\ImageColumn::make('product_images')
+                    ->getStateUsing(function ($record) {
+                        return env("AWS_CLOUDFRONT_URL") . "/" . $record->product_images->first()->image_url ?? null;
+                    })
+                    ->label('Image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -101,8 +135,8 @@ class ProductResource extends Resource
     {
         return [
             'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\Product::route('/create'),
-            // 'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
