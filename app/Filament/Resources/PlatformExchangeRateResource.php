@@ -25,11 +25,9 @@ class PlatformExchangeRateResource extends Resource
                     ->description('Add some information about the platform exchange rate.')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->unique()
                             ->label('Currency')
                             ->required(),
                         Forms\Components\TextInput::make('symbol')
-                            ->unique()
                             ->label('Symbol')
                             ->required(),
                         Forms\Components\TextInput::make('rate')

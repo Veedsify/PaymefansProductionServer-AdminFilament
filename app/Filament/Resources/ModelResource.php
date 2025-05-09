@@ -53,6 +53,7 @@ class ModelResource extends Resource
                         ]),
                     Toggle::make('verification_status'),
                     TextInput::make('token')
+                        ->label('Token')
                 ])
             ]);
     }
