@@ -34,10 +34,12 @@ class PlatformExchangeRateResource extends Resource
                             ->label('Rate ($)')
                             ->required(),
                         Forms\Components\TextInput::make('buyValue')
-                            ->label('Buy Value')
+                            ->label('Buy Value (Charge For Deposit)')
+                            ->helperText('This is the value that will be charged for deposit. should be less  that the sell value')
                             ->required(),
                         Forms\Components\TextInput::make('sellValue')
-                            ->label('Sell Value')
+                            ->label('Sell Value (Charge For Withdraw)')
+                            ->helperText('This is the value that will be charged for withdraw. should be higher than the buy value')
                             ->required(),
                     ]),
             ]);
@@ -61,11 +63,11 @@ class PlatformExchangeRateResource extends Resource
                 Tables\Columns\TextColumn::make('buyValue')
                     ->searchable()
                     ->sortable()
-                    ->label('Buy Value'),
+                    ->label('Buy Value (Charge For Deposit)'),
                 Tables\Columns\TextColumn::make('sellValue')
                     ->searchable()
                     ->sortable()
-                    ->label('Sell Value'),
+                    ->label('Sell Value (Charge For Withdraw)'),
             ])
             ->filters([
                 //
