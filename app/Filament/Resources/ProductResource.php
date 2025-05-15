@@ -73,8 +73,6 @@ class ProductResource extends Resource
                                     ->image()
                                     ->label('Image URL')
                                     ->disk('s3')
-                                    ->optimize('webp')
-                                    ->maxWidth(1024)
                                     ->visibility("publico")
                                     ->directory('store/products')
                                     ->required(),
@@ -90,7 +88,7 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('product_images')
                     ->getStateUsing(function ($record) {
-                        return env("AWS_CLOUDFRONT_URL") . "/" . $record->product_images->first()->image_url ?? null;
+                        return env("AWS_CLOUDFRONT_URL") . "/" . $record?->product_images?->first()?->image_url ?? null;
                     })
                     ->label('Image'),
                 Tables\Columns\TextColumn::make('name')
