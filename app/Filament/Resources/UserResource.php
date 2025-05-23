@@ -133,6 +133,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('10s')
             ->columns([
                 Tables\Columns\ImageColumn::make('profile_image')
                     ->label('Profile Image')
@@ -152,8 +153,7 @@ class UserResource extends Resource
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_email_verified')
                     ->boolean(),
-                Tables\Columns\IconColumn::make('is_model')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_model'),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
