@@ -37,13 +37,27 @@ class WithdrawalRequestResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
-                    ->label('User Name')
+                    ->label('User')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.email')
+                    ->label('Email')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
+                    ->getStateUsing(function (WithdrawalRequest $record) {
+                        return "₦" . number_format($record->amount);
+                    })
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn($state) => match ($state) {
+                        'pending' => 'warning',
+                        'approved' => 'success',
+                        'rejected' => 'danger',
+                        default => 'secondary',
+                    })
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

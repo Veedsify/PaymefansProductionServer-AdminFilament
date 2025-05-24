@@ -26,11 +26,12 @@ class ListWithdrawalRequests extends ListRecords
         return [
             Tab::make('Pending')
                 ->icon('heroicon-s-clock')
-                ->badgeColor('primary')
+                ->badge(5)
+                ->badgeColor('warning')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'pending')),
             Tab::make('Processing')
-                ->icon('heroicon-s-clock')
-                ->badgeColor('warning')
+                ->icon('heroicon-s-arrow-path')
+                ->badgeColor('info')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'processing')),
             Tab::make('Completed')
                 ->icon('heroicon-s-check-circle')
