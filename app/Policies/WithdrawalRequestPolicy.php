@@ -13,7 +13,7 @@ class WithdrawalRequestPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->role === "admin";
     }
 
     /**
@@ -21,7 +21,7 @@ class WithdrawalRequestPolicy
      */
     public function view(User $user, WithdrawalRequest $withdrawalRequest): bool
     {
-        return false;
+        return $user->role === "admin";
     }
 
     /**

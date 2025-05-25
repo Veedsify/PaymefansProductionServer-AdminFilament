@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\WithdrawalRequestResource\Pages;
 
 use App\Filament\Resources\WithdrawalRequestResource;
+use App\Models\WithdrawalRequest;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -24,21 +25,24 @@ class ListWithdrawalRequests extends ListRecords
     public function getTabs(): array
     {
         return [
-            Tab::make('Pending')
+            'pending' => Tab::make('Pending')
                 ->icon('heroicon-s-clock')
-                ->badge(5)
+                ->badge(WithdrawalRequest::where('status', 'pending')->count())
                 ->badgeColor('warning')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'pending')),
-            Tab::make('Processing')
+            'processing' => Tab::make('Processing')
                 ->icon('heroicon-s-arrow-path')
+                ->badge(WithdrawalRequest::where('status', 'processing')->count())
                 ->badgeColor('info')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'processing')),
-            Tab::make('Completed')
+            'completed' => Tab::make('Completed')
                 ->icon('heroicon-s-check-circle')
+                ->badge(WithdrawalRequest::where('status', 'completed')->count())
                 ->badgeColor('success')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'completed')),
-            Tab::make('Rejected')
+            'rejected' => Tab::make('Rejected')
                 ->icon('heroicon-s-x-circle')
+                ->badge(WithdrawalRequest::where('status', 'rejected')->count())
                 ->badgeColor('danger')
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('status', 'rejected')),
         ];

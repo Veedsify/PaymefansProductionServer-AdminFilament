@@ -53,4 +53,9 @@ class UserBank extends Model
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
+
+	public function withdrawalRequests()
+	{
+		return $this->hasMany(WithdrawalRequest::class, 'bank_account_id');
+	}
 }
