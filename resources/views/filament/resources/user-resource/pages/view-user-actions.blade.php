@@ -353,7 +353,7 @@
                                 </a>
                                 @endforeach
                             </div>
-                        </div>
+                        </div>  
 
                         <!-- Model Section (conditional) -->
                         @if (count($modelActions) > 0 && $user->is_model)
