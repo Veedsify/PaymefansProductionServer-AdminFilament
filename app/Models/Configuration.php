@@ -28,6 +28,9 @@ class Configuration extends Model
         // Desposit Settings
         "min_deposit_amount",
         "min_deposit_amount_ngn",
+        // Platform Settings
+        "platform_deposit_fee",
+        "platform_withdrawal_fee",
         // Theme Settings
         "default_mode",
         "primary_color",
