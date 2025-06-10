@@ -132,6 +132,7 @@ return [
     'migrations' => [
         'table' => 'migrations',
         'update_date_on_publish' => true,
+        'connection' => 'sqlite', // Specify the connection for migrations
     ],
 
     /*
