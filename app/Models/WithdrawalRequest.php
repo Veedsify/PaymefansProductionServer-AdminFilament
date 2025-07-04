@@ -18,10 +18,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $recipient_code
  * @property string $reason
  * @property USER-DEFINED $status
+ * @property string $transfer_code
+ * @property string $reference
+ * @property array $paystack_response
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 
  * @property User $user
+ * @property UserBank $bankAccount
  *
  * @package App\Models
  */
@@ -32,6 +36,7 @@ class WithdrawalRequest extends Model
 	protected $casts = [
 		'user_id' => 'int',
 		'amount' => 'int',
+		'paystack_response' => 'array',
 	];
 
 	protected $fillable = [
@@ -40,7 +45,10 @@ class WithdrawalRequest extends Model
 		'recipient_code',
 		'reason',
 		'bank_account_id',
-		'status'
+		'status',
+		'transfer_code',
+		'reference',
+		'paystack_response'
 	];
 
 	public function user()

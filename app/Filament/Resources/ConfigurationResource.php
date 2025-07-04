@@ -96,31 +96,52 @@ class ConfigurationResource extends Resource
                             ->required(),
                     ]),
 
-                Section::make('Financial Settings')
+            Section::make('Financial Settings')
+                ->collapsible()
+                ->schema([
+                    Fieldset::make('Withdrawal Settings')
+                        ->schema([
+                            TextInput::make('min_withdrawal_amount')
+                                ->label('Minimum Withdrawal (Default)')
+                                ->numeric()
+                                ->minValue(0)
+                                ->required(),
+                            TextInput::make('min_withdrawal_amount_ngn')
+                                ->label('Minimum Withdrawal (NGN)')
+                                ->numeric()
+                                ->minValue(0)
+                                ->required(),
+                        ]),
+                    Fieldset::make('Deposit Settings')
+                        ->schema([
+                            TextInput::make('min_deposit_amount')
+                                ->label('Minimum Deposit (Default)')
+                                ->numeric()
+                                ->minValue(0)
+                                ->required(),
+                            TextInput::make('min_deposit_amount_ngn')
+                                ->label('Minimum Deposit (NGN)')
+                                ->numeric()
+                                ->minValue(0)
+                                ->required(),
+                        ]),
+                ]),
+
+                Section::make('Financial Settings Fee')
                     ->collapsible()
                     ->schema([
-                        Fieldset::make('Withdrawal Settings')
+                        Fieldset::make('Deposit Settings Fee')
                             ->schema([
-                                TextInput::make('min_withdrawal_amount')
+                                TextInput::make('platform_deposit_fee')
                                     ->label('Minimum Withdrawal (Default)')
                                     ->numeric()
                                     ->minValue(0)
                                     ->required(),
-                                TextInput::make('min_withdrawal_amount_ngn')
-                                    ->label('Minimum Withdrawal (NGN)')
-                                    ->numeric()
-                                    ->minValue(0)
-                                    ->required(),
                             ]),
-                        Fieldset::make('Deposit Settings')
+                        Fieldset::make('Withdrawal Settings Fee')
                             ->schema([
-                                TextInput::make('min_deposit_amount')
+                                TextInput::make('platform_withdrawal_fee')
                                     ->label('Minimum Deposit (Default)')
-                                    ->numeric()
-                                    ->minValue(0)
-                                    ->required(),
-                                TextInput::make('min_deposit_amount_ngn')
-                                    ->label('Minimum Deposit (NGN)')
                                     ->numeric()
                                     ->minValue(0)
                                     ->required(),

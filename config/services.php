@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Third Party Services
@@ -35,4 +34,24 @@ return [
         ],
     ],
 
+    'paystack' => [
+        'secret_key' => env('PAYSTACK_SECRET_KEY'),
+        'public_key' => env('PAYSTACK_PUBLIC_KEY'),
+        'url' => env('PAYSTACK_PAYMENT_URL', 'https://api.paystack.co'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Express API Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for communicating with the Express.js server API
+    |
+    */
+
+    'express_api' => [
+        'base_url' => env('EXPRESS_API_BASE_URL', 'http://localhost:3000'),
+        'admin_token' => env('EXPRESS_API_ADMIN_TOKEN', null),
+        'timeout' => env('EXPRESS_API_TIMEOUT', 30),
+    ],
 ];

@@ -50,14 +50,20 @@ class AdminPanelProvider extends PanelProvider
                 in: app_path("Filament/Clusters"),
                 for: "App\\Filament\\Clusters"
             )
-            ->pages([Pages\Dashboard::class])
+            ->pages([\App\Filament\Pages\Dashboard::class])
             ->discoverWidgets(
                 in: app_path("Filament/Widgets"),
                 for: "App\\Filament\\Widgets"
             )
             ->widgets([
+                \App\Filament\Widgets\PlatformStatsWidget::class,
+                \App\Filament\Widgets\QuickActionsWidget::class,
+                \App\Filament\Widgets\RevenueChartWidget::class,
+                \App\Filament\Widgets\UserActivityChartWidget::class,
+                \App\Filament\Widgets\RecentTransactionsWidget::class,
+                \App\Filament\Widgets\ContentPerformanceWidget::class,
+                \App\Filament\Widgets\SystemHealthWidget::class,
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->navigationGroups(["Chats", "Users", "Points", "Supports"])
             ->middleware([
