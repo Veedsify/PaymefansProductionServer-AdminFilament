@@ -103,25 +103,39 @@ use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     use Notifiable, HasFactory;
-    protected $table = 'User';
+    protected $table = "User";
 
     protected $casts = [
-        'admin'             => 'bool',
-        'is_active'         => 'bool',
-        'is_verified'       => 'bool',
-        'is_email_verified' => 'bool',
-        'is_model'          => 'bool',
-        'email_verify_time' => 'datetime',
-        'is_phone_verified' => 'bool',
-        'total_followers'   => 'int',
-        'total_following'   => 'int',
-        'total_subscribers' => 'int',
-        'active_status'     => 'bool',
+        "admin" => "bool",
+        "is_active" => "bool",
+        "is_verified" => "bool",
+        "is_email_verified" => "bool",
+        "is_model" => "bool",
+        "email_verify_time" => "datetime",
+        "is_phone_verified" => "bool",
+        "total_followers" => "int",
+        "total_following" => "int",
+        "total_subscribers" => "int",
+        "active_status" => "bool",
+        "can_create_content" => "bool",
+        "can_comment" => "bool",
+        "can_message" => "bool",
+        "can_livestream" => "bool",
+        "can_purchase" => "bool",
+        "can_withdraw" => "bool",
+        "can_receive_gifts" => "bool",
+        "content_requires_approval" => "bool",
+        "is_shadowbanned" => "bool",
+        "can_report" => "bool",
+        "immune_to_reports" => "bool",
+        "can_create_groups" => "bool",
+        "can_access_analytics" => "bool",
+        "can_use_premium_features" => "bool",
+        "additional_permissions" => "array",
+        "flags" => "array",
     ];
 
-    protected $hidden = [
-        'password',
-    ];
+    protected $hidden = ["password"];
 
     public static function booted()
     {
@@ -132,267 +146,287 @@ class User extends Authenticatable
     }
 
     protected $fillable = [
-        'email',
-        'name',
-        'password',
-        'fullname',
-        'user_id',
-        'username',
-        'admin',
-        'role',
-        'is_active',
-        'is_verified',
-        'is_email_verified',
-        'is_model',
-        'email_verify_code',
-        'email_verify_time',
-        'is_phone_verified',
-        'phone',
-        'profile_image',
-        'profile_banner',
-        'bio',
-        'location',
-        'website',
-        'country',
-        'currency',
-        'state',
-        'city',
-        'zip',
-        'post_watermark',
-        'total_followers',
-        'total_following',
-        'total_subscribers',
-        'active_status',
+        "email",
+        "name",
+        "password",
+        "fullname",
+        "user_id",
+        "username",
+        "admin",
+        "role",
+        "is_active",
+        "is_verified",
+        "is_email_verified",
+        "is_model",
+        "email_verify_code",
+        "email_verify_time",
+        "is_phone_verified",
+        "phone",
+        "profile_image",
+        "profile_banner",
+        "bio",
+        "location",
+        "website",
+        "country",
+        "currency",
+        "state",
+        "city",
+        "zip",
+        "post_watermark",
+        "total_followers",
+        "total_following",
+        "total_subscribers",
+        "active_status",
+        "can_create_content",
+        "can_comment",
+        "can_message",
+        "can_livestream",
+        "can_purchase",
+        "can_withdraw",
+        "can_receive_gifts",
+        "content_requires_approval",
+        "is_shadowbanned",
+        "can_report",
+        "immune_to_reports",
+        "can_create_groups",
+        "can_access_analytics",
+        "can_use_premium_features",
+        "additional_permissions",
+        "flags",
     ];
 
     public function models()
     {
-        return $this->hasMany(Model::class, 'user_id');
+        return $this->hasMany(Model::class, "user_id");
     }
 
     public function user_reposts()
     {
-        return $this->hasMany(UserRepost::class, 'user_id');
+        return $this->hasMany(UserRepost::class, "user_id");
     }
 
     public function user_stories()
     {
-        return $this->hasMany(UserStory::class, 'user_id');
+        return $this->hasMany(UserStory::class, "user_id");
     }
 
     public function post_impressions()
     {
-        return $this->hasMany(PostImpression::class, 'user_id');
+        return $this->hasMany(PostImpression::class, "user_id");
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class, 'user_id');
+        return $this->hasMany(Post::class, "user_id");
     }
 
     public function post_comments()
     {
-        return $this->hasMany(PostComment::class, 'user_id');
+        return $this->hasMany(PostComment::class, "user_id");
     }
 
     public function comment_impressions()
     {
-        return $this->hasMany(CommentImpression::class, 'user_id');
+        return $this->hasMany(CommentImpression::class, "user_id");
     }
 
     public function post_likes()
     {
-        return $this->hasMany(PostLike::class, 'user_id');
+        return $this->hasMany(PostLike::class, "user_id");
     }
 
     public function follows()
     {
-        return $this->hasMany(Follow::class, 'user_id');
+        return $this->hasMany(Follow::class, "user_id");
     }
 
     public function subscribers()
     {
-        return $this->hasMany(Subscriber::class, 'user_id');
+        return $this->hasMany(Subscriber::class, "user_id");
     }
 
     public function live_streams()
     {
-        return $this->hasMany(LiveStream::class, 'user_id', 'user_id');
+        return $this->hasMany(LiveStream::class, "user_id", "user_id");
     }
 
     public function post_comment_likes()
     {
-        return $this->hasMany(PostCommentLike::class, 'user_id');
+        return $this->hasMany(PostCommentLike::class, "user_id");
     }
 
     public function post_shareds()
     {
-        return $this->hasMany(PostShared::class, 'user_id');
+        return $this->hasMany(PostShared::class, "user_id");
     }
 
     public function live_stream_likes()
     {
-        return $this->hasMany(LiveStreamLike::class, 'user_id');
+        return $this->hasMany(LiveStreamLike::class, "user_id");
     }
 
     public function live_stream_views()
     {
-        return $this->hasMany(LiveStreamView::class, 'user_id');
+        return $this->hasMany(LiveStreamView::class, "user_id");
     }
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class, 'user_id');
+        return $this->hasMany(Notification::class, "user_id");
     }
 
     public function live_stream_comments()
     {
-        return $this->hasMany(LiveStreamComment::class, 'user_id');
+        return $this->hasMany(LiveStreamComment::class, "user_id");
     }
 
     public function report_posts()
     {
-        return $this->hasMany(ReportPost::class, 'user_id');
+        return $this->hasMany(ReportPost::class, "user_id");
     }
 
     public function user_point()
     {
-        return $this->hasOne(UserPoint::class, 'user_id');
+        return $this->hasOne(UserPoint::class, "user_id");
     }
 
     public function user_transactions()
     {
-        return $this->hasMany(UserTransaction::class, 'user_id');
+        return $this->hasMany(UserTransaction::class, "user_id");
     }
 
     public function model_subscription_packs()
     {
-        return $this->hasMany(ModelSubscriptionPack::class, 'user_id');
+        return $this->hasMany(ModelSubscriptionPack::class, "user_id");
     }
 
     public function user_subscription_histories()
     {
-        return $this->hasMany(UserSubscriptionHistory::class, 'model_id');
+        return $this->hasMany(UserSubscriptionHistory::class, "model_id");
     }
 
     public function user_subscription_currents()
     {
-        return $this->hasMany(UserSubscriptionCurrent::class, 'model_id');
+        return $this->hasMany(UserSubscriptionCurrent::class, "model_id");
     }
 
     public function report_messages()
     {
-        return $this->hasMany(ReportMessage::class, 'user_id');
+        return $this->hasMany(ReportMessage::class, "user_id");
     }
 
     public function point_conversion_rates()
     {
-        return $this->belongsToMany(PointConversionRate::class, 'PointConversionRateUsers', 'user_id', 'pointConversionRateId')
-            ->withPivot('id');
+        return $this->belongsToMany(
+            PointConversionRate::class,
+            "PointConversionRateUsers",
+            "user_id",
+            "pointConversionRateId"
+        )->withPivot("id");
     }
 
     public function user_wallets()
     {
-        return $this->hasMany(UserWallet::class, 'user_id');
+        return $this->hasMany(UserWallet::class, "user_id");
     }
 
     public function user_attachments()
     {
-        return $this->hasMany(UserAttachment::class, 'user_id');
+        return $this->hasMany(UserAttachment::class, "user_id");
     }
 
     public function user_banks()
     {
-        return $this->hasMany(UserBank::class, 'user_id');
+        return $this->hasMany(UserBank::class, "user_id");
     }
 
     public function carts()
     {
-        return $this->hasMany(Cart::class, 'user_id');
+        return $this->hasMany(Cart::class, "user_id");
     }
 
     public function help_contacts()
     {
-        return $this->hasMany(HelpContact::class, 'user_id');
+        return $this->hasMany(HelpContact::class, "user_id");
     }
 
     public function group_participants()
     {
-        return $this->hasMany(GroupParticipant::class, 'user_id');
+        return $this->hasMany(GroupParticipant::class, "user_id");
     }
 
     public function wish_lists()
     {
-        return $this->hasMany(WishList::class, 'user_id');
+        return $this->hasMany(WishList::class, "user_id");
     }
 
     public function orders()
     {
-        return $this->hasMany(Order::class, 'user_id');
+        return $this->hasMany(Order::class, "user_id");
     }
 
     public function blocked_group_participants()
     {
-        return $this->hasMany(BlockedGroupParticipant::class, 'user_id');
+        return $this->hasMany(BlockedGroupParticipant::class, "user_id");
     }
 
     public function login_histories()
     {
-        return $this->hasMany(LoginHistory::class, 'user_id');
+        return $this->hasMany(LoginHistory::class, "user_id");
     }
 
     public function activity_logs()
     {
-        return $this->hasMany(ActivityLog::class, 'user_id');
+        return $this->hasMany(ActivityLog::class, "user_id");
     }
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'receiver_id', 'user_id');
+        return $this->hasMany(Message::class, "receiver_id", "user_id");
     }
 
     public function report_users()
     {
-        return $this->hasMany(ReportUser::class, 'user_id');
+        return $this->hasMany(ReportUser::class, "user_id");
     }
 
     public function settings()
     {
-        return $this->hasOne(Setting::class, 'user_id');
+        return $this->hasOne(Setting::class, "user_id");
     }
 
     public function report_lives()
     {
-        return $this->hasMany(ReportLive::class, 'user_id');
+        return $this->hasMany(ReportLive::class, "user_id");
     }
 
     public function report_comments()
     {
-        return $this->hasMany(ReportComment::class, 'user_id');
+        return $this->hasMany(ReportComment::class, "user_id");
     }
 
     public function two_factor_auths()
     {
-        return $this->hasMany(TwoFactorAuth::class, 'user_id');
+        return $this->hasMany(TwoFactorAuth::class, "user_id");
     }
 
     public function reset_password_requests()
     {
-        return $this->hasMany(ResetPasswordRequest::class, 'user_id');
+        return $this->hasMany(ResetPasswordRequest::class, "user_id");
     }
 
     public function user_withdrawal_bank_accounts()
     {
-        return $this->hasMany(UserWithdrawalBankAccount::class, 'user_id');
+        return $this->hasMany(UserWithdrawalBankAccount::class, "user_id");
     }
 
     public function withdrawal_request_codes()
     {
-        return $this->hasMany(WithdrawalRequestCode::class, 'user_id');
+        return $this->hasMany(WithdrawalRequestCode::class, "user_id");
     }
 
     public function withdrawal_requests()
     {
-        return $this->hasMany(WithdrawalRequest::class, 'user_id');
+        return $this->hasMany(WithdrawalRequest::class, "user_id");
     }
 }
