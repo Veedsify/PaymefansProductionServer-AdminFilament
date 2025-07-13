@@ -2,45 +2,45 @@
     <div class="space-y-6">
         <!-- User Info Header -->
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6">
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4 flex-wrap space-y-2">
                 <div class="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
                     @if($record->profile_image)
-                        <img src="{{ $record->profile_image }}" alt="Profile" class="h-full w-full object-cover">
+                    <img src="{{ $record->profile_image }}" alt="Profile" class="h-full w-full object-cover">
                     @else
-                        <div class="h-full w-full bg-gray-300 flex items-center justify-center text-gray-600">
-                            <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
+                    <div class="h-full w-full bg-gray-300 flex items-center justify-center text-gray-600">
+                        <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
                     @endif
                 </div>
                 <div>
                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ $record->name }}</h2>
-                    <p class="text-gray-600 dark:text-gray-300">{{ $record->email }}</p>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">{{ $record->email }}</p>
                     <p class="text-sm text-gray-500 dark:text-gray-400">{{ $record->username }}</p>
                 </div>
                 <div class="ml-auto">
-                    <div class="flex space-x-2">
+                    <div class="flex space-x-2 flex-wrap">
                         @if($record->is_active)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                Active
-                            </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Active
+                        </span>
                         @else
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                Inactive
-                            </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                            Inactive
+                        </span>
                         @endif
 
                         @if($record->admin)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                Admin
-                            </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            Admin
+                        </span>
                         @endif
 
                         @if($record->is_model)
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                Content Creator
-                            </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            Content Creator
+                        </span>
                         @endif
                     </div>
                 </div>
@@ -133,8 +133,7 @@
         <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-6">
             <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Quick Permission Templates</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <button type="button" wire:click="applyTemplate('basic_user')"
-                        class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <button type="button" wire:click="applyTemplate('basic_user')" class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <div class="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center mb-2">
                         <svg class="w-5 h-5 text-gray-600 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -144,8 +143,7 @@
                     <span class="text-xs text-gray-500 dark:text-gray-400 text-center">Standard user permissions</span>
                 </button>
 
-                <button type="button" wire:click="applyTemplate('content_creator')"
-                        class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <button type="button" wire:click="applyTemplate('content_creator')" class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-2">
                         <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
@@ -155,8 +153,7 @@
                     <span class="text-xs text-gray-500 dark:text-gray-400 text-center">Creator permissions</span>
                 </button>
 
-                <button type="button" wire:click="applyTemplate('moderator')"
-                        class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <button type="button" wire:click="applyTemplate('moderator')" class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center mb-2">
                         <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -166,8 +163,7 @@
                     <span class="text-xs text-gray-500 dark:text-gray-400 text-center">Moderation privileges</span>
                 </button>
 
-                <button type="button" wire:click="applyTemplate('admin')"
-                        class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <button type="button" wire:click="applyTemplate('admin')" class="flex flex-col items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <div class="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center mb-2">
                         <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 4-4-4 4-4 .257-.257A6 6 0 1118 8zm-6-2a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />

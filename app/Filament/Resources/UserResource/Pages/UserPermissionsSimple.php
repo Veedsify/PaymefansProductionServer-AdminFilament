@@ -22,26 +22,20 @@ class UserPermissionsSimple extends Page
     {
         $this->record = $this->extractUserFromParameter($record);
 
-        // Get existing flags
-        $existingFlags = [];
-        if (isset($this->record->flags)) {
-            if (is_string($this->record->flags)) {
-                $existingFlags = json_decode($this->record->flags, true) ?? [];
-            } elseif (is_array($this->record->flags)) {
-                $existingFlags = $this->record->flags;
-            }
+        // Get existing flags as array
+        $existingFlags = $this->record->flags ?? [];
+
+        // Handle if flags is stored as JSON string (for backward compatibility)
+        if (is_string($existingFlags)) {
+            $existingFlags = json_decode($existingFlags, true) ?? [];
         }
 
-        // Get permissions (handle both flat array and permissions subarray)
+        // Convert array of permission names to boolean flags for form
         $permissions = [];
-        if (
-            isset($existingFlags["permissions"]) &&
-            is_array($existingFlags["permissions"])
-        ) {
-            $permissions = $existingFlags["permissions"];
-        } elseif (is_array($existingFlags)) {
-            // Handle flat array of permissions (backward compatibility)
-            $permissions = array_fill_keys($existingFlags, true);
+        if (is_array($existingFlags)) {
+            foreach ($existingFlags as $permission) {
+                $permissions[$permission] = true;
+            }
         }
 
         // Define default permissions
@@ -110,6 +104,15 @@ class UserPermissionsSimple extends Page
             "send_free_messages" => false,
             "view_paid_posts" => false,
             "view_paid_media" => false,
+            "super_admin" => false,
+            "admin" => false,
+            "profile_hidden" => false,
+            "cant_report" => false,
+            "cant_block" => false,
+            "cant_comment" => false,
+            "profile_not_cached" => false,
+            "cant_mention" => false,
+            "cant_follow" => false,
         ];
 
         // Initialize form data
@@ -121,7 +124,7 @@ class UserPermissionsSimple extends Page
             "is_phone_verified" => $this->record->is_phone_verified ?? false,
             "is_model" => $this->record->is_model ?? false,
             "active_status" => $this->record->active_status ?? true,
-            "role" => $this->record->role ?? "user",
+            "role" => $this->record->role ?? "fan",
         ];
 
         // Merge permissions with defaults
@@ -223,7 +226,8 @@ class UserPermissionsSimple extends Page
                             ->label("User Role")
                             ->options([
                                 "admin" => "Administrator",
-                                "user" => "Regular User/Fan",
+                                "fan" => "Regular User/Fan",
+                                "model" => "Model",
                                 "support" => "Support Staff",
                             ])
                             ->helperText(
@@ -747,6 +751,71 @@ class UserPermissionsSimple extends Page
                                 ->inline(false),
                         ]),
                     ]),
+
+                //Special Permissions
+                Forms\Components\Section::make("Special Permissions")
+                    ->description("Advanced permissions for special cases")
+                    ->columns(3)
+                    ->schema([
+                        Forms\Components\Toggle::make("super_admin")
+                            ->label("Super Admin")
+                            ->helperText(
+                                "Grants full access to all platform features"
+                            )
+                            ->inline(false),
+                        Forms\Components\Toggle::make("admin")
+                            ->label("Super Admin")
+                            ->helperText(
+                                "Grants full access to all platform features"
+                            )
+                            ->inline(false),
+                        Forms\Components\Toggle::make("profile_hidden")
+                            ->label("Profile Hidden")
+                            ->helperText(
+                                "Hides user profile from public view"
+                            )
+                            ->inline(false),
+
+                        Forms\Components\Toggle::make("cant_report")
+                            ->label("Cannot Report Content")
+                            ->helperText(
+                                "User cannot report content on the platform"
+                            )
+                            ->inline(false),
+
+                        Forms\Components\Toggle::make("cant_block")
+                            ->label("Cannot Block Users")
+                            ->helperText(
+                                "User cannot block other users"
+                            )
+                            ->inline(false),
+
+                        Forms\Components\Toggle::make("cant_comment")
+                            ->label("Cannot Comment on Posts")
+                            ->helperText(
+                                "User cannot comment on any posts"
+                            )
+                            ->inline(false),
+
+                        Forms\Components\Toggle::make("profile_not_cached")
+                            ->label("Profile Not Cached")
+                            ->helperText(
+                                "User profile data is not cached for performance"
+                            )
+                            ->inline(false),
+                        Forms\Components\Toggle::make("cant_mention")
+                            ->label("Cannot Mention User")
+                            ->helperText(
+                                "User cannot mention this user in posts or comments"
+                            )
+                            ->inline(false),
+                        Forms\Components\Toggle::make("cant_follow")
+                            ->label("Cannot Follow User")
+                            ->helperText(
+                                "Users cannot follow this user on the platform"
+                            )
+                            ->inline(false),
+                    ]),
             ])
             ->statePath("data");
     }
@@ -788,17 +857,6 @@ class UserPermissionsSimple extends Page
         $data = $this->form->getState();
 
         try {
-            // Get existing flags
-            $existingFlags = [];
-            if (isset($this->record->flags)) {
-                if (is_string($this->record->flags)) {
-                    $existingFlags =
-                        json_decode($this->record->flags, true) ?? [];
-                } elseif (is_array($this->record->flags)) {
-                    $existingFlags = $this->record->flags;
-                }
-            }
-
             // Update basic user fields
             $basicUpdateData = [
                 "admin" => $data["admin"] ?? false,
@@ -811,99 +869,93 @@ class UserPermissionsSimple extends Page
                 "role" => $data["role"] ?? "user",
             ];
 
-            // Collect all permission fields with their values
+            // Collect all permission fields and convert to array of enabled permissions
             $permissionFields = [
-                "view_profile" => $data["view_profile"] ?? false,
-                "edit_profile" => $data["edit_profile"] ?? false,
-                "change_password" => $data["change_password"] ?? false,
-                "enable_two_factor_auth" =>
-                    $data["enable_two_factor_auth"] ?? false,
-                "view_notifications" => $data["view_notifications"] ?? false,
-                "manage_notifications" =>
-                    $data["manage_notifications"] ?? false,
-                "view_messages" => $data["view_messages"] ?? false,
-                "send_messages" => $data["send_messages"] ?? false,
-                "view_posts" => $data["view_posts"] ?? false,
-                "create_posts" => $data["create_posts"] ?? false,
-                "edit_posts" => $data["edit_posts"] ?? false,
-                "delete_posts" => $data["delete_posts"] ?? false,
-                "like_posts" => $data["like_posts"] ?? false,
-                "comment_on_posts" => $data["comment_on_posts"] ?? false,
-                "share_posts" => $data["share_posts"] ?? false,
-                "follow_users" => $data["follow_users"] ?? false,
-                "block_users" => $data["block_users"] ?? false,
-                "report_content" => $data["report_content"] ?? false,
-                "delete_accounts" => $data["delete_accounts"] ?? false,
-                "view_sensitive_content" =>
-                    $data["view_sensitive_content"] ?? false,
-                "manage_users" => $data["manage_users"] ?? false,
-                "view_user_data" => $data["view_user_data"] ?? false,
-                "bulk_user_operations" =>
-                    $data["bulk_user_operations"] ?? false,
-                "impersonate_users" => $data["impersonate_users"] ?? false,
-                "export_user_data" => $data["export_user_data"] ?? false,
-                "manage_content" => $data["manage_content"] ?? false,
-                "view_reports" => $data["view_reports"] ?? false,
-                "manage_reports" => $data["manage_reports"] ?? false,
-                "manage_content_moderation" =>
-                    $data["manage_content_moderation"] ?? false,
-                "override_content_restrictions" =>
-                    $data["override_content_restrictions"] ?? false,
-                "manage_creator_verification" =>
-                    $data["manage_creator_verification"] ?? false,
-                "manage_billing" => $data["manage_billing"] ?? false,
-                "override_payment_verification" =>
-                    $data["override_payment_verification"] ?? false,
-                "configure_payment_methods" =>
-                    $data["configure_payment_methods"] ?? false,
-                "manage_subscription_tiers" =>
-                    $data["manage_subscription_tiers"] ?? false,
-                "access_financial_reports" =>
-                    $data["access_financial_reports"] ?? false,
-                "manage_tax_settings" => $data["manage_tax_settings"] ?? false,
-                "view_analytics" => $data["view_analytics"] ?? false,
-                "access_audit_logs" => $data["access_audit_logs"] ?? false,
-                "access_system_monitoring" =>
-                    $data["access_system_monitoring"] ?? false,
-                "manage_settings" => $data["manage_settings"] ?? false,
-                "manage_features" => $data["manage_features"] ?? false,
-                "manage_platform_notifications" =>
-                    $data["manage_platform_notifications"] ?? false,
-                "configure_security_policies" =>
-                    $data["configure_security_policies"] ?? false,
-                "manage_api_access" => $data["manage_api_access"] ?? false,
-                "override_rate_limits" =>
-                    $data["override_rate_limits"] ?? false,
-                "manage_backup_restore" =>
-                    $data["manage_backup_restore"] ?? false,
-                "configure_cdn_settings" =>
-                    $data["configure_cdn_settings"] ?? false,
-                "manage_third_party_integrations" =>
-                    $data["manage_third_party_integrations"] ?? false,
-                "manage_maintenance_mode" =>
-                    $data["manage_maintenance_mode"] ?? false,
-                "view_tickets" => $data["view_tickets"] ?? false,
-                "create_tickets" => $data["create_tickets"] ?? false,
-                "edit_tickets" => $data["edit_tickets"] ?? false,
-                "delete_tickets" => $data["delete_tickets"] ?? false,
-                "assign_tickets" => $data["assign_tickets"] ?? false,
-                "resolve_tickets" => $data["resolve_tickets"] ?? false,
-                "escalate_tickets" => $data["escalate_tickets"] ?? false,
-                "view_ticket_history" => $data["view_ticket_history"] ?? false,
-                "manage_ticket_categories" =>
-                    $data["manage_ticket_categories"] ?? false,
-                "access_support_reports" =>
-                    $data["access_support_reports"] ?? false,
-                "manage_support_settings" =>
-                    $data["manage_support_settings"] ?? false,
-                "send_free_messages" => $data["send_free_messages"] ?? false,
-                "view_paid_posts" => $data["view_paid_posts"] ?? false,
-                "view_paid_media" => $data["view_paid_media"] ?? false,
+                "view_profile",
+                "edit_profile",
+                "change_password",
+                "enable_two_factor_auth",
+                "view_notifications",
+                "manage_notifications",
+                "view_messages",
+                "send_messages",
+                "view_posts",
+                "create_posts",
+                "edit_posts",
+                "delete_posts",
+                "like_posts",
+                "comment_on_posts",
+                "share_posts",
+                "follow_users",
+                "block_users",
+                "report_content",
+                "delete_accounts",
+                "view_sensitive_content",
+                "manage_users",
+                "view_user_data",
+                "bulk_user_operations",
+                "impersonate_users",
+                "export_user_data",
+                "manage_content",
+                "view_reports",
+                "manage_reports",
+                "manage_content_moderation",
+                "override_content_restrictions",
+                "manage_creator_verification",
+                "manage_billing",
+                "override_payment_verification",
+                "configure_payment_methods",
+                "manage_subscription_tiers",
+                "access_financial_reports",
+                "manage_tax_settings",
+                "view_analytics",
+                "access_audit_logs",
+                "access_system_monitoring",
+                "manage_settings",
+                "manage_features",
+                "manage_platform_notifications",
+                "configure_security_policies",
+                "manage_api_access",
+                "override_rate_limits",
+                "manage_backup_restore",
+                "configure_cdn_settings",
+                "manage_third_party_integrations",
+                "manage_maintenance_mode",
+                "view_tickets",
+                "create_tickets",
+                "edit_tickets",
+                "delete_tickets",
+                "assign_tickets",
+                "resolve_tickets",
+                "escalate_tickets",
+                "view_ticket_history",
+                "manage_ticket_categories",
+                "access_support_reports",
+                "manage_support_settings",
+                "send_free_messages",
+                "view_paid_posts",
+                "view_paid_media",
+                "super_admin",
+                "admin",
+                "profile_hidden",
+                "cant_report",
+                "cant_block",
+                "cant_comment",
+                "profile_not_cached",
+                "cant_mention",
+                "cant_follow",
             ];
 
-            // Store permissions in flags under 'permissions' key
-            $existingFlags["permissions"] = $permissionFields;
-            $basicUpdateData["flags"] = json_encode($existingFlags);
+            // Build array of enabled permissions only
+            $enabledPermissions = [];
+            foreach ($permissionFields as $permission) {
+                if ($data[$permission] ?? false) {
+                    $enabledPermissions[] = $permission;
+                }
+            }
+
+            // Store permissions as simple array
+            $basicUpdateData["flags"] = $enabledPermissions;
 
             // Update the user record
             $this->record->update($basicUpdateData);
@@ -932,7 +984,7 @@ class UserPermissionsSimple extends Page
             "is_phone_verified" => false,
             "is_model" => false,
             "active_status" => true,
-            "role" => "user",
+            "role" => "fan",
 
             // Basic User Permissions (default enabled)
             "view_profile" => true,
@@ -1030,8 +1082,7 @@ class UserPermissionsSimple extends Page
         Notification::make()
             ->title("Template Applied")
             ->body(
-                "'{$this->getTemplateLabel(
-                    $template
+                "'{$this->getTemplateLabel($template
                 )}' permissions have been applied. Click 'Save Permissions' to save changes."
             )
             ->success()
