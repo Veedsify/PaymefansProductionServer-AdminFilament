@@ -9,13 +9,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\HtmlString;
+use App\Models\Configuration;
 
 class RecentTransactionsWidget extends BaseWidget
 {
     protected static ?string $heading = "Recent Transactions Activity";
     protected static ?int $sort = 4;
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = "full";
 
     public function table(Table $table): Table
     {
@@ -31,7 +31,7 @@ class RecentTransactionsWidget extends BaseWidget
                             "credit" => "success",
                             "debit" => "warning",
                             default => "gray",
-                        }
+                        },
                     )
                     ->icon("heroicon-m-banknotes"),
 
@@ -44,12 +44,17 @@ class RecentTransactionsWidget extends BaseWidget
 
                 Tables\Columns\TextColumn::make("amount")
                     ->label("Amount")
+                    ->getStateUsing(function ($record) {
+                        $convertionRate = Configuration::first()
+                            ->point_conversion_rate_ngn;
+                        return $record->amount * $convertionRate;
+                    })
                     ->money("NGN")
                     ->sortable()
                     ->color(
                         fn($record): string => $record->type === "Withdrawal"
                             ? "danger"
-                            : "success"
+                            : "success",
                     ),
 
                 Tables\Columns\TextColumn::make("transaction_message")
@@ -67,8 +72,8 @@ class RecentTransactionsWidget extends BaseWidget
                     ->since()
                     ->tooltip(
                         fn($record): string => $record->created_at->format(
-                            'F j, Y \a\t g:i A'
-                        )
+                            'F j, Y \a\t g:i A',
+                        ),
                     ),
             ])
             ->actions([
@@ -78,7 +83,7 @@ class RecentTransactionsWidget extends BaseWidget
             ])
             ->emptyStateHeading("No recent activity")
             ->emptyStateDescription(
-                "Recent transactions and activities will appear here."
+                "Recent transactions and activities will appear here.",
             )
             ->emptyStateIcon("heroicon-o-banknotes")
             ->defaultSort("created_at", "desc")
