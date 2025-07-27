@@ -70,16 +70,15 @@ class ProductResource extends Resource
                             Forms\Components\FileUpload::make("image_url")
                                 ->image()
                                 ->label("Image URL")
+                                ->directory("store/products")
                                 ->disk("s3")
-                                ->visibility("public")
-                                ->imageResizeMode("cover")
+                                ->visibility("publico")
                                 ->acceptedFileTypes([
                                     "image/jpeg",
                                     "image/png",
                                     "image/gif",
                                     "image/webp",
                                 ])
-                                ->directory("store/products")
                                 ->required(),
                         ]),
                 ]),

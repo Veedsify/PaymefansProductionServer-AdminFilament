@@ -56,7 +56,6 @@ return [
                 false,
             ),
             "throw" => false,
-            "visibility" => "public",
         ],
     ],
 
