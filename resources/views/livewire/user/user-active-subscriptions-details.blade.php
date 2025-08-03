@@ -24,27 +24,27 @@ with(fn() => ['subscriptions' => \App\Models\UserSubscriptionCurrent::where("use
                 <thead class="bg-gray-50">
                 <tr>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         Subscription ID
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         User
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         Model
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         Subscription Status
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         Subscription
                     </th>
                     <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                         Subscription End Date
                     </th>
                 </tr>
@@ -52,22 +52,22 @@ with(fn() => ['subscriptions' => \App\Models\UserSubscriptionCurrent::where("use
                 <tbody class="bg-white divide-y divide-gray-200">
                 @foreach($subscriptions as $subscription)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                             {{ $subscription->id }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                             {{ $subscription->user->username }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                             {{ $subscription->model->username }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                             {{ $subscription->ends_at > now() ? 'Active' : 'Inactive' }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td class="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                             {{ $subscription->subscription }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                             {{ $subscription->ends_at->format('Y-m-d H:i:s') }}
                         </td>
                     </tr>

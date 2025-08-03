@@ -43,20 +43,20 @@ const handleConversations = ({ conversations }) => {
         <!-- Profile Image and Status -->
         <div class="relative flex-shrink-0">
           <img src="${data.conversation.profile_image}" alt="User Avatar"
-               class="w-12 h-12 rounded-full border-2 border-pink-500">
+               class="w-12 h-12 border-2 border-pink-500 rounded-full">
           <span data-username="${data.conversation.username}" 
-                class="absolute bottom-0 right-0 w-3 h-3 border-2 bg-gray-200 border-white rounded-full"></span>
+                class="absolute bottom-0 right-0 w-3 h-3 bg-gray-200 border-2 border-white rounded-full"></span>
         </div>
 
         <!-- Conversation Info -->
-        <div class="ml-4 flex-grow">
-          <div class="flex justify-between items-center">
+        <div class="flex-grow ml-4">
+          <div class="flex items-center justify-between">
             <h4 class="text-sm font-semibold text-gray-800 dark:text-white">${
               data.conversation.name
             }</h4>
             <span class="text-xs text-gray-500 dark:text-gray-200">${date}</span>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-200 truncate">${
+          <p class="text-sm text-gray-600 truncate dark:text-gray-200">${
             data.lastMessage.message
           }</p>
         </div>

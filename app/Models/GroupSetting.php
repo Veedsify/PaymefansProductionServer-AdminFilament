@@ -28,19 +28,27 @@ class GroupSetting extends Model
 {
 	protected $table = 'GroupSettings';
 
+	const CREATED_AT = 'created_at';
+	const UPDATED_AT = 'updated_at';
+
 	protected $casts = [
-		'group_id' => 'int'
+		'groupId' => 'int'
 	];
 
 	protected $fillable = [
-		'group_id',
-		'name',
-		'description',
-		'group_icon'
+		'groupId',
+		'allowFileSharing',
+		'allowMediaSharing',
+		'allowMemberInvites',
+		'autoApproveJoinReqs',
+		'created_at',
+		'updated_at',
+		'moderateMessages',
+		'mutedUntil',
 	];
 
 	public function group()
 	{
-		return $this->belongsTo(Group::class, 'group_id');
+		return $this->belongsTo(Group::class, 'groupId');
 	}
 }

@@ -66,9 +66,9 @@ class WithdrawalService
                     "email_sent" => $emailSent,
                     "reason" => $reason,
                     "rejection_notification_sent" =>
-                        $rejectionNotification["success"] ?? false,
+                    $rejectionNotification["success"] ?? false,
                     "points_notification_sent" =>
-                        $pointsNotification["success"] ?? false,
+                    $pointsNotification["success"] ?? false,
                 ]
             );
 
@@ -81,7 +81,7 @@ class WithdrawalService
                 "notifications_sent" => [
                     "rejection" => $rejectionNotification["success"] ?? false,
                     "points_restored" =>
-                        $pointsNotification["success"] ?? false,
+                    $pointsNotification["success"] ?? false,
                 ],
             ];
         } catch (\Exception $e) {
@@ -95,7 +95,7 @@ class WithdrawalService
             return [
                 "success" => false,
                 "message" =>
-                    "Failed to reject withdrawal request: " . $e->getMessage(),
+                "Failed to reject withdrawal request: " . $e->getMessage(),
                 "points_restored" => false,
                 "email_sent" => false,
                 "notifications_sent" => [
@@ -144,7 +144,7 @@ class WithdrawalService
                     "reference" => $withdrawalRequest->reference,
                     "email_sent" => $emailSent,
                     "approval_notification_sent" =>
-                        $approvalNotification["success"] ?? false,
+                    $approvalNotification["success"] ?? false,
                     "backend_synced" => $result["success"],
                 ]
             );
@@ -154,7 +154,7 @@ class WithdrawalService
                 "message" => "Withdrawal completed successfully",
                 "email_sent" => $emailSent,
                 "notification_sent" =>
-                    $approvalNotification["success"] ?? false,
+                $approvalNotification["success"] ?? false,
             ];
         } catch (\Exception $e) {
             Log::error(
@@ -165,7 +165,7 @@ class WithdrawalService
             return [
                 "success" => false,
                 "message" =>
-                    "Withdrawal completed but notifications failed: " .
+                "Withdrawal completed but notifications failed: " .
                     $e->getMessage(),
                 "email_sent" => false,
                 "notification_sent" => false,
@@ -209,7 +209,7 @@ class WithdrawalService
             $apiUrl =
                 config(
                     "services.express_api.base_url",
-                    "http://localhost:3000"
+                    "http://localhost:3009"
                 ) . "/admin/withdrawal/reject";
 
             $payload = [
@@ -224,13 +224,12 @@ class WithdrawalService
                 "payload" => $payload,
             ]);
 
+            $token = session('token') ?: config('services.express_api.admin_token');
             $response = \Illuminate\Support\Facades\Http::withHeaders([
                 "Content-Type" => "application/json",
                 "Accept" => "application/json",
                 "Authorization" =>
-                    "Bearer " .
-                    (session()->get("token") ?:
-                        config("services.express_api.admin_token")),
+                "Bearer " . $token,
             ])
                 ->timeout(15)
                 ->post($apiUrl, $payload);
@@ -304,8 +303,10 @@ class WithdrawalService
             $apiUrl =
                 config(
                     "services.express_api.base_url",
-                    "http://localhost:3000"
+                    "http://localhost:3009"
                 ) . "/admin/withdrawal/approve";
+
+            $token = session('token') ?: config('services.express_api.admin_token');
 
             $payload = [
                 "withdrawal_id" => $withdrawalRequest->id,
@@ -322,9 +323,7 @@ class WithdrawalService
                 "Content-Type" => "application/json",
                 "Accept" => "application/json",
                 "Authorization" =>
-                    "Bearer " .
-                    (session()->get("token") ?:
-                        config("services.express_api.admin_token")),
+                "Bearer " . $token
             ])
                 ->timeout(15)
                 ->post($apiUrl, $payload);
@@ -350,7 +349,7 @@ class WithdrawalService
                 return [
                     "success" => false,
                     "message" =>
-                        "Failed to sync withdrawal approval with backend",
+                    "Failed to sync withdrawal approval with backend",
                 ];
             }
         } catch (\Exception $e) {
@@ -361,7 +360,7 @@ class WithdrawalService
             return [
                 "success" => false,
                 "message" =>
-                    "Failed to sync withdrawal approval: " . $e->getMessage(),
+                "Failed to sync withdrawal approval: " . $e->getMessage(),
             ];
         }
     }

@@ -1,11 +1,11 @@
 <x-filament-panels::page>
     <div class="space-y-6">
         <!-- Welcome Header -->
-        <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-6 text-white">
+        <div class="p-6 text-white rounded-lg bg-gradient-to-r from-purple-600 to-blue-600">
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-2xl font-bold dark:text-white">Welcome back, {{ auth()->user()->name }}!</h1>
-                    <p class="text-purple-100 mt-1">
+                    <p class="mt-1 text-purple-100">
                         Here's what's happening with PayMeFans today
                     </p>
                 </div>
@@ -15,7 +15,7 @@
                             <div class="text-sm text-purple-100">Current Time</div>
                             <div class="text-lg font-semibold" id="current-time"></div>
                         </div>
-                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-white/20">
                             <x-filament::icon
                                 icon="heroicon-s-chart-bar"
                                 class="w-6 h-6"
@@ -34,43 +34,43 @@
         </div>
 
         <!-- Quick Stats Footer -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+        <div class="p-6 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="text-center">
-                    <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-lg mb-3">
+                    <div class="inline-flex items-center justify-center w-12 h-12 mb-3 bg-green-100 rounded-lg dark:bg-green-900/50">
                         <x-filament::icon
                             icon="heroicon-s-arrow-trending-up"
                             class="w-6 h-6 text-green-600 dark:text-green-400"
                         />
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Growing Platform</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Your platform is actively growing with engaged users and content creators
                     </p>
                 </div>
 
                 <div class="text-center">
-                    <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-lg mb-3">
+                    <div class="inline-flex items-center justify-center w-12 h-12 mb-3 bg-blue-100 rounded-lg dark:bg-blue-900/50">
                         <x-filament::icon
                             icon="heroicon-s-shield-check"
                             class="w-6 h-6 text-blue-600 dark:text-blue-400"
                         />
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Secure Operations</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         All transactions and user data are protected with enterprise-grade security
                     </p>
                 </div>
 
                 <div class="text-center">
-                    <div class="inline-flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-lg mb-3">
+                    <div class="inline-flex items-center justify-center w-12 h-12 mb-3 bg-purple-100 rounded-lg dark:bg-purple-900/50">
                         <x-filament::icon
                             icon="heroicon-s-rocket-launch"
                             class="w-6 h-6 text-purple-600 dark:text-purple-400"
                         />
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Optimized Performance</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Advanced analytics and monitoring ensure optimal platform performance
                     </p>
                 </div>

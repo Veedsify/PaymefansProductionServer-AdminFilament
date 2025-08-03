@@ -13,7 +13,7 @@ class ApiNotificationService
      */
     private static function getBaseUrl(): string
     {
-        return config("services.express_api.base_url", "http://localhost:3000");
+        return config("services.express_api.base_url", "http://localhost:3009");
     }
 
     /**
@@ -22,10 +22,6 @@ class ApiNotificationService
     private static function getHeaders(): array
     {
         $token = session()->get("token");
-        $adminToken = config("services.express_api.admin_token");
-
-        // Use session token first, fallback to admin token, then no auth
-        $authToken = $token ?: $adminToken;
 
         Log::info("API token status", [
             "session_token_exists" => !empty($token),
@@ -38,9 +34,13 @@ class ApiNotificationService
             "Accept" => "application/json",
         ];
 
-        if ($authToken) {
-            $headers["Authorization"] = "Bearer " . $authToken;
+        if ($token) {
+            $headers["Authorization"] = "Bearer " . $token;
         }
+
+        Log::info("API headers prepared", [
+            "headers" => $headers,
+        ]);
 
         return $headers;
     }
@@ -216,9 +216,7 @@ class ApiNotificationService
     ): array {
         try {
             // Use test endpoint if no authentication available
-            $endpoint = self::isTestMode()
-                ? "/admin/test/points/update"
-                : "/admin/points/update";
+            $endpoint = "/admin/points/update";
             $apiUrl = self::getBaseUrl() . $endpoint;
             $payload = [
                 "user_id" => $userId,
@@ -227,9 +225,7 @@ class ApiNotificationService
             ];
 
             // Use admin headers for points operations
-            $headers = self::isTestMode()
-                ? self::getHeaders()
-                : self::getAdminHeaders();
+            $headers =  self::getHeaders();
 
             Log::info("Making API call to update user points", [
                 "api_url" => $apiUrl,
@@ -263,7 +259,7 @@ class ApiNotificationService
                     "success" => true,
                     "data" => $data,
                     "message" =>
-                        $data["message"] ?? "Points updated successfully",
+                    $data["message"] ?? "Points updated successfully",
                 ];
             } else {
                 $responseBody = $response->json();
@@ -280,7 +276,7 @@ class ApiNotificationService
                 return [
                     "success" => false,
                     "message" =>
-                        $responseBody["message"] ??
+                    $responseBody["message"] ??
                         "Failed to update user points",
                     "error_details" => $responseBody,
                 ];

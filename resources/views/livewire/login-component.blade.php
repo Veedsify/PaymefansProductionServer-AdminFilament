@@ -1,9 +1,9 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 via-white to-purple-100">
-    <div class="max-w-md w-full p-8">
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100">
+    <div class="w-full max-w-md p-8">
         <!-- Logo -->
         <div class="flex justify-center mb-6">
-            <div class="h-14 w-14 rounded-full bg-purple-100 flex items-center justify-center shadow">
-                <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" stroke-width="2"
+            <div class="flex items-center justify-center bg-purple-100 rounded-full shadow h-14 w-14">
+                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" stroke-width="2"
                     viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="10" />
                 </svg>
@@ -18,7 +18,7 @@
         </div>
 
         <!-- Form -->
-        <div class="mt-8 bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div class="p-8 mt-8 bg-white border border-gray-100 shadow-lg rounded-2xl">
             <form wire:submit.prevent="login" class="space-y-6" autocomplete="off">
                 <!-- Email -->
                 <div>
@@ -27,7 +27,7 @@
                     @enderror
                     <div class="relative">
                         <input wire:model="email" id="email" type="email" required
-                            class="block w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 peer transition"
+                            class="block w-full px-4 pt-6 pb-2 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 peer transition"
                             placeholder=" ">
                         <label for="email"
                             class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75">
@@ -43,7 +43,7 @@
                 <div>
                     <div class="relative">
                         <input wire:model="password" id="password" type="password" required
-                            class="block w-full px-4 pt-6 pb-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 peer transition"
+                            class="block w-full px-4 pt-6 pb-2 text-gray-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 peer transition"
                             placeholder=" ">
                         <label for="password"
                             class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-5 z-10 origin-[0] left-4 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75">
@@ -59,7 +59,7 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
                         <input wire:model="remember" id="remember" type="checkbox"
-                            class="h-4 w-4 text-purple-600 focus:ring-purple-400 border-gray-300 rounded transition">
+                            class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-400 transition">
                         <label for="remember" class="ml-2 text-sm text-gray-900">
                             Stay signed in
                         </label>
@@ -77,10 +77,10 @@
                         Create account
                     </a>
                     <button type="submit" wire:loading.attr="disabled"
-                        class="px-7 flex items-center gap-2 py-2 text-sm font-semibold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 rounded-lg shadow transition">
+                        class="flex items-center py-2 text-sm font-semibold text-white bg-purple-600 rounded-lg shadow px-7 gap-2 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition">
                         <span wire:loading.remove>Next</span>
-                        <div wire:loading wire.target="login" class="flex items-center gap-2 justify-center">
-                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        <div wire:loading wire.target="login" class="flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4"></circle>

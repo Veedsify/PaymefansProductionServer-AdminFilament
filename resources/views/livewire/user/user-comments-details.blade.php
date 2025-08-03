@@ -21,14 +21,14 @@ with(fn() => ['comments' => \Illuminate\Support\Facades\DB::connection("mongodb"
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         @if(isset($comments) && count($comments) > 0)
             @foreach($comments as $comment)
-                <div class="bg-white  dark:bg-gray-800 rounded-lg shadow p-4">
+                <div class="p-4 bg-white rounded-lg shadow  dark:bg-gray-800">
                     <!-- Comment Content -->
                     <div class="space-y-2 dark:text-white">
-                        <p class="text-gray-500 dark:text-white text-sm">{{ $comment->date->diffForHumans() }}</p>
+                        <p class="text-sm text-gray-500 dark:text-white">{{ $comment->date->diffForHumans() }}</p>
                         <p class="text-gray-800 dark:text-white line-clamp-3">{{ $comment->comment }}</p>
                     </div>
                     <!-- Comment Stats -->
-                    <div class="flex items center space-x-4 text-sm dark:text-white text-gray-600 mt-2">
+                    <div class="flex mt-2 text-sm text-gray-600 items center space-x-4 dark:text-white">
                         <span class="flex items center">
                             @svg('heroicon-o-hand-thumb-up', 'h-5 w-5 text-gray-500')
                             <span class="ml-1">{{ $comment->likes }} Likes</span>

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\GroupResource\Pages;
+namespace App\Filament\Resources\GroupsResource\Pages;
 
-use App\Filament\Resources\GroupResource;
+use App\Filament\Resources\GroupsResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditGroup extends EditRecord
+class EditGroups extends EditRecord
 {
-    protected static string $resource = GroupResource::class;
+    protected static string $resource = GroupsResource::class;
 
     protected function getHeaderActions(): array
     {

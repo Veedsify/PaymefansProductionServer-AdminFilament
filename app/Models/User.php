@@ -350,9 +350,9 @@ class User extends Authenticatable
         return $this->hasMany(HelpContact::class, "user_id");
     }
 
-    public function group_participants()
+    public function group_members()
     {
-        return $this->hasMany(GroupParticipant::class, "user_id");
+        return $this->hasMany(GroupMember::class, "user_id");
     }
 
     public function wish_lists()
@@ -428,5 +428,15 @@ class User extends Authenticatable
     public function withdrawal_requests()
     {
         return $this->hasMany(WithdrawalRequest::class, "user_id");
+    }
+
+    public function supportTickets()
+    {
+        return $this->hasMany(SupportTicket::class, "user_id");
+    }
+
+    public function supportTicketReplies()
+    {
+        return $this->hasMany(SupportTicketReply::class, "user_id");
     }
 }

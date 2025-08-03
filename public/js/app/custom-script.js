@@ -32,7 +32,7 @@
 //                         }" alt="image" class="rounded-pill">
 //                     </div>
 //                     <div class="info">
-//                         <h6 class="text-sm mb-1">
+//                         <h6 class="mb-1 text-sm">
 //                             ${data.conversation.name}
 //                         </h6>
 //                         <p class="mb-0 text-xs">
@@ -40,7 +40,7 @@
 //                         </p>
 //                     </div>
 //                     <div class="action text-end">
-//                         <p class="mb-0 text-neutral-400 text-xs lh-1">
+//                         <p class="mb-0 text-xs text-neutral-400 lh-1">
 //                         ${date}
 //                         </p>
 //                         ${

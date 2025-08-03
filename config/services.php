@@ -50,7 +50,7 @@ return [
     */
 
     'express_api' => [
-        'base_url' => env('EXPRESS_API_BASE_URL', 'http://localhost:3000'),
+        'base_url' => env('EXPRESS_API_BASE_URL', 'http://localhost:3009'),
         'admin_token' => env('EXPRESS_API_ADMIN_TOKEN', null),
         'timeout' => env('EXPRESS_API_TIMEOUT', 30),
     ],

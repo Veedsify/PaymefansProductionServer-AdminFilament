@@ -46,7 +46,7 @@
                     @foreach($this->getViewData()['healthScore']['breakdown'] as $metric => $score)
                         <div class="text-center">
                             <div class="text-xl font-semibold">{{ round($score) }}%</div>
-                            <div class="text-xs opacity-90 capitalize">
+                            <div class="text-xs capitalize opacity-90">
                                 {{ str_replace('_', ' ', $metric) }}
                             </div>
                         </div>
@@ -56,9 +56,9 @@
 
             <!-- System Metrics Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center">
-                        <div class="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                        <div class="p-2 bg-green-100 rounded-lg dark:bg-green-900/50">
                             <x-filament::icon
                                 icon="heroicon-s-users"
                                 class="w-6 h-6 text-green-600 dark:text-green-400"
@@ -73,9 +73,9 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center">
-                        <div class="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                        <div class="p-2 bg-blue-100 rounded-lg dark:bg-blue-900/50">
                             <x-filament::icon
                                 icon="heroicon-s-photo"
                                 class="w-6 h-6 text-blue-600 dark:text-blue-400"
@@ -90,9 +90,9 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center">
-                        <div class="p-2 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
+                        <div class="p-2 bg-purple-100 rounded-lg dark:bg-purple-900/50">
                             <x-filament::icon
                                 icon="heroicon-s-banknotes"
                                 class="w-6 h-6 text-purple-600 dark:text-purple-400"
@@ -107,9 +107,9 @@
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex items-center">
-                        <div class="p-2 bg-red-100 dark:bg-red-900/50 rounded-lg">
+                        <div class="p-2 bg-red-100 rounded-lg dark:bg-red-900/50">
                             <x-filament::icon
                                 icon="heroicon-s-video-camera"
                                 class="w-6 h-6 text-red-600 dark:text-red-400"
@@ -128,7 +128,7 @@
             <!-- Service Status -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- API Status -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700">
                         <h4 class="text-lg font-semibold text-gray-900 dark:text-white">API Connectivity</h4>
                     </div>
@@ -136,7 +136,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-{{ $this->getViewData()['apiStatus']['status'] === 'healthy' ? 'green' : ($this->getViewData()['apiStatus']['status'] === 'warning' ? 'yellow' : 'red') }}-500 mr-3"></div>
-                                <span class="font-medium text-gray-900 dark:text-white capitalize">
+                                <span class="font-medium text-gray-900 capitalize dark:text-white">
                                     {{ $this->getViewData()['apiStatus']['status'] }}
                                 </span>
                             </div>
@@ -146,17 +146,17 @@
                                 </span>
                             @endif
                         </div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             {{ $this->getViewData()['apiStatus']['message'] }}
                         </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-500">
                             Last checked: {{ $this->getViewData()['apiStatus']['last_checked']->diffForHumans() }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Database Status -->
-                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700">
                         <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Database Health</h4>
                     </div>
@@ -164,7 +164,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
                                 <div class="w-3 h-3 rounded-full bg-{{ $this->getViewData()['databaseHealth']['status'] === 'healthy' ? 'green' : 'red' }}-500 mr-3"></div>
-                                <span class="font-medium text-gray-900 dark:text-white capitalize">
+                                <span class="font-medium text-gray-900 capitalize dark:text-white">
                                     {{ $this->getViewData()['databaseHealth']['status'] }}
                                 </span>
                             </div>
@@ -174,10 +174,10 @@
                                 </span>
                             @endif
                         </div>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             {{ $this->getViewData()['databaseHealth']['message'] }}
                         </p>
-                        <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-500">
                             Last checked: {{ $this->getViewData()['databaseHealth']['last_checked']->diffForHumans() }}
                         </p>
                     </div>
@@ -186,7 +186,7 @@
 
             <!-- System Alerts -->
             @if(!empty($this->getViewData()['alerts']))
-                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                     <div class="p-4 border-b border-gray-200 dark:border-gray-700">
                         <h4 class="text-lg font-semibold text-gray-900 dark:text-white">System Alerts</h4>
                     </div>
@@ -226,7 +226,7 @@
             @endif
 
             <!-- System Uptime -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+            <div class="bg-white border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-4 border-b border-gray-200 dark:border-gray-700">
                     <h4 class="text-lg font-semibold text-gray-900 dark:text-white">System Uptime</h4>
                 </div>

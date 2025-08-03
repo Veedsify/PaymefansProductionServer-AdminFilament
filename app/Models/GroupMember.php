@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class BlockedGroupParticipant
+ * Class GroupMember
  *
  * @property int $id
  * @property int $user_id
@@ -23,21 +23,36 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class BlockedGroupParticipant extends Model
+class GroupMember extends Model
 {
-    protected $table = "BlockedGroupParticipant";
-    public $timestamps = false;
+    protected $table = "GroupMember";
 
     protected $casts = [
         "userId" => "int",
         "groupId" => "int",
     ];
 
-    protected $fillable = ["userId", "groupId", "reason", "blockedBy"];
+    protected $fillable = [
+        "userId",
+        "groupId",
+        "role",
+        "joinedAt",
+        "lastSeen",
+        "isMuted",
+        "mutedBy",
+        "mutedUntil",
+        "created_at",
+        "updated_at",
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class, "userId");
+    }
+
+    public function mutedBy()
+    {
+        return $this->belongsTo(User::class, "mutedBy");
     }
 
     public function group()

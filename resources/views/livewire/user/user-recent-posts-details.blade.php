@@ -20,7 +20,7 @@ with(fn() => ['posts' => Post::where('user_id', $this->userId)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         @if(isset($posts) && count($posts) > 0)
             @foreach($posts as $post)
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+                <div class="p-4 bg-white rounded-lg shadow dark:bg-gray-800">
                     <!-- Post Image -->
                     @if(isset($post->user_media) && count($post->user_media) > 0)
                         <div class="aspect-w-16 aspect-h-9 mb-4 grid {{count($post->user_media)>1 ? "grid-cols-2": "grid-cols-1"}} gap-2">
@@ -54,11 +54,11 @@ with(fn() => ['posts' => Post::where('user_id', $this->userId)
 
                     <!-- Post Content -->
                     <div class="space-y-2">
-                        <p class="text-gray-500 dark:text-gray-200 text-sm">{{ $post->created_at->diffForHumans() }}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-200">{{ $post->created_at->diffForHumans() }}</p>
                         <p class="text-gray-800 dark:text-white line-clamp-3">{{ $post->content }}</p>
 
                         <!-- Post Stats -->
-                        <div class="flex items-center space-x-4 text-sm text-gray-600 dark:text-white">
+                        <div class="flex items-center text-sm text-gray-600 space-x-4 dark:text-white">
                             <span class="flex items-center">
                                 @svg('heroicon-o-hand-thumb-up', 'h-5 w-5')
                                 {{ $post->post_likes }}

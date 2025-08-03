@@ -20,9 +20,9 @@ with(function(){
 ?>
 
 <div>
-    <div class="border-b border-gray-100 pb-2 mb-4 flex justify-between items-center">
+    <div class="flex items-center justify-between pb-2 mb-4 border-b border-gray-100">
         <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
-        <button class="text-sm bg-cyan-50 text-cyan-700 py-1 px-3 rounded-full hover:bg-cyan-100">
+        <button class="px-3 py-1 text-sm rounded-full bg-cyan-50 text-cyan-700 hover:bg-cyan-100">
             Mark All as Read
         </button>
     </div>
@@ -54,7 +54,7 @@ with(function(){
     </div>
 
     <div class="mt-6 text-center">
-        <button class="text-sm text-cyan-600 hover:text-cyan-800 font-medium">
+        <button class="text-sm font-medium text-cyan-600 hover:text-cyan-800">
             View All Notifications
         </button>
     </div>
