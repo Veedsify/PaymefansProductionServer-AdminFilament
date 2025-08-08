@@ -1,0 +1,64 @@
+# Use PHP with Apache
+FROM php:8.3-apache
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    build-essential \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    libssl-dev \
+    libicu-dev \
+    libsasl2-dev \
+    pkg-config \
+    zip \
+    unzip \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Bun
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:$PATH"
+
+# Install PHP extensions including MongoDB and intl
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
+
+# Install MongoDB extension using PECL (PECL is already included in PHP Docker image)
+RUN pecl channel-update pecl.php.net \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy application files
+COPY . /var/www/html
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html \
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Install Node.js dependencies and build assets
+RUN bun install && bun run build
+
+# Configure Apache
+RUN a2enmod rewrite
+COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+
+# Expose port
+EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]

@@ -39,6 +39,7 @@ class GroupMember extends Model
         "joinedAt",
         "lastSeen",
         "isMuted",
+        "isBlocked",
         "mutedBy",
         "mutedUntil",
         "created_at",
