@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 /**
  * Class Model
- * 
+ *
  * @property int $id
  * @property string $firstname
  * @property string $lastname
@@ -22,10 +22,10 @@ use Carbon\Carbon;
  * @property string|null $verification_video
  * @property string|null $verification_image
  * @property bool $verification_status
- * @property USER-DEFINED $verification_state
+ * @property string $verification_state
  * @property string|null $token
  * @property Carbon $created_at
- * 
+ *
  * @property User $user
  *
  * @package App\Models

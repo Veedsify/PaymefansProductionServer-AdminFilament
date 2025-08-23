@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\UserRepostResource\Pages;
+namespace App\Filament\Support\Resources\UserRepostResource\Pages;
 
-use App\Filament\Resources\UserRepostResource;
+use App\Filament\Support\Resources\UserRepostResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

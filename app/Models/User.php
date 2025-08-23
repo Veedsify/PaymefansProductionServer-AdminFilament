@@ -25,7 +25,7 @@ use Illuminate\Support\Str;
  * @property string $user_id
  * @property string $username
  * @property bool $admin
- * @property USER-DEFINED $role
+ * @property string $role
  * @property bool $is_active
  * @property bool $is_verified
  * @property bool $is_email_verified
@@ -81,7 +81,7 @@ use Illuminate\Support\Str;
  * @property Collection|UserBank[] $user_banks
  * @property Collection|Cart[] $carts
  * @property Collection|HelpContact[] $help_contacts
- * @property Collection|GroupParticipant[] $group_participants
+ * @property Collection|GroupMember[] $group_participants
  * @property Collection|WishList[] $wish_lists
  * @property Collection|Order[] $orders
  * @property Collection|BlockedGroupParticipant[] $blocked_group_participants

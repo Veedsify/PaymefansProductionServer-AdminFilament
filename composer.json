@@ -15,6 +15,7 @@
     "charrafimed/global-search-modal": "^3.4",
     "cloudinary-labs/cloudinary-laravel": "^2.2",
     "cloudinary/cloudinary_php": "^2.14",
+    "codeat3/blade-google-material-design-icons": "^1.20",
     "codeat3/blade-mono-icons": "^1.4",
     "elephantio/elephant.io": "^4.12",
     "faisal50x/blade-ionicons": "^1.0",

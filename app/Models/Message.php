@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Message
- * 
+ *
  * @property int $id
  * @property string $message_id
  * @property string $sender_id
@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property string|null $conversationsId
- * 
+ *
  * @property User $user
  * @property Conversation|null $conversation
  * @property Collection|ReportMessage[] $report_messages
@@ -32,35 +32,38 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Message extends Model
 {
-	protected $table = 'Messages';
+    protected $table = "Messages";
 
-	protected $casts = [
-		'seen' => 'bool',
-		'attachment' => 'binary'
-	];
+    protected $casts = [
+        "seen" => "bool",
+    ];
 
-	protected $fillable = [
-		'message_id',
-		'sender_id',
-		'receiver_id',
-		'seen',
-		'message',
-		'attachment',
-		'conversationsId'
-	];
+    protected $fillable = [
+        "message_id",
+        "sender_id",
+        "receiver_id",
+        "seen",
+        "message",
+        "attachment",
+        "conversationsId",
+    ];
 
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'receiver_id', 'user_id');
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class, "receiver_id", "user_id");
+    }
 
-	public function conversation()
-	{
-		return $this->belongsTo(Conversation::class, 'conversationsId', 'conversation_id');
-	}
+    public function conversation()
+    {
+        return $this->belongsTo(
+            Conversation::class,
+            "conversationsId",
+            "conversation_id",
+        );
+    }
 
-	public function report_messages()
-	{
-		return $this->hasMany(ReportMessage::class, 'message_id');
-	}
+    public function report_messages()
+    {
+        return $this->hasMany(ReportMessage::class, "message_id");
+    }
 }

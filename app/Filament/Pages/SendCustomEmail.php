@@ -20,9 +20,9 @@ class SendCustomEmail extends Page implements HasForms, HasInfolists
 {
     use InteractsWithForms;
     use InteractsWithInfolists;
-    protected static ?string $navigationIcon = 'heroicon-s-envelope';
-    protected static ?string $navigationGroup = 'Email';
-    protected static ?string $navigationLabel = 'Send Custom Email';
+    protected static ?string $navigationIcon = "heroicon-s-envelope";
+    protected static ?string $navigationGroup = "Email";
+    protected static ?string $navigationLabel = "Send Custom Email";
     public $data = [];
 
     public function mount()
@@ -34,109 +34,111 @@ class SendCustomEmail extends Page implements HasForms, HasInfolists
     {
         $this->form->validate();
         $data = $this->form->getState();
-        $recipients = $data['recipients'];
-        $subject = $data['subject'];
-        $message = $data['message'];
+        $recipients = $data["recipients"];
+        $subject = $data["subject"];
+        $message = $data["message"];
 
-        $server = env('BACKEND_URL');
+        $server = config("custom.backend_url", "http://localhost:3001");
         if (!$server) {
             return [
-                'error' => 'BACKEND_URL is not defined in the .env file.',
-                'status' => false
+                "error" => "BACKEND_URL is not defined in the .env file.",
+                "status" => false,
             ];
         }
 
-        $endpoint = $server . '/admin/email/custom-email';
+        $endpoint = $server . "/admin/email/custom-email";
 
         $body = [
-            'recipients' => $recipients,
-            'subject' => $subject,
-            'message' => $message,
+            "recipients" => $recipients,
+            "subject" => $subject,
+            "message" => $message,
         ];
 
-        $token = session('token');
+        $token = session("token");
         if (!$token) {
             Notification::make()
-                ->title('Error')
-                ->body('Token is not defined in the session.')
+                ->title("Error")
+                ->body("Token is not defined in the session.")
                 ->danger()
                 ->send();
             return [
-                'error' => 'Token is not defined in the session.',
-                'status' => false
+                "error" => "Token is not defined in the session.",
+                "status" => false,
             ];
         }
 
         $response = Http::withHeaders([
-            'Accept' => 'application/json',
-            'Authorization' => 'Bearer ' .  $token,
-        ])->asForm()->post($endpoint, $body);
+            "Accept" => "application/json",
+            "Authorization" => "Bearer " . $token,
+        ])
+            ->asForm()
+            ->post($endpoint, $body);
 
         if (!$response->successful()) {
             Notification::make()
-                ->title('Error')
-                ->body('API call failed with status ' . $response->status())
+                ->title("Error")
+                ->body("API call failed with status " . $response->status())
                 ->danger()
                 ->send();
             return [
-                'error' => 'API call failed with status ' . $response->status(),
-                'status' => false
+                "error" => "API call failed with status " . $response->status(),
+                "status" => false,
             ];
         }
 
         $responseBody = $response->json();
 
-        if (isset($responseBody['error']) && $responseBody['error'] === true) {
+        if (isset($responseBody["error"]) && $responseBody["error"] === true) {
             Notification::make()
-                ->title('Error')
-                ->body($responseBody['message'])
+                ->title("Error")
+                ->body($responseBody["message"])
                 ->danger()
                 ->send();
             return [
-                'error' => $responseBody['message'],
-                'status' => false
+                "error" => $responseBody["message"],
+                "status" => false,
             ];
         }
 
         Notification::make()
-            ->title('Success')
-            ->body('Email sent successfully!')
+            ->title("Success")
+            ->body("Email sent successfully!")
             ->success()
             ->send();
         return [
-            'message' => 'Email sent successfully!',
-            'status' => true
+            "message" => "Email sent successfully!",
+            "status" => true,
         ];
     }
 
     public function form(Form $form): Form
     {
-        return $form
-            ->statePath('data')
-            ->schema([
-                Section::make('Send Custom Email')
-                    ->description('Send a custom email to all users, admins, supports, or models.')
-                    ->columns(1)
-                    ->schema([
-                        Forms\Components\Select::make('recipients')
-                            ->label('Recipients')
-                            ->options([
-                                'all' => 'All Users',
-                                'admins' => 'All Admins',
-                                'supports' => 'All Supports',
-                                'models' => 'All Models',
-                            ])
-                            ->searchable()
-                            ->required(),
-                        Forms\Components\TextInput::make('subject')
-                            ->label('Subject')
-                            ->required(),
-                        Forms\Components\RichEditor::make('message')
-                            ->required()
-                            ->label('Message')
-                    ])
-            ]);
+        return $form->statePath("data")->schema([
+            Section::make("Send Custom Email")
+                ->description(
+                    "Send a custom email to all users, admins, supports, or models.",
+                )
+                ->columns(1)
+                ->schema([
+                    Forms\Components\Select::make("recipients")
+                        ->label("Recipients")
+                        ->options([
+                            "all" => "All Users",
+                            "admins" => "All Admins",
+                            "supports" => "All Supports",
+                            "models" => "All Models",
+                        ])
+                        ->searchable()
+                        ->required(),
+                    Forms\Components\TextInput::make("subject")
+                        ->label("Subject")
+                        ->required(),
+                    Forms\Components\RichEditor::make("message")
+                        ->required()
+                        ->label("Message"),
+                ]),
+        ]);
     }
 
-    protected static string $view = 'filament.pages.send-custom-email';
+    protected static string $view = "filament.pages.send-custom-email";
 }

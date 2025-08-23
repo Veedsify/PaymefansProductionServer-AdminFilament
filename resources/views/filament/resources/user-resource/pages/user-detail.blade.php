@@ -93,7 +93,7 @@
                         <div class="text-xs font-semibold tracking-wide text-gray-500 uppercase">Subscribers</div>
                     </div>
                     <div class="text-center">
-                        <div class="text-2xl font-bold text-purpled-600">{{ $user->user_point->points }}</div>
+                        <div class="text-2xl font-bold text-purpled-600">{{ $user->user_point?->points }}</div>
                         <div class="text-xs font-semibold tracking-wide text-gray-500 uppercase">
                             Point Balance
                         </div>

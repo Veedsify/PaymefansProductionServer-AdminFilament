@@ -55,6 +55,14 @@ class UserResource extends Resource
             Forms\Components\Section::make("Profile Details")
                 ->description("User profile and personal information")
                 ->schema([
+                    Forms\Components\TextInput::make("profile_image")
+                        ->label("Profile Image URL")
+                        ->url()
+                        ->default(config("custom.backend_url") . "/site/avatar.png")
+                        ->maxLength(191)
+                        ->helperText(
+                            "You can upload an image to the public storage and paste the URL here."
+                        ),
                     Forms\Components\Textarea::make("bio")->columnSpanFull(),
                 ])
                 ->columns(2),
@@ -117,6 +125,7 @@ class UserResource extends Resource
                         ->options([
                             "admin" => "Admin",
                             "fan" => "User",
+                            "support" => "Support",
                         ])
                         ->label("User Role"),
                 ]),

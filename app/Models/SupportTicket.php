@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property string $subject
  * @property string $message
- * @property string $status
+ * @property string $statusP
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * 

@@ -41,7 +41,7 @@ class LoginComponent extends Component
                 return $this->redirect('/admin');
             }
 
-            $server = env('BACKEND_URL');
+            $server = config('custom.backend_url');
             if (!$server) {
                 return [
                     'error' => 'BACKEND_URL is not defined in the .env file.',
@@ -79,9 +79,9 @@ class LoginComponent extends Component
                 ];
             }
 
-            if ($user->role !== 'admin') { // Consider making this configurable
+            if ($user->role !== 'admin' && $user->role !== "support") { // Consider making this configurable
                 return [
-                    'error' => 'You are not authorized as an admin.',
+                    'error' => 'You are not authorized .',
                     'status' => false
                 ];
             }
@@ -92,6 +92,7 @@ class LoginComponent extends Component
 
             return [
                 'status' => true,
+                'role' => $user->role,
                 'token' => $responseData['token']
             ];
         } catch (\Illuminate\Http\Client\RequestException $e) {
@@ -121,14 +122,17 @@ class LoginComponent extends Component
                 return;
             }
 
-            $this->redirect('/admin');
+            $panels = [
+                'admin' => '/admin', 'support' => '/support'
+            ];
+
+            $this->redirect($panels[$response['role']] ?? '/admin');
         } catch (\Exception $e) {
             Log::error('Login error: ' . $e->getMessage());
             $this->addError('error', 'An unexpected error occurred. Please try again.');
             $this->reset('password');
         }
     }
-
 
 
     public function render()

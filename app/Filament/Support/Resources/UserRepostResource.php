@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Support\Resources;
 
-use App\Filament\Resources\UserRepostResource\Pages;
-use App\Filament\Resources\UserRepostResource\RelationManagers;
+use App\Filament\Support\Resources\UserRepostResource\Pages;
+use App\Filament\Support\Resources\UserRepostResource\RelationManagers;
 use App\Models\UserRepost;
 use Filament\Forms;
 use Filament\Forms\Form;
