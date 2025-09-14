@@ -28,7 +28,7 @@ RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 
 # Install PHP extensions including MongoDB and intl
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip intl
+RUN docker-php-ext-install pdo_mysql pdo_sqlite pdo_pgsql mbstring exif pcntl bcmath gd zip intl
 
 # Install MongoDB extension using PECL (PECL is already included in PHP Docker image)
 RUN pecl channel-update pecl.php.net \
@@ -52,6 +52,8 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Install Node.js dependencies and build assets
 RUN bun install && bun run build
+RUN php artisan filament:assets
+
 
 # Configure Apache
 RUN a2enmod rewrite
