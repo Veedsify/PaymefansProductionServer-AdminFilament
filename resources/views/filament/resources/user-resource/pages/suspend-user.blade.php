@@ -1,7 +1,7 @@
 <x-filament-panels::page>
     <div class="flex flex-col items-center justify-center p-6 space-y-4">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200">
-            {{ $user->active_status === true ? 'Suspend' : 'Reactivate' }} {{ explode(' ', $user->fullname)[0] ??
+            {{ $user->active_status === true ? 'Suspend' : 'Reactivate' }} {{ explode(' ', $user->name)[0] ??
             $user->name }}'s
             Account</h2>
 

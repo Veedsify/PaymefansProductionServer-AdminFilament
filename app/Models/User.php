@@ -21,7 +21,6 @@ use Illuminate\Support\Str;
  * @property string $email
  * @property string $name
  * @property string $password
- * @property string $fullname
  * @property string $user_id
  * @property string $username
  * @property bool $admin
@@ -149,7 +148,6 @@ class User extends Authenticatable
         "email",
         "name",
         "password",
-        "fullname",
         "user_id",
         "username",
         "admin",

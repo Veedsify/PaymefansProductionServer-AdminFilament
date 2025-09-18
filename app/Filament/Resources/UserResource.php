@@ -25,14 +25,7 @@ class UserResource extends Resource
                 ->description("Primary user account information")
                 ->schema([
                     Forms\Components\TextInput::make("name")
-                        ->afterStateUpdated(function ($state, Set $set) {
-                            $set("fullname", $state);
-                        })
                         ->label("Display Name")
-                        ->required()
-                        ->maxLength(191),
-                    Forms\Components\TextInput::make("fullname")
-                        ->label("Full Name")
                         ->required()
                         ->maxLength(191),
                     Forms\Components\TextInput::make("email")
@@ -205,8 +198,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-                //
-            ];
+            //
+        ];
     }
 
     public static function getPages(): array
