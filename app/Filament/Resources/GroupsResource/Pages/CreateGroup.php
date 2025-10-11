@@ -80,10 +80,6 @@ class CreateGroup extends Page implements HasForms, HasInfolists
                                     // 'PRIVATE' => 'Private',
                                     // 'SECRET' => 'Secret'
                                 ]),
-                            TextInput::make('maxMembers')
-                                ->label('Max Members')
-                                ->numeric()
-                                ->default(100),
                         ]),
                     ]),
                 Section::make("Group Settings")
@@ -119,7 +115,6 @@ class CreateGroup extends Page implements HasForms, HasInfolists
             'description' => $data['description'],
             'groupIcon' => $cloudfrontUrl . '/' . $data['groupIcon'],
             'groupType' => $data['groupType'],
-            'maxMembers' => $data['maxMembers'],
             'isActive' => true, // Default to active
             'adminId' => Auth::id(), // Assuming the admin is the currently authenticated user
         ]);
