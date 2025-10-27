@@ -64,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+curl -X POST -H "Authorization: Bearer <API_TOKEN>" \
+-F file=@{path-to-image-locally} \
+-F name='marketing videos' \
+-F opacity=1.0 \
+-F padding=0.05 \
+-F scale=0.15 \
+-F position=upperRight \
+https://api.cloudflare.com/client/v4/accounts/a7bb0e3757588ced81b1cc3e5d8bb225/stream/watermarks
