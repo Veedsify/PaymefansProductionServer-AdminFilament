@@ -64,15 +64,10 @@ RUN php artisan config:cache \
     && php artisan view:cache \
     && php artisan optimize
 
-RUN php artisan key:generate --show
-
-
 
 # Configure Apache
 RUN a2enmod rewrite
 COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
-
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Expose port
 EXPOSE 80
