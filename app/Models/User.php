@@ -7,6 +7,8 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -99,10 +101,15 @@ use Illuminate\Support\Str;
  *
  * @package App\Models
  */
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use Notifiable, HasFactory;
     protected $table = "User";
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role === "admin" || $this->role === "support";
+    }
 
     protected $casts = [
         "admin" => "bool",
