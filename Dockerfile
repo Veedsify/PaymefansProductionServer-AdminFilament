@@ -64,6 +64,9 @@ RUN php artisan config:cache \
     && php artisan view:cache \
     && php artisan optimize
 
+RUN php artisan key:generate --show
+
+
 
 # Configure Apache
 RUN a2enmod rewrite
