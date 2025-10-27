@@ -45,7 +45,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy application files
 COPY . /var/www/html
 
-# Set proper permissions
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 /var/www/html/storage \
@@ -54,14 +54,26 @@ RUN chown -R www-data:www-data /var/www/html \
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Install Node.js dependencies and build assets
+# Build assets
 RUN bun install && bun run build
 RUN php artisan filament:assets
+
+# Laravel optimization
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache \
+    && php artisan optimize
 
 
 # Configure Apache
 RUN a2enmod rewrite
 COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
+
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+RUN echo '<VirtualHost *:80>\nServerName admin.paymefans.com\nRedirect permanent / https://admin.paymefans.com/\n</VirtualHost>' \
+    > /etc/apache2/sites-available/000-default.conf
+
 
 # Expose port
 EXPOSE 80
