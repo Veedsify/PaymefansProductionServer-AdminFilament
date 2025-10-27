@@ -4,6 +4,7 @@ return [
       'allowed_methods'   => ['*'],
       'allowed_origins'   => [
             'https://api.paymefans.com',
+            "https://admin.paymefans.com",
             'https://localhost:5173',
             'https://paymefans.com',
       ],
