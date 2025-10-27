@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     nodejs \
     npm \
+    sqlite3 \
+    libsqlite3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Bun
