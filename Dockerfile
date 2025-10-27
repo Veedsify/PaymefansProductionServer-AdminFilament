@@ -71,10 +71,6 @@ COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-RUN echo '<VirtualHost *:80>\nServerName admin.paymefans.com\nRedirect permanent / https://admin.paymefans.com/\n</VirtualHost>' \
-    > /etc/apache2/sites-available/000-default.conf
-
-
 # Expose port
 EXPOSE 80
 
