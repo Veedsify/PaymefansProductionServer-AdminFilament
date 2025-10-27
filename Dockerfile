@@ -58,12 +58,6 @@ RUN composer install --no-dev --optimize-autoloader
 RUN bun install && bun run build
 RUN php artisan filament:assets
 
-# Laravel optimization
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache \
-    && php artisan optimize
-
 
 # Configure Apache
 RUN a2enmod rewrite
