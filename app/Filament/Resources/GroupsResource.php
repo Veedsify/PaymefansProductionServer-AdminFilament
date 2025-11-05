@@ -47,7 +47,7 @@ class GroupsResource extends Resource
                         ->label("Group Icon")
                         ->directory("groups/icon")
                         ->disk("s3")
-                    ->visibility("public")
+                        ->visibility("publico")
                         ->image(),
 
                     Forms\Components\Toggle::make("isActive")
