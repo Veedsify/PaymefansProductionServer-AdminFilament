@@ -8,5 +8,6 @@ class LiveSupportChat extends Page
 {
     protected static ?string $navigationIcon = 'entypo-chat';
     protected static ?string $navigationGroup = 'Supports';
+    protected static bool $shouldRegisterNavigation = false;
     protected static string $view = 'filament.pages.live-support-chat';
 }

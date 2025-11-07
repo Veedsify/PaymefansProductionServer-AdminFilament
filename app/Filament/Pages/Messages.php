@@ -13,6 +13,7 @@ class Messages extends Page
 {
     protected static ?string $navigationIcon = "ri-chat-3-line";
     protected static ?string $navigationGroup = "Chats";
+    protected static bool $shouldRegisterNavigation = false;
 
     public $conversations;
     public $backendServer;
@@ -47,8 +48,8 @@ class Messages extends Page
                 $participant = $conversation->participants->first();
                 $otherUserId =
                     $participant->user_1 === $adminUserId
-                        ? $participant->user_2
-                        : $participant->user_1;
+                    ? $participant->user_2
+                    : $participant->user_1;
 
                 // Get user details
                 $otherUser = User::where("user_id", $otherUserId)->first();
@@ -68,7 +69,7 @@ class Messages extends Page
                         "name" => $otherUser->name ?? "Unknown User",
                         "username" => $otherUser->username ?? "unknown",
                         "profile_image" =>
-                            $otherUser->profile_image ?? "/default-avatar.png",
+                        $otherUser->profile_image ?? "/default-avatar.png",
                         "user_id" => $otherUser->user_id ?? null,
                     ],
                 ];
