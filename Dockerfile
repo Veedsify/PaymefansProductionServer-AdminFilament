@@ -49,7 +49,14 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache \
+    && chmod -R 777 /tmp \
+    && chmod -R 775 /var/www/html/storage/framework/cache
+
+RUN echo "upload_max_filesize=50M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=50M" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "max_file_uploads=20" >> /usr/local/etc/php/conf.d/uploads.ini
+
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
