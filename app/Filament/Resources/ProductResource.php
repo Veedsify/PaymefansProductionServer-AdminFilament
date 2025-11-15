@@ -72,7 +72,7 @@ class ProductResource extends Resource
                                 ->label("Image URL")
                                 ->directory("store/products")
                                 ->disk("s3")
-                                ->visibility("publico")
+                        ->visibility("public")
                                 ->acceptedFileTypes([
                                     "image/jpeg",
                                     "image/png",
