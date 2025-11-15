@@ -1,11 +1,6 @@
 # Use PHP with Apache
 FROM php:8.3-apache
 
-ARG APP_KEY
-ARG APP_URL
-ENV APP_KEY=$APP_KEY
-ENV APP_URL=$APP_URL
-
 # Set working directory
 WORKDIR /var/www/html
 
