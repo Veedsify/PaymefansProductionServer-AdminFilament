@@ -1,6 +1,12 @@
 # Use PHP with Apache
 FROM php:8.3-apache
 
+ARG APP_KEY
+ARG APP_URL
+ENV APP_KEY=$APP_KEY
+ENV APP_URL=$APP_URL
+
+
 # Set working directory
 WORKDIR /var/www/html
 
@@ -49,9 +55,14 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache \
-    && chmod -R 777 /tmp \
-    && chmod -R 775 /var/www/html/storage/framework/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache 
+
+RUN chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage/logs \
+    && chmod -R 775 /var/www/html/storage/framework \
+    && chmod -R 775 /var/www/html/storage/framework/cache \
+    && chmod -R 775 /var/www/html/storage/framework/views \
+    && chmod -R 775 /var/www/html/storage/framework/sessions
 
 RUN echo "upload_max_filesize=50M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size=50M" >> /usr/local/etc/php/conf.d/uploads.ini \
