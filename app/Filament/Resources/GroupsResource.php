@@ -45,14 +45,7 @@ class GroupsResource extends Resource
                         ->label("Group Icon")
                         ->directory("groups/icon")
                         ->disk("s3")
-                    ->visibility("public")
-                    ->acceptedFileTypes([
-                        "image/jpeg",
-                        "image/png",
-                        "image/gif",
-                        "image/webp",
-                    ])
-                    ->image(),
+                    ->visibility("public"),
 
                     Forms\Components\Toggle::make("isActive")
                         ->label("Active Status")
