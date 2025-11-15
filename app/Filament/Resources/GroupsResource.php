@@ -41,14 +41,18 @@ class GroupsResource extends Resource
                         ->required()
                         ->numeric(),
 
-                    Forms\Components\FileUpload::make("groupIcon")
-                        ->image()
-                        ->avatar()
+                Forms\Components\FileUpload::make("groupIcon")
                         ->label("Group Icon")
                         ->directory("groups/icon")
                         ->disk("s3")
                         ->visibility("publico")
-                        ->image(),
+                    ->acceptedFileTypes([
+                        "image/jpeg",
+                        "image/png",
+                        "image/gif",
+                        "image/webp",
+                    ])
+                    ->image(),
 
                     Forms\Components\Toggle::make("isActive")
                         ->label("Active Status")
