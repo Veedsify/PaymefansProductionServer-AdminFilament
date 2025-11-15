@@ -1,0 +1,10 @@
+:80 {
+    root * /var/www/html/public
+    encode gzip
+
+    php_fastcgi php:9000 {
+        trusted_proxies static  # Important — trusts Traefik
+    }
+
+    file_server
+}
